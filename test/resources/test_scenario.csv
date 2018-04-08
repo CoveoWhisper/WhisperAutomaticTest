@@ -1,0 +1,4 @@
+Scenario,MessageType,Message,TestMethod,TestData
+1,asker,I have problems calling the rest API,link,https://blablabla.com/blablabla
+2,asker,Hello,same,
+2,agent,World,link,https://asdasd.com/asdasd
