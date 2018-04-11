@@ -1,8 +1,8 @@
 class Scenario:
-    requests = None
+    _requests = None
 
     def __init__(self, requests):
-        self.requests = requests
+        self._requests = requests
 
     def get_requests(self):
-        return self.requests
+        return self._requests
