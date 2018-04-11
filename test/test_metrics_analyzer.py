@@ -10,7 +10,7 @@ EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response.js
 
 
 class TestMetricsAnalyzer(unittest.TestCase):
-    _metrics_analyzer = None
+    metrics_analyzer = None
 
     def setUp(self):
         scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
@@ -27,5 +27,4 @@ class TestMetricsAnalyzer(unittest.TestCase):
         self.assertEquals(49, self._metrics_analyzer.calculate_average_system_response_time())
 
     def test_messages_number(self):
-        self.setUp()
         self.assertEquals(3, self._metrics_analyzer.calculate_messages_number())

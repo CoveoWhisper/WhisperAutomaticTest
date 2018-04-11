@@ -33,8 +33,8 @@ class TestScenarioReader(unittest.TestCase):
 
         self.assertEquals('asker', request_a.get_person())
         self.assertEquals('Hello', request_a.get_message())
-        self.assertEquals('same', request_a.get_success_condition())
-        self.assertEquals([], request_a.get_data())
+        self.assertEquals('question', request_a.get_success_condition())
+        self.assertEquals('Did you try this?', request_a.get_data()[0])
 
         self.assertEquals('agent', request_b.get_person())
         self.assertEquals('World', request_b.get_message())
