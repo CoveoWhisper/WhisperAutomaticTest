@@ -4,11 +4,11 @@ class Request:
     success_condition = None
     data = None
 
-    def __init__(self, person, message, success_condition, data):
+    def __init__(self, person, message, success_condition, raw_data):
         self.person = person
         self.message = message
         self.success_condition = success_condition
-        self.data = data
+        self.data = raw_data.split()
 
     def get_person(self):
         return self.person

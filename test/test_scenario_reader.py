@@ -18,7 +18,10 @@ class TestScenarioReader(unittest.TestCase):
         self.assertEquals('asker', request.get_person())
         self.assertEquals('I have problems calling the rest API', request.get_message())
         self.assertEquals('link', request.get_success_condition())
-        self.assertEquals('https://blablabla.com/blablabla', request.get_data())
+        data = request.get_data()
+        self.assertEquals(2, len(data))
+        self.assertEquals('https://blablabla.com/blablabla', data[0])
+        self.assertEquals('https://second_url.com/second_url', data[1])
 
     def test_scenario_with_multiple_requests(self):
         scenarios = get_scenarios_from_csv_file(scenario_file_path)
@@ -31,9 +34,11 @@ class TestScenarioReader(unittest.TestCase):
         self.assertEquals('asker', request_a.get_person())
         self.assertEquals('Hello', request_a.get_message())
         self.assertEquals('same', request_a.get_success_condition())
-        self.assertEquals('', request_a.get_data())
+        self.assertEquals([], request_a.get_data())
 
         self.assertEquals('agent', request_b.get_person())
         self.assertEquals('World', request_b.get_message())
         self.assertEquals('link', request_b.get_success_condition())
-        self.assertEquals('https://asdasd.com/asdasd', request_b.get_data())
+        data = request_b.get_data()
+        self.assertEquals(1, len(data))
+        self.assertEquals('https://asdasd.com/asdasd', data[0])
