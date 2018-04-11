@@ -1,23 +1,23 @@
 class Request:
-    person = None
-    message = None
-    success_condition = None
-    data = None
+    _person = None
+    _message = None
+    _success_condition = None
+    _data = None
 
     def __init__(self, person, message, success_condition, raw_data):
-        self.person = person
-        self.message = message
-        self.success_condition = success_condition
-        self.data = raw_data.split()
+        self._person = person
+        self._message = message
+        self._success_condition = success_condition
+        self._data = raw_data.split()
 
     def get_person(self):
-        return self.person
+        return self._person
 
     def get_message(self):
-        return self.message
+        return self._message
 
     def get_success_condition(self):
-        return self.success_condition
+        return self._success_condition
 
     def get_data(self):
-        return self.data
+        return self._data
