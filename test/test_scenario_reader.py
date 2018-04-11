@@ -20,7 +20,7 @@ class TestScenarioReader(unittest.TestCase):
         self.assertEquals('link', request.get_success_condition())
         data = request.get_data()
         self.assertEquals(2, len(data))
-        self.assertEquals('https://blablabla.com/blablabla', data[0])
+        self.assertEquals('https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/', data[0])
         self.assertEquals('https://second_url.com/second_url', data[1])
 
     def test_scenario_with_multiple_requests(self):
