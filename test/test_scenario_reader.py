@@ -1,17 +1,17 @@
 import unittest
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 
-scenario_file_path = 'test/resources/test_scenario.csv'
+SCENARIO_FILE_PATH = 'test/resources/test_scenario.csv'
 
 
 class TestScenarioReader(unittest.TestCase):
 
     def test_read_scenarios_from_csv_file(self):
-        scenarios = get_scenarios_from_csv_file(scenario_file_path)
+        scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
         self.assertEquals(2, len(scenarios))
 
     def test_scenario_with_single_request(self):
-        scenarios = get_scenarios_from_csv_file(scenario_file_path)
+        scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
         scenario = scenarios[0]
         requests = scenario.get_requests()
         request = requests[0]
@@ -24,7 +24,7 @@ class TestScenarioReader(unittest.TestCase):
         self.assertEquals('https://second_url.com/second_url', data[1])
 
     def test_scenario_with_multiple_requests(self):
-        scenarios = get_scenarios_from_csv_file(scenario_file_path)
+        scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
         scenario = scenarios[1]
         self.assertEquals(2, len(scenario.get_requests()))
         requests = scenario.get_requests()
