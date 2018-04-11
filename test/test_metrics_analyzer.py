@@ -27,5 +27,4 @@ class TestMetricsAnalyzer(unittest.TestCase):
         self.assertEquals(49, self.metrics_analyzer.calculate_average_system_response_time())
 
     def test_messages_number(self):
-        self.setUp()
         self.assertEquals(3, self.metrics_analyzer.calculate_messages_number())
