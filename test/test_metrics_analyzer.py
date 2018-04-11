@@ -1,5 +1,4 @@
 import unittest
-import pytest
 
 from whisper_automatic_test.metrics_analyzer import MetricsAnalyzer
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
@@ -13,8 +12,7 @@ EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response.js
 class TestMetricsAnalyzer(unittest.TestCase):
     metrics_analyzer = None
 
-    @pytest.yield_fixture(autouse=True)
-    def before_tests(self):
+    def setUp(self):
         scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
         with open(EXAMPLE_WHISPER_RESPONSE_FILE_PATH) as file:
             example_whisper_response = file.read()
@@ -23,11 +21,10 @@ class TestMetricsAnalyzer(unittest.TestCase):
             SuggestionsResponse(suggestions, 42, 90),
             SuggestionsResponse(suggestions, 42, 92)
         ]
-        self.metrics_analyzer = MetricsAnalyzer(scenarios, suggestions_responses)
-        yield
+        self._metrics_analyzer = MetricsAnalyzer(scenarios, suggestions_responses)
 
     def test_average_system_response_time(self):
-        self.assertEquals(49, self.metrics_analyzer.get_average_system_response_time())
+        self.assertEquals(49, self._metrics_analyzer.calculate_average_system_response_time())
 
     def test_messages_number(self):
-        self.assertEquals(3, self.metrics_analyzer.get_messages_number())
+        self.assertEquals(3, self._metrics_analyzer.calculate_messages_number())

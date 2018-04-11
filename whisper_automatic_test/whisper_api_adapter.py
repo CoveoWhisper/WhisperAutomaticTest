@@ -16,8 +16,8 @@ def get_json_for_whisper_api(request, chat_key):
 
 
 def get_suggestions_from_whisper_api(request, chat_key):
-    response = requests.post(URL, json=get_json_for_whisper_api(request, chat_key))
-    return response.content.decode("utf-8")
+    whisper_response = requests.post(URL, json=get_json_for_whisper_api(request, chat_key)).content.decode("utf-8")
+    return whisper_response_to_suggestions(whisper_response)
 
 
 def whisper_response_to_suggestions(whisper_response):
