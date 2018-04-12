@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 from whisper_automatic_test.request import Request
 from whisper_automatic_test.scenario import Scenario

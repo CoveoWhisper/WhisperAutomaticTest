@@ -16,10 +16,11 @@ class MetricsAnalyzer:
         self._suggestions_responses = suggestions_responses
 
     def calculate_average_system_response_time(self):
-        average_system_response_time = 0
+        sum_of_system_response_time = 0
         for suggestions_response in self._suggestions_responses:
-            average_system_response_time += suggestions_response.get_timestamp_received_response() - suggestions_response.get_timestamp_sent_request()
-        return average_system_response_time / len(self._suggestions_responses)
+            sum_of_system_response_time += suggestions_response.get_timestamp_received_response() -\
+                                            suggestions_response.get_timestamp_sent_request()
+        return sum_of_system_response_time / len(self._suggestions_responses)
 
     def calculate_messages_number(self):
         return len(self._requests)
