@@ -26,7 +26,7 @@ class TestScenarioReader(unittest.TestCase):
     def test_scenario_with_multiple_requests(self):
         scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
         scenario = scenarios[1]
-        self.assertEquals(2, len(scenario.get_requests()))
+        self.assertEquals(5, len(scenario.get_requests()))
         requests = scenario.get_requests()
         request_a = requests[0]
         request_b = requests[1]
@@ -37,8 +37,7 @@ class TestScenarioReader(unittest.TestCase):
         self.assertEquals('Did you try this?', request_a.get_data()[0])
 
         self.assertEquals('agent', request_b.get_person())
-        self.assertEquals('World', request_b.get_message())
-        self.assertEquals('link', request_b.get_success_condition())
+        self.assertEquals('I love potatoes', request_b.get_message())
+        self.assertEquals('same', request_b.get_success_condition())
         data = request_b.get_data()
-        self.assertEquals(1, len(data))
-        self.assertEquals('https://asdasd.com/asdasd', data[0])
+        self.assertEquals(0, len(data))

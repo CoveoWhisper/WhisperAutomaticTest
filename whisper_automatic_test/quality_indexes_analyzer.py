@@ -13,18 +13,6 @@ class QualityIndexesAnalyzer:
                 self._metrics_analyzer.calculate_total_number_of_suggestions_updates()
         )
 
-    def get_precision_index(self):
-        return (
-                self._metrics_analyzer.calculate_number_of_selected_suggestions() -
-                self._metrics_analyzer.calculate_number_of_modified_suggestions()
-        ) / self._metrics_analyzer.calculate_number_of_selected_suggestions()
-
-    def get_clarity_index(self):
-        return (
-            self._metrics_analyzer.calculate_number_of_selected_suggestions() -
-            self._metrics_analyzer.calculate_number_of_opened_suggestions()
-        ) / self._metrics_analyzer.calculate_number_of_selected_suggestions()
-
     def get_speed_index(self):
         return (
                        TARGET_RESPONSE_TIME_SECONDS -

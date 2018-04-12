@@ -22,4 +22,4 @@ def get_suggestions_from_whisper_api(request, chat_key):
 
 def whisper_response_to_suggestions(whisper_response):
     json_response = json.loads(whisper_response)
-    return [Suggestion('link', suggestion['printableUri'] if 'printableUri' in suggestion else suggestion['title']) for suggestion in json_response]
+    return [Suggestion('link', suggestion['printableUri']) if 'printableUri' in suggestion else Suggestion('question', suggestion['title']) for suggestion in json_response]

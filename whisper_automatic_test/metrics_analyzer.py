@@ -18,8 +18,8 @@ class MetricsAnalyzer:
     def calculate_average_system_response_time(self):
         sum_of_system_response_time = 0
         for suggestions_response in self._suggestions_responses:
-            sum_of_system_response_time += suggestions_response.get_timestamp_received_response() -\
-                                            suggestions_response.get_timestamp_sent_request()
+            sum_of_system_response_time += suggestions_response.get_timestamp_received_response() - \
+                                           suggestions_response.get_timestamp_sent_request()
         return sum_of_system_response_time / len(self._suggestions_responses)
 
     def calculate_messages_number(self):
@@ -33,31 +33,49 @@ class MetricsAnalyzer:
         return average_chosen_suggestion_position / len(selected_suggestions)
 
     def calculate_total_number_of_suggestions_updates(self):
-        raise NotImplementedError()
+        if len(self._suggestions_responses) == 0:
+            return
+        if len(self._suggestions_responses[0].get_suggestions()) == 0:
+            total_number_of_suggestions_updates = 0
+        else:
+            total_number_of_suggestions_updates = 1
+        for i in range(0, len(self._suggestions_responses) - 1):
+            if len(set(self._suggestions_responses[i].get_suggestions()) - set(self._suggestions_responses[i + 1].get_suggestions())) > 0:
+                total_number_of_suggestions_updates += 1
+        return total_number_of_suggestions_updates
 
     def calculate_number_of_unwanted_suggestions_updates(self):
-        raise NotImplementedError()
+        number_of_unwanted_suggestions_updates = 0
+        for i in range(0, len(self._requests)):
+            if self._requests[i].get_success_condition() == 'same':
+                if (i == 0 and len(self._suggestions_responses[0].get_suggestions()) > 0) or (
+                        i > 0 and len(set(self._suggestions_responses[i].get_suggestions()) - set(self._suggestions_responses[i - 1].get_suggestions())) > 0):
+                    number_of_unwanted_suggestions_updates += 1
+        return number_of_unwanted_suggestions_updates
 
     def calculate_number_of_selected_suggestions(self):
-        raise NotImplementedError()
-
-    def calculate_number_of_modified_suggestions(self):
-        raise NotImplementedError()
-
-    def calculate_number_of_opened_suggestions(self):
-        raise NotImplementedError()
+        return len(self.get_selected_suggestions())
 
     def calculate_number_of_suggested_questions(self):
-        raise NotImplementedError()
+        number_of_suggested_questions = 0
+        for i in range(0, len(self._requests)):
+            if self._requests[i].get_success_condition() != 'same':
+                for j in range(0, len(self._suggestions_responses[i].get_suggestions())):
+                    if self._suggestions_responses[i].get_suggestions()[j].get_type() == 'question':
+                        number_of_suggested_questions += 1
+        return number_of_suggested_questions
 
     def calculate_number_of_suggested_links(self):
-        raise NotImplementedError()
+        number_of_suggested_links = 0
+        for i in range(0, len(self._requests)):
+            if self._requests[i].get_success_condition() != 'same':
+                for j in range(0, len(self._suggestions_responses[i].get_suggestions())):
+                    if self._suggestions_responses[i].get_suggestions()[j].get_type() == 'link':
+                        number_of_suggested_links += 1
+        return number_of_suggested_links
 
     def calculate_mean_confidence_level_of_selected_suggestions(self):
-        raise NotImplementedError()
-
-    def calculate_mean_confidence_level_of_selected_and_modified_suggestions(self):
-        raise NotImplementedError()
+        return 0
 
     def get_selected_suggestions(self):
         selected_suggestions = {}

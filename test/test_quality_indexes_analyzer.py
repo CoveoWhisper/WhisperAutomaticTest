@@ -18,22 +18,12 @@ class TestQualityIndexesAnalyzer(unittest.TestCase):
         self._mock_metrics_analyzer.calculate_total_number_of_suggestions_updates.return_value = 13
         self._mock_metrics_analyzer.calculate_number_of_unwanted_suggestions_updates.return_value = 14
         self._mock_metrics_analyzer.calculate_number_of_selected_suggestions.return_value = 15
-        self._mock_metrics_analyzer.calculate_number_of_modified_suggestions.return_value = 16
-        self._mock_metrics_analyzer.calculate_number_of_opened_suggestions.return_value = 17
         self._mock_metrics_analyzer.calculate_number_of_suggested_questions.return_value = 18
         self._mock_metrics_analyzer.calculate_number_of_suggested_links.return_value = 19
         self._mock_metrics_analyzer.calculate_mean_confidence_level_of_selected_suggestions.return_value = 20
-        self._mock_metrics_analyzer.calculate_mean_confidence_level_of_selected_and_modified_suggestions.\
-            return_value = 21
 
     def test_pertinence_index(self):
         self.assertAlmostEquals(1.154, self._quality_indexes_analyzer.get_pertinence_index(), places=3)
-
-    def test_precision_index(self):
-        self.assertAlmostEquals(-0.067, self._quality_indexes_analyzer.get_precision_index(), places=3)
-
-    def test_clarity_index(self):
-        self.assertAlmostEquals(-0.133, self._quality_indexes_analyzer.get_clarity_index(), places=3)
 
     def test_speed_index(self):
         self.assertAlmostEquals(-2.333, self._quality_indexes_analyzer.get_speed_index(), places=3)
