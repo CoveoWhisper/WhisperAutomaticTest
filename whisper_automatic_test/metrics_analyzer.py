@@ -25,12 +25,12 @@ class MetricsAnalyzer:
     def calculate_messages_number(self):
         return len(self._requests)
 
-    def calculate_mean_position_of_chosen_suggestion(self):
-        average_chosen_suggestion_position = 0
+    def calculate_mean_position_of_chosen_suggestions(self):
+        sum_of_positions_of_chosen_suggestions = 0
         selected_suggestions = self.get_selected_suggestions()
         for position in selected_suggestions.keys():
-            average_chosen_suggestion_position += position
-        return average_chosen_suggestion_position / len(selected_suggestions)
+            sum_of_positions_of_chosen_suggestions += position
+        return sum_of_positions_of_chosen_suggestions / len(selected_suggestions)
 
     def calculate_total_number_of_suggestions_updates(self):
         if len(self._suggestions_responses) == 0:
@@ -46,8 +46,8 @@ class MetricsAnalyzer:
 
     def calculate_number_of_unwanted_suggestions_updates(self):
         number_of_unwanted_suggestions_updates = 0
-        for i in range(0, len(self._requests)):
-            if self._requests[i].get_success_condition() == 'same':
+        for i, request in enumerate(self._requests):
+            if request.get_success_condition() == 'same':
                 if (i == 0 and len(self._suggestions_responses[0].get_suggestions()) > 0) or (
                         i > 0 and len(set(self._suggestions_responses[i].get_suggestions()) - set(self._suggestions_responses[i - 1].get_suggestions())) > 0):
                     number_of_unwanted_suggestions_updates += 1
@@ -58,19 +58,19 @@ class MetricsAnalyzer:
 
     def calculate_number_of_suggested_questions(self):
         number_of_suggested_questions = 0
-        for i in range(0, len(self._requests)):
-            if self._requests[i].get_success_condition() != 'same':
-                for j in range(0, len(self._suggestions_responses[i].get_suggestions())):
-                    if self._suggestions_responses[i].get_suggestions()[j].get_type() == 'question':
+        for i, request in enumerate(self._requests):
+            if request.get_success_condition() != 'same':
+                for suggestion in self._suggestions_responses[i].get_suggestions():
+                    if suggestion.get_type() == 'question':
                         number_of_suggested_questions += 1
         return number_of_suggested_questions
 
     def calculate_number_of_suggested_links(self):
         number_of_suggested_links = 0
-        for i in range(0, len(self._requests)):
-            if self._requests[i].get_success_condition() != 'same':
-                for j in range(0, len(self._suggestions_responses[i].get_suggestions())):
-                    if self._suggestions_responses[i].get_suggestions()[j].get_type() == 'link':
+        for i, request in enumerate(self._requests):
+            if request.get_success_condition() != 'same':
+                for suggestion in self._suggestions_responses[i].get_suggestions():
+                    if suggestion.get_type() == 'link':
                         number_of_suggested_links += 1
         return number_of_suggested_links
 
@@ -79,8 +79,8 @@ class MetricsAnalyzer:
 
     def get_selected_suggestions(self):
         selected_suggestions = {}
-        for i in range(0, len(self._suggestions_responses)):
-            selected_suggestion = get_selected_suggestion(self._suggestions_responses[i].get_suggestions(), self._requests[i].get_data())
+        for i, suggestions_response in enumerate(self._suggestions_responses):
+            selected_suggestion = get_selected_suggestion(suggestions_response.get_suggestions(), self._requests[i].get_data())
             if selected_suggestion is not None:
                 selected_suggestions.update(selected_suggestion)
         return selected_suggestions

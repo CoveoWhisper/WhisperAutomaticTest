@@ -19,7 +19,7 @@ def get_suggestions(file_path):
 
 
 class TestMetricsAnalyzer(unittest.TestCase):
-    metrics_analyzer = None
+    _metrics_analyzer = None
 
     @classmethod
     def setUpClass(cls):
@@ -43,7 +43,7 @@ class TestMetricsAnalyzer(unittest.TestCase):
         self.assertEquals(6, self._metrics_analyzer.calculate_messages_number())
 
     def test_calculate_average_chosen_suggestion_position(self):
-        self.assertEquals(2, self._metrics_analyzer.calculate_mean_position_of_chosen_suggestion())
+        self.assertEquals(2, self._metrics_analyzer.calculate_mean_position_of_chosen_suggestions())
 
     def test_calculate_total_number_of_suggestions_updates(self):
         self.assertEquals(3, self._metrics_analyzer.calculate_total_number_of_suggestions_updates())

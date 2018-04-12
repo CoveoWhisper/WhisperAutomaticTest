@@ -20,7 +20,7 @@ class QualityIndexesAnalyzer:
         ) / TARGET_RESPONSE_TIME_SECONDS
 
     def get_relative_confidence_level_accuracy_index(self):
-        return 1.0 / self._metrics_analyzer.calculate_mean_position_of_chosen_suggestion()
+        return 1.0 / self._metrics_analyzer.calculate_mean_position_of_chosen_suggestions()
 
     def get_intent_accuracy_index(self):
         return (
