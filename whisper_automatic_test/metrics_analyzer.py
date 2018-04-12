@@ -7,10 +7,9 @@ def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
 
 
 class MetricsAnalyzer:
-    _requests = []
-    _suggestions_responses = []
-
     def __init__(self, scenarios, suggestions_responses):
+        self._requests = []
+        self._suggestions_responses = []
         for scenario in scenarios:
             self._requests += scenario.get_requests()
         self._suggestions_responses = suggestions_responses

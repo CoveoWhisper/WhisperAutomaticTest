@@ -27,7 +27,7 @@ class TestMetricsAnalyzer(unittest.TestCase):
         suggestions_a = whisper_response_to_suggestions(get_suggestions(EXAMPLE_WHISPER_RESPONSE_FILE_PATH))
         suggestions_b = whisper_response_to_suggestions(get_suggestions(EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH))
         suggestions_responses = [
-            SuggestionsResponse(suggestions_a, 42, 90),
+            SuggestionsResponse(suggestions_a, 42, 91),
             SuggestionsResponse(suggestions_b, 42, 96),
             SuggestionsResponse(suggestions_b, 42, 90),
             SuggestionsResponse(suggestions_b, 42, 90),
@@ -37,13 +37,15 @@ class TestMetricsAnalyzer(unittest.TestCase):
         cls._metrics_analyzer = MetricsAnalyzer(scenarios, suggestions_responses)
 
     def test_calculate_average_system_response_time(self):
-        self.assertEquals(49, self._metrics_analyzer.calculate_average_system_response_time())
+        self.assertAlmostEquals(49.167, self._metrics_analyzer.calculate_average_system_response_time(), places=3)
 
     def test_calculate_messages_number(self):
+        metrics_analyzer = MetricsAnalyzer([Scenario([])], [SuggestionsResponse([], 10, 20)])
+        self.assertEquals(0, metrics_analyzer.calculate_messages_number())
         self.assertEquals(6, self._metrics_analyzer.calculate_messages_number())
 
     def test_calculate_average_chosen_suggestion_position(self):
-        self.assertEquals(2, self._metrics_analyzer.calculate_mean_position_of_chosen_suggestions())
+        self.assertEquals(1.5, self._metrics_analyzer.calculate_mean_position_of_chosen_suggestions())
 
     def test_calculate_total_number_of_suggestions_updates(self):
         self.assertEquals(3, self._metrics_analyzer.calculate_total_number_of_suggestions_updates())
