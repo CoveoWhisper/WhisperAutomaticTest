@@ -37,4 +37,4 @@ class TestMetricsAnalyzer(unittest.TestCase):
         self.assertEquals(3, self._metrics_analyzer.calculate_messages_number())
 
     def test_average_chosen_suggestion_position(self):
-        self.assertEquals(2, self._metrics_analyzer.calculate_average_chosen_suggestion_position())
+        self.assertEquals(2, self._metrics_analyzer.calculate_mean_position_of_chosen_suggestion())

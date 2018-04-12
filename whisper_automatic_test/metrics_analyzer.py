@@ -25,12 +25,39 @@ class MetricsAnalyzer:
     def calculate_messages_number(self):
         return len(self._requests)
 
-    def calculate_average_chosen_suggestion_position(self):
+    def calculate_mean_position_of_chosen_suggestion(self):
         average_chosen_suggestion_position = 0
         selected_suggestions = self.get_selected_suggestions()
         for position in selected_suggestions.keys():
             average_chosen_suggestion_position += position
         return average_chosen_suggestion_position / len(selected_suggestions)
+
+    def calculate_total_number_of_suggestions_updates(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_unwanted_suggestions_updates(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_selected_suggestions(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_modified_suggestions(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_opened_suggestions(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_suggested_questions(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_suggested_links(self):
+        raise NotImplementedError()
+
+    def calculate_mean_confidence_level_of_selected_suggestions(self):
+        raise NotImplementedError()
+
+    def calculate_mean_confidence_level_of_selected_and_modified_suggestions(self):
+        raise NotImplementedError()
 
     def get_selected_suggestions(self):
         selected_suggestions = {}
