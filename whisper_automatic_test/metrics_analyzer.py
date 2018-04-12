@@ -18,3 +18,33 @@ class MetricsAnalyzer:
         for scenario in self._scenarios:
             messages_number += len(scenario.get_requests())
         return messages_number
+
+    def calculate_mean_position_of_chosen_suggestion(self):
+        raise NotImplementedError()
+
+    def calculate_total_number_of_suggestions_updates(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_unwanted_suggestions_updates(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_selected_suggestions(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_modified_suggestions(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_opened_suggestions(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_suggested_questions(self):
+        raise NotImplementedError()
+
+    def calculate_number_of_suggested_links(self):
+        raise NotImplementedError()
+
+    def calculate_mean_confidence_level_of_selected_suggestions(self):
+        raise NotImplementedError()
+
+    def calculate_mean_confidence_level_of_selected_and_modified_suggestions(self):
+        raise NotImplementedError()
