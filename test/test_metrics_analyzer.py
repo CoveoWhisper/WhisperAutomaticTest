@@ -7,24 +7,34 @@ from whisper_automatic_test.whisper_api_adapter import whisper_response_to_sugge
 
 SCENARIO_FILE_PATH = 'test/resources/test_scenario.csv'
 EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response.json'
+EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH = 'test/resources/example_whisper_response_questions.json'
+
+
+def get_suggestions(file_path):
+    with open(file_path) as file:
+        return file.read()
 
 
 class TestMetricsAnalyzer(unittest.TestCase):
     metrics_analyzer = None
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
-        with open(EXAMPLE_WHISPER_RESPONSE_FILE_PATH) as file:
-            example_whisper_response = file.read()
-        suggestions = whisper_response_to_suggestions(example_whisper_response)
+        suggestions_a = whisper_response_to_suggestions(get_suggestions(EXAMPLE_WHISPER_RESPONSE_FILE_PATH))
+        suggestions_b = whisper_response_to_suggestions(get_suggestions(EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH))
         suggestions_responses = [
-            SuggestionsResponse(suggestions, 42, 90),
-            SuggestionsResponse(suggestions, 42, 92)
+            SuggestionsResponse(suggestions_a, 42, 90),
+            SuggestionsResponse(suggestions_b, 42, 93),
+            SuggestionsResponse(suggestions_b, 42, 90)
         ]
-        self._metrics_analyzer = MetricsAnalyzer(scenarios, suggestions_responses)
+        cls._metrics_analyzer = MetricsAnalyzer(scenarios, suggestions_responses)
 
     def test_average_system_response_time(self):
         self.assertEquals(49, self._metrics_analyzer.calculate_average_system_response_time())
 
     def test_messages_number(self):
         self.assertEquals(3, self._metrics_analyzer.calculate_messages_number())
+
+    def test_average_chosen_suggestion_position(self):
+        self.assertEquals(2, self._metrics_analyzer.calculate_average_chosen_suggestion_position())
