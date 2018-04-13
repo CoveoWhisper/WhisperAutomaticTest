@@ -1,4 +1,5 @@
 import math
+from datetime import timedelta
 
 from whisper_automatic_test.exceptions.invalid_timestamp_exception import InvalidTimestampException
 from whisper_automatic_test.exceptions.no_requests_exception import NoRequestsException
@@ -49,7 +50,7 @@ class MetricsAnalyzer:
                 'There is not a suggestions response for every request')
 
     def calculate_average_system_response_time(self):
-        sum_of_system_response_time = 0
+        sum_of_system_response_time = timedelta(0)
         for suggestions_response in self._suggestions_responses:
             sum_of_system_response_time += suggestions_response.get_timestamp_received_response() - \
                                            suggestions_response.get_timestamp_sent_request()
