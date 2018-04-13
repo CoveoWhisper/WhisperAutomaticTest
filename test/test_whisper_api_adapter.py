@@ -3,7 +3,7 @@ from whisper_automatic_test.whisper_api_adapter import get_json_for_whisper_api
 from whisper_automatic_test.whisper_api_adapter import whisper_response_to_suggestions
 from whisper_automatic_test.request import Request
 
-EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response.json'
+EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response_3_links.json'
 
 
 class TestWhisperApiAdapter(unittest.TestCase):

@@ -1,3 +1,12 @@
+import math
+
+from whisper_automatic_test.exceptions.invalid_timestamp_exception import InvalidTimestampException
+from whisper_automatic_test.exceptions.no_requests_exception import NoRequestsException
+from whisper_automatic_test.exceptions.no_suggestions_responses_exception import NoSuggestionsResponsesException
+from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception \
+    import NoSuggestionsResponsesForEveryRequestsException
+
+
 def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
     for data in data_to_find_in_suggestions:
         for suggestion in suggestions:
@@ -9,10 +18,35 @@ def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
 class MetricsAnalyzer:
     def __init__(self, scenarios, suggestions_responses):
         self._requests = []
-        self._suggestions_responses = []
         for scenario in scenarios:
             self._requests += scenario.get_requests()
         self._suggestions_responses = suggestions_responses
+        self.raise_if_there_is_no_request_in_scenarios()
+        self.raise_if_there_is_no_suggestions_responses()
+        self.raise_if_there_is_an_invalid_timestamp()
+        self.raise_if_there_is_not_a_suggestions_response_for_every_request()
+
+    def raise_if_there_is_no_request_in_scenarios(self):
+        if not self._requests:
+            raise NoRequestsException('No requests')
+
+    def raise_if_there_is_no_suggestions_responses(self):
+        if not self._suggestions_responses:
+            raise NoSuggestionsResponsesException('No suggestions responses to analyze')
+
+    def raise_if_there_is_an_invalid_timestamp(self):
+        for suggestions_response in self._suggestions_responses:
+            timestamp_after = suggestions_response.get_timestamp_received_response()
+            timestamp_before = suggestions_response.get_timestamp_sent_request()
+            is_valid_timestamp = timestamp_after >= timestamp_before
+            if not is_valid_timestamp:
+                raise InvalidTimestampException(
+                    'Received timestamp of response should not be smaller than sent timestamp')
+
+    def raise_if_there_is_not_a_suggestions_response_for_every_request(self):
+        if len(self._requests) != len(self._suggestions_responses):
+            raise NoSuggestionsResponsesForEveryRequestsException(
+                'There is not a suggestions response for every request')
 
     def calculate_average_system_response_time(self):
         sum_of_system_response_time = 0
@@ -25,61 +59,68 @@ class MetricsAnalyzer:
         return len(self._requests)
 
     def calculate_mean_position_of_chosen_suggestions(self):
-        sum_of_positions_of_chosen_suggestions = 0
         selected_suggestions = self.get_selected_suggestions()
-        for position in selected_suggestions.keys():
-            sum_of_positions_of_chosen_suggestions += position
-        return sum_of_positions_of_chosen_suggestions / len(selected_suggestions)
+        if not selected_suggestions:
+            return math.inf
+        sum_of_positions = sum([position for position in selected_suggestions.keys()])
+        return sum_of_positions / len(selected_suggestions)
 
     def calculate_total_number_of_suggestions_updates(self):
-        if len(self._suggestions_responses) == 0:
-            return
-        if len(self._suggestions_responses[0].get_suggestions()) == 0:
-            total_number_of_suggestions_updates = 0
-        else:
-            total_number_of_suggestions_updates = 1
-        for i in range(0, len(self._suggestions_responses) - 1):
-            if len(set(self._suggestions_responses[i].get_suggestions()) - set(self._suggestions_responses[i + 1].get_suggestions())) > 0:
-                total_number_of_suggestions_updates += 1
-        return total_number_of_suggestions_updates
+        previous_suggestions_responses = []
+        number_of_suggestions_updates = 0
+
+        for i, suggestions_response in enumerate(self._suggestions_responses):
+            current_suggestions_responses = self._suggestions_responses[i].get_suggestions()
+            if set(current_suggestions_responses) != set(previous_suggestions_responses):
+                number_of_suggestions_updates += 1
+            previous_suggestions_responses = current_suggestions_responses
+
+        return number_of_suggestions_updates
 
     def calculate_number_of_unwanted_suggestions_updates(self):
+        previous_suggestions_responses = []
         number_of_unwanted_suggestions_updates = 0
+
         for i, request in enumerate(self._requests):
+            current_suggestions_responses = self._suggestions_responses[i].get_suggestions()
             if request.get_success_condition() == 'same':
-                if (i == 0 and len(self._suggestions_responses[0].get_suggestions()) > 0) or (
-                        i > 0 and len(set(self._suggestions_responses[i].get_suggestions()) - set(self._suggestions_responses[i - 1].get_suggestions())) > 0):
+                if set(current_suggestions_responses) != set(previous_suggestions_responses):
                     number_of_unwanted_suggestions_updates += 1
+            previous_suggestions_responses = current_suggestions_responses
+
         return number_of_unwanted_suggestions_updates
 
     def calculate_number_of_selected_suggestions(self):
         return len(self.get_selected_suggestions())
 
     def calculate_number_of_suggested_questions(self):
-        number_of_suggested_questions = 0
-        for i, request in enumerate(self._requests):
-            if request.get_success_condition() != 'same':
-                for suggestion in self._suggestions_responses[i].get_suggestions():
-                    if suggestion.get_type() == 'question':
-                        number_of_suggested_questions += 1
-        return number_of_suggested_questions
+        return self.get_number_of_suggestions_of_type('question')
 
     def calculate_number_of_suggested_links(self):
-        number_of_suggested_links = 0
-        for i, request in enumerate(self._requests):
-            if request.get_success_condition() != 'same':
-                for suggestion in self._suggestions_responses[i].get_suggestions():
-                    if suggestion.get_type() == 'link':
-                        number_of_suggested_links += 1
-        return number_of_suggested_links
+        return self.get_number_of_suggestions_of_type('link')
 
-    def calculate_mean_confidence_level_of_selected_suggestions(self):
+    def get_number_of_suggestions_of_type(self, suggestion_type):
+        previous_suggestions_responses = []
+        number_of_suggested_questions = 0
+        for i, suggestions_response in enumerate(self._suggestions_responses):
+            current_suggestions_responses = self._suggestions_responses[i].get_suggestions()
+            if set(current_suggestions_responses) != set(previous_suggestions_responses):
+                for suggestion in suggestions_response.get_suggestions():
+                    if suggestion.get_type() == suggestion_type:
+                        number_of_suggested_questions += 1
+            previous_suggestions_responses = current_suggestions_responses
+        return number_of_suggested_questions
+
+    @staticmethod
+    def calculate_mean_confidence_level_of_selected_suggestions():
         return 0
 
     def get_selected_suggestions(self):
         selected_suggestions = {}
         for i, suggestions_response in enumerate(self._suggestions_responses):
-            selected_suggestion = get_selected_suggestion(suggestions_response.get_suggestions(), self._requests[i].get_data())
-            if selected_suggestion is not None:
+            selected_suggestion = get_selected_suggestion(
+                suggestions_response.get_suggestions(),
+                self._requests[i].get_data())
+            if selected_suggestion:
                 selected_suggestions.update(selected_suggestion)
         return selected_suggestions

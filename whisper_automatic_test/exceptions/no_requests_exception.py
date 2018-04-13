@@ -1,0 +1,2 @@
+class NoRequestsException(Exception):
+    pass

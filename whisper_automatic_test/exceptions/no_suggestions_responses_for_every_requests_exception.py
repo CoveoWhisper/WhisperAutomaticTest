@@ -1,0 +1,2 @@
+class NoSuggestionsResponsesForEveryRequestsException(Exception):
+    pass
