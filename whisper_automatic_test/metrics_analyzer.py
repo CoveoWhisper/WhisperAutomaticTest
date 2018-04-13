@@ -5,14 +5,7 @@ from whisper_automatic_test.exceptions.no_requests_exception import NoRequestsEx
 from whisper_automatic_test.exceptions.no_suggestions_responses_exception import NoSuggestionsResponsesException
 from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception \
     import NoSuggestionsResponsesForEveryRequestsException
-
-
-def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
-    for data in data_to_find_in_suggestions:
-        for suggestion in suggestions:
-            if suggestion.get_data() == data:
-                return {(suggestions.index(suggestion) + 1): suggestion}
-    return None
+from whisper_automatic_test.suggestions_responses_analyzer import get_selected_suggestions
 
 
 class MetricsAnalyzer:
@@ -59,7 +52,7 @@ class MetricsAnalyzer:
         return len(self._requests)
 
     def calculate_mean_position_of_chosen_suggestions(self):
-        selected_suggestions = self.get_selected_suggestions()
+        selected_suggestions = get_selected_suggestions(self._suggestions_responses, self._requests)
         if not selected_suggestions:
             return math.inf
         sum_of_positions = sum([position for position in selected_suggestions.keys()])
@@ -91,7 +84,7 @@ class MetricsAnalyzer:
         return number_of_unwanted_suggestions_updates
 
     def calculate_number_of_selected_suggestions(self):
-        return len(self.get_selected_suggestions())
+        return len(get_selected_suggestions(self._suggestions_responses, self._requests))
 
     def calculate_number_of_suggested_questions(self):
         return self.get_number_of_suggestions_of_type('question')
@@ -114,13 +107,3 @@ class MetricsAnalyzer:
     @staticmethod
     def calculate_mean_confidence_level_of_selected_suggestions():
         return 0
-
-    def get_selected_suggestions(self):
-        selected_suggestions = {}
-        for i, suggestions_response in enumerate(self._suggestions_responses):
-            selected_suggestion = get_selected_suggestion(
-                suggestions_response.get_suggestions(),
-                self._requests[i].get_data())
-            if selected_suggestion:
-                selected_suggestions.update(selected_suggestion)
-        return selected_suggestions

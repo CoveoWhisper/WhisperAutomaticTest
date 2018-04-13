@@ -28,3 +28,6 @@ class Request:
 
     def get_data(self):
         return self._data
+
+    def get_raw_data(self):
+        return ' '.join(self._data)
