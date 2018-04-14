@@ -30,9 +30,7 @@ class MetricsAnalyzer:
 
     def raise_if_there_is_an_invalid_timestamp(self):
         for suggestions_response in self._suggestions_responses:
-            timestamp_after = suggestions_response.get_timestamp_received_response()
-            timestamp_before = suggestions_response.get_timestamp_sent_request()
-            is_valid_timestamp = timestamp_after >= timestamp_before
+            is_valid_timestamp = suggestions_response.get_response_time_duration() >= timedelta(seconds=0)
             if not is_valid_timestamp:
                 raise InvalidTimestampException(
                     'Received timestamp of response should not be smaller than sent timestamp')
@@ -43,10 +41,9 @@ class MetricsAnalyzer:
                 'There is not a suggestions response for every request')
 
     def calculate_average_system_response_time(self):
-        sum_of_system_response_time = timedelta(0)
+        sum_of_system_response_time = timedelta(seconds=0)
         for suggestions_response in self._suggestions_responses:
-            sum_of_system_response_time += suggestions_response.get_timestamp_received_response() - \
-                                           suggestions_response.get_timestamp_sent_request()
+            sum_of_system_response_time += suggestions_response.get_response_time_duration()
         return sum_of_system_response_time / len(self._suggestions_responses)
 
     def calculate_messages_number(self):

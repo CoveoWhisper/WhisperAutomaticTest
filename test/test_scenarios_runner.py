@@ -1,4 +1,5 @@
 import unittest
+from datetime import timedelta, datetime
 from unittest.mock import Mock
 
 from whisper_automatic_test.request import Request
@@ -32,35 +33,43 @@ class TestScenariosRunner(unittest.TestCase):
         ]
 
         self._mock_get_time = Mock()
-        self._mock_get_time.side_effect = [11, 22, 33, 44, 55, 66]
+        self._mock_get_time.side_effect = [
+            datetime(2005, 12, 30, 6, 45, 1),
+            datetime(2005, 12, 30, 6, 45, 2),
+            datetime(2005, 12, 30, 6, 45, 4),
+            datetime(2005, 12, 30, 6, 45, 7),
+            datetime(2005, 12, 30, 6, 45, 11),
+            datetime(2005, 12, 30, 6, 45, 16)
+        ]
 
         self._scenario_runner = ScenariosRunner(self._mock_get_suggestions, self._mock_get_time)
 
     def test_run_scenarios(self):
         suggestions_responses = self._scenario_runner.run(self._scenarios)
         self.assertEquals(3, len(suggestions_responses))
-        suggestions_a = suggestions_responses[0].get_suggestions()
+        suggestions_reponse_a = suggestions_responses[0]
+        suggestions_reponse_b = suggestions_responses[1]
+        suggestions_reponse_c = suggestions_responses[2]
+
+        suggestions_a = suggestions_reponse_a.get_suggestions()
         self.assertEquals(2, len(suggestions_a))
         self.assertEquals('link', suggestions_a[0].get_type())
         self.assertEquals('some_url', suggestions_a[0].get_data())
         self.assertEquals('link', suggestions_a[1].get_type())
         self.assertEquals('another_url', suggestions_a[1].get_data())
-        self.assertEquals(11, suggestions_responses[0].get_timestamp_sent_request())
-        self.assertEquals(22, suggestions_responses[0].get_timestamp_received_response())
+        self.assertEquals(timedelta(seconds=1), suggestions_reponse_a.get_response_time_duration())
 
-        suggestions_b = suggestions_responses[1].get_suggestions()
+        suggestions_b = suggestions_reponse_b.get_suggestions()
         self.assertEquals(1, len(suggestions_b))
         self.assertEquals('link', suggestions_b[0].get_type())
         self.assertEquals('url_of_a_different_suggestions_response', suggestions_b[0].get_data())
-        self.assertEquals(33, suggestions_responses[1].get_timestamp_sent_request())
-        self.assertEquals(44, suggestions_responses[1].get_timestamp_received_response())
+        self.assertEquals(timedelta(seconds=3), suggestions_reponse_b.get_response_time_duration())
 
-        suggestions_c = suggestions_responses[2].get_suggestions()
+        suggestions_c = suggestions_reponse_c.get_suggestions()
         self.assertEquals(1, len(suggestions_c))
         self.assertEquals('link', suggestions_c[0].get_type())
         self.assertEquals('some_url_of_suggestion_scenario_2', suggestions_c[0].get_data())
-        self.assertEquals(55, suggestions_responses[2].get_timestamp_sent_request())
-        self.assertEquals(66, suggestions_responses[2].get_timestamp_received_response())
+        self.assertEquals(timedelta(seconds=5), suggestions_reponse_c.get_response_time_duration())
 
     def test_run_each_scenario_with_unique_chatkey(self):
         self._scenario_runner.run(self._scenarios)
