@@ -78,20 +78,21 @@ class SuggestionsResponsesAnalyzer:
         previous_suggestions_responses = []
         for i, request in enumerate(self._requests):
             current_suggestions_responses = self._suggestions_responses[i].get_suggestions()
-            result = analyse_same(request, current_suggestions_responses, previous_suggestions_responses)
-            result = result or analyse_link_or_question_with_request_data(request, current_suggestions_responses)
-            result = result or analyse_link_or_question_without_request_data(request, current_suggestions_responses)
-            analysis.append('success') if result else analysis.append('fail')
+            is_success = analyse_same(request, current_suggestions_responses, previous_suggestions_responses)
+            is_success = is_success or analyse_link_or_question_with_request_data(request, current_suggestions_responses)
+            is_success = is_success or analyse_link_or_question_without_request_data(request, current_suggestions_responses)
+            analysis.append('success') if is_success else analysis.append('fail')
             previous_suggestions_responses = current_suggestions_responses
         return analysis
 
-    def analyze_and_print(self):
+    def analyze_to_string(self):
         analysis = self.analyze()
         analysis_position = 0
+        analysis_string = ''
         for i, scenario in enumerate(self._scenarios):
             for request in scenario.get_requests():
                 scenario_id = str(i + 1)
-                request_analysis = scenario_id + ',' + request.get_person() + ',' + request.get_message() + ',' + request.get_success_condition() + ',' + request.get_raw_data() + ',' + analysis[
-                    analysis_position]
-                print(request_analysis)
+                analysis_string += scenario_id + ',' + request.get_person() + ',' + request.get_message() + ',' + request.get_success_condition() + ',' + request.get_raw_data() + ',' + analysis[
+                    analysis_position] + '\n'
                 analysis_position += 1
+        return analysis_string
