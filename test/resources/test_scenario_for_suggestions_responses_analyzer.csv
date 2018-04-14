@@ -1,0 +1,19 @@
+Scenario,MessageType,Message,TestMethod,TestData
+1,agent,I love mushrooms,same,
+2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
+2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
+2,agent,I love mushrooms,same,
+2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
+2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
+2,agent,World,link,https://asdasd.com/asdasd
+2,agent,World,link,https://asdasd.com/asdasd
+3,asker,Hello,question,Did you try this?
+3,asker,Hello,question,Did you try this?
+3,asker,Hello,question,Did you try this?
+3,asker,Hello,question,Did you try this?
+3,asker,Hello,question,How are you today?
+3,asker,Hello,question,How are you today?
+3,asker,Hello,question,
+3,asker,Hello,question,
+3,asker,Hello,link,
+3,asker,Hello,link,
