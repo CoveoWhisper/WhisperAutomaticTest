@@ -1,5 +1,5 @@
 Scenario,MessageType,Message,TestMethod,TestData
-1,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
+1,asker,"Help, I have problems calling the rest API",link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
 2,asker,Hello,question,Did you try this?
 2,agent,I love potatoes,same,
 2,agent,World,link,https://asdasd.com/asdasd
