@@ -13,7 +13,7 @@ from whisper_automatic_test.suggestions_response import SuggestionsResponse
 from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
 from whisper_automatic_test.whisper_api_adapter import whisper_response_to_suggestions
 
-SCENARIO_FILE_PATH = 'test/resources/test_scenario_for_suggestions_responses_analyzer.csv'
+SCENARIO_FILE_PATH = 'test/resources/test_scenarios_for_suggestions_responses_analyzer.csv'
 EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response_3_links.json'
 EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH = 'test/resources/example_whisper_response_3_questions.json'
 
