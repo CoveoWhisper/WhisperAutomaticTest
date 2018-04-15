@@ -34,10 +34,10 @@ def analyse_same(request, current_suggestions, previous_suggestions):
 def analyse_link_or_question_with_request_data(request, suggestions):
     if request.get_success_condition() == 'same' or not request.get_data():
         return ''
-    for data in request.get_data():
-        for suggestion in suggestions:
+    for i, data in enumerate(request.get_data()):
+        for j, suggestion in enumerate(suggestions):
             if request.get_success_condition() == suggestion.get_type() and data == suggestion.get_data():
-                return str(suggestions.index(suggestion) + 1)
+                return str(i + 1) + '-' + str(j + 1)
     return ''
 
 

@@ -64,7 +64,7 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             SuggestionsResponsesAnalyzer(self._scenarios, [SuggestionsResponse([], timedelta(seconds=10))])
 
     def test_analyze_with_one_successful_suggestions_response(self):
-        expected_analysis = ['success(1)']
+        expected_analysis = ['success(1-1)']
         request = Request('asker', 'What is Coveo?', 'link', 'https://www.coveo.com/')
         suggestion = Suggestion('link', 'https://www.coveo.com/')
         suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(
@@ -75,15 +75,15 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
     def test_analyze(self):
         expected_analysis = [
             'fail',
-            'success(1)',
-            'success(1)',
+            'success(1-1)',
+            'success(1-1)',
             'success',
             'fail',
             'fail',
             'fail',
             'fail',
-            'success(2)',
-            'success(2)',
+            'success(1-2)',
+            'success(1-2)',
             'fail',
             'fail',
             'fail',
@@ -100,15 +100,15 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(self._scenarios, self._suggestions_responses)
         expected_analysis_string = \
             ('1,agent,I love mushrooms,same,fail\n'
-             '2,asker,I have problems calling the rest API,link,success(1)\n'
-             '2,asker,I have problems calling the rest API,link,success(1)\n'
+             '2,asker,I have problems calling the rest API,link,success(1-1)\n'
+             '2,asker,I have problems calling the rest API,link,success(1-1)\n'
              '2,agent,I love mushrooms,same,success\n'
              '2,asker,I have problems calling the rest API,link,fail\n'
              '2,asker,I have problems calling the rest API,link,fail\n'
              '2,agent,World,link,fail\n'
              '2,agent,World,link,fail\n'
-             '3,asker,Hello,question,success(2)\n'
-             '3,asker,Hello,question,success(2)\n'
+             '3,asker,Hello,question,success(1-2)\n'
+             '3,asker,Hello,question,success(1-2)\n'
              '3,asker,Hello,question,fail\n'
              '3,asker,Hello,question,fail\n'
              '3,asker,Hello,question,fail\n'
