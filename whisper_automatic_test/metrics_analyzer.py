@@ -53,31 +53,31 @@ class MetricsAnalyzer:
         selected_suggestions = get_selected_suggestions(self._suggestions_responses, self._requests)
         if not selected_suggestions:
             return math.inf
-        sum_of_positions = sum([position for position in selected_suggestions.keys()])
+        sum_of_positions = sum([selected_suggestion[0] for selected_suggestion in selected_suggestions])
         return sum_of_positions / len(selected_suggestions)
 
     def calculate_total_number_of_suggestions_updates(self):
-        previous_suggestions_responses = []
+        previous_suggestions = []
         number_of_suggestions_updates = 0
 
-        for i, suggestions_response in enumerate(self._suggestions_responses):
-            current_suggestions_responses = self._suggestions_responses[i].get_suggestions()
-            if set(current_suggestions_responses) != set(previous_suggestions_responses):
+        for suggestions_response in self._suggestions_responses:
+            current_suggestions = suggestions_response.get_suggestions()
+            if set(current_suggestions) != set(previous_suggestions):
                 number_of_suggestions_updates += 1
-            previous_suggestions_responses = current_suggestions_responses
+            previous_suggestions = current_suggestions
 
         return number_of_suggestions_updates
 
     def calculate_number_of_unwanted_suggestions_updates(self):
-        previous_suggestions_responses = []
+        previous_suggestions = []
         number_of_unwanted_suggestions_updates = 0
 
         for i, request in enumerate(self._requests):
-            current_suggestions_responses = self._suggestions_responses[i].get_suggestions()
+            current_suggestions = self._suggestions_responses[i].get_suggestions()
             if request.get_success_condition() == 'same':
-                if set(current_suggestions_responses) != set(previous_suggestions_responses):
+                if set(current_suggestions) != set(previous_suggestions):
                     number_of_unwanted_suggestions_updates += 1
-            previous_suggestions_responses = current_suggestions_responses
+                    previous_suggestions = current_suggestions
 
         return number_of_unwanted_suggestions_updates
 
@@ -91,16 +91,16 @@ class MetricsAnalyzer:
         return self.get_number_of_suggestions_of_type('link')
 
     def get_number_of_suggestions_of_type(self, suggestion_type):
-        previous_suggestions_responses = []
-        number_of_suggested_questions = 0
-        for i, suggestions_response in enumerate(self._suggestions_responses):
-            current_suggestions_responses = self._suggestions_responses[i].get_suggestions()
-            if set(current_suggestions_responses) != set(previous_suggestions_responses):
-                for suggestion in suggestions_response.get_suggestions():
+        previous_suggestions = []
+        number_of_suggestions = 0
+        for suggestions_response in self._suggestions_responses:
+            current_suggestions = suggestions_response.get_suggestions()
+            if set(current_suggestions) != set(previous_suggestions):
+                for suggestion in current_suggestions:
                     if suggestion.get_type() == suggestion_type:
-                        number_of_suggested_questions += 1
-            previous_suggestions_responses = current_suggestions_responses
-        return number_of_suggested_questions
+                        number_of_suggestions += 1
+            previous_suggestions = current_suggestions
+        return number_of_suggestions
 
     @staticmethod
     def calculate_mean_confidence_level_of_selected_suggestions():

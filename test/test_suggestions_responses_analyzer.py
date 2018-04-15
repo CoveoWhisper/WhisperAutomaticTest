@@ -64,7 +64,7 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             SuggestionsResponsesAnalyzer(self._scenarios, [SuggestionsResponse([], timedelta(seconds=10))])
 
     def test_analyze_with_one_successful_suggestions_response(self):
-        expected_analysis = ['success']
+        expected_analysis = ['success(1)']
         request = Request('asker', 'What is Coveo?', 'link', 'https://www.coveo.com/')
         suggestion = Suggestion('link', 'https://www.coveo.com/')
         suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(
@@ -75,15 +75,15 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
     def test_analyze(self):
         expected_analysis = [
             'fail',
-            'success',
-            'success',
+            'success(1)',
+            'success(1)',
             'success',
             'fail',
             'fail',
             'fail',
             'fail',
-            'success',
-            'success',
+            'success(2)',
+            'success(2)',
             'fail',
             'fail',
             'fail',
@@ -99,31 +99,23 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
     def test_analyze_to_string(self):
         suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(self._scenarios, self._suggestions_responses)
         expected_analysis_string = \
-            ('1,agent,I love mushrooms,same,,fail\n'
-             '2,asker,I have problems calling the rest API,link,'
-             'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ '
-             'https://second_url.com/second_url,success\n'
-             '2,asker,I have problems calling the rest API,link,'
-             'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ '
-             'https://second_url.com/second_url,success\n'
-             '2,agent,I love mushrooms,same,,success\n'
-             '2,asker,I have problems calling the rest API,link,'
-             'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ '
-             'https://second_url.com/second_url,fail\n'
-             '2,asker,I have problems calling the rest API,link,'
-             'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ '
-             'https://second_url.com/second_url,fail\n'
-             '2,agent,World,link,https://asdasd.com/asdasd,fail\n'
-             '2,agent,World,link,https://asdasd.com/asdasd,fail\n'
-             '3,asker,Hello,question,Did you try this?,success\n'
-             '3,asker,Hello,question,Did you try this?,success\n'
-             '3,asker,Hello,question,Did you try this?,fail\n'
-             '3,asker,Hello,question,Did you try this?,fail\n'
-             '3,asker,Hello,question,How are you today?,fail\n'
-             '3,asker,Hello,question,How are you today?,fail\n'
-             '3,asker,Hello,question,,success\n'
-             '3,asker,Hello,question,,fail\n'
-             '3,asker,Hello,link,,success\n'
-             '3,asker,Hello,link,,fail\n')
+            ('1,agent,I love mushrooms,same,fail\n'
+             '2,asker,I have problems calling the rest API,link,success(1)\n'
+             '2,asker,I have problems calling the rest API,link,success(1)\n'
+             '2,agent,I love mushrooms,same,success\n'
+             '2,asker,I have problems calling the rest API,link,fail\n'
+             '2,asker,I have problems calling the rest API,link,fail\n'
+             '2,agent,World,link,fail\n'
+             '2,agent,World,link,fail\n'
+             '3,asker,Hello,question,success(2)\n'
+             '3,asker,Hello,question,success(2)\n'
+             '3,asker,Hello,question,fail\n'
+             '3,asker,Hello,question,fail\n'
+             '3,asker,Hello,question,fail\n'
+             '3,asker,Hello,question,fail\n'
+             '3,asker,Hello,question,success\n'
+             '3,asker,Hello,question,fail\n'
+             '3,asker,Hello,link,success\n'
+             '3,asker,Hello,link,fail\n')
         analysis_string = suggestions_responses_analyzer.analyze_to_string()
         self.assertEquals(expected_analysis_string, analysis_string)

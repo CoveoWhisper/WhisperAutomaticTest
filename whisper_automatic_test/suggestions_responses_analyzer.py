@@ -8,43 +8,43 @@ def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
     for data in data_to_find_in_suggestions:
         for suggestion in suggestions:
             if suggestion.get_data() == data:
-                return {(suggestions.index(suggestion) + 1): suggestion}
+                return [(suggestions.index(suggestion) + 1), suggestion]
     return None
 
 
 def get_selected_suggestions(suggestions_responses, requests):
-    selected_suggestions = {}
+    selected_suggestions = []
     for i, suggestions_response in enumerate(suggestions_responses):
         selected_suggestion = get_selected_suggestion(
             suggestions_response.get_suggestions(),
             requests[i].get_data())
         if selected_suggestion:
-            selected_suggestions.update(selected_suggestion)
+            selected_suggestions.append(selected_suggestion)
     return selected_suggestions
 
 
-def analyse_same(request, current_suggestions_responses, previous_suggestions_responses):
+def analyse_same(request, current_suggestions, previous_suggestions):
     if request.get_success_condition() != 'same':
         return False
-    if set(current_suggestions_responses) == set(previous_suggestions_responses):
+    if set(current_suggestions) == set(previous_suggestions):
         return True
     return False
 
 
-def analyse_link_or_question_with_request_data(request, current_suggestions_responses):
+def analyse_link_or_question_with_request_data(request, suggestions):
     if request.get_success_condition() == 'same' or not request.get_data():
-        return False
+        return ''
     for data in request.get_data():
-        for suggestion in current_suggestions_responses:
+        for suggestion in suggestions:
             if request.get_success_condition() == suggestion.get_type() and data == suggestion.get_data():
-                return True
-    return False
+                return str(suggestions.index(suggestion) + 1)
+    return ''
 
 
-def analyse_link_or_question_without_request_data(request, current_suggestions_responses):
+def analyse_link_or_question_without_request_data(request, suggestions):
     if request.get_success_condition() == 'same' or request.get_data():
         return False
-    for suggestion in current_suggestions_responses:
+    for suggestion in suggestions:
         if request.get_success_condition() == suggestion.get_type():
             return True
     return False
@@ -76,14 +76,18 @@ class SuggestionsResponsesAnalyzer:
 
     def analyze(self):
         analysis = []
-        previous_suggestions_responses = []
+        previous_suggestions = []
         for i, request in enumerate(self._requests):
-            current_suggestions_responses = self._suggestions_responses[i].get_suggestions()
-            is_success = analyse_same(request, current_suggestions_responses, previous_suggestions_responses)
-            is_success |= analyse_link_or_question_with_request_data(request, current_suggestions_responses)
-            is_success |= analyse_link_or_question_without_request_data(request, current_suggestions_responses)
-            analysis.append('success') if is_success else analysis.append('fail')
-            previous_suggestions_responses = current_suggestions_responses
+            current_suggestions = self._suggestions_responses[i].get_suggestions()
+            is_success = analyse_same(request, current_suggestions, previous_suggestions)
+            is_success |= analyse_link_or_question_without_request_data(request, current_suggestions)
+            if is_success:
+                analysis.append('success')
+            else:
+                selected_suggestion_position = analyse_link_or_question_with_request_data(request, current_suggestions)
+                analysis.append('success(' + selected_suggestion_position + ')') if selected_suggestion_position \
+                    else analysis.append('fail')
+            previous_suggestions = current_suggestions
         return analysis
 
     def analyze_to_string(self):
@@ -98,7 +102,6 @@ class SuggestionsResponsesAnalyzer:
                     request.get_person(),
                     request.get_message(),
                     request.get_success_condition(),
-                    request.get_raw_data(),
                     analysis[analysis_position]
                 ]
                 analysis_string += ','.join(elements) + '\n'
