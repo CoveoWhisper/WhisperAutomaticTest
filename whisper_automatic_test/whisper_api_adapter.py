@@ -3,7 +3,6 @@ import requests
 
 from whisper_automatic_test.suggestion import Suggestion
 
-URL = 'https://whisper.us-east-1.elasticbeanstalk.com/whisper/suggestions'
 CHATKEY_IDENTIFIER = 'chatkey'
 QUERY_IDENTIFIER = 'querry'
 
@@ -15,9 +14,12 @@ def get_json_for_whisper_api(request, chat_key):
     }
 
 
-def get_suggestions_from_whisper_api(request, chatkey):
-    whisper_response = requests.post(URL, json=get_json_for_whisper_api(request, chatkey)).content.decode("utf-8")
-    return whisper_response_to_suggestions(whisper_response)
+def get_suggestions_from_whisper_api(whisper_api_url, request, chatkey):
+    whisper_response = requests.post(
+        whisper_api_url,
+        json=get_json_for_whisper_api(request, chatkey)
+    )
+    return whisper_response_to_suggestions(whisper_response.content.decode("utf-8"))
 
 
 def whisper_response_to_suggestions(whisper_response):
