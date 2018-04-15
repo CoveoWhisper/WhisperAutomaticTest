@@ -16,7 +16,7 @@ class TestScenarioReader(unittest.TestCase):
         requests = scenario.get_requests()
         request = requests[0]
         self.assertEquals('asker', request.get_person())
-        self.assertEquals('I have problems calling the rest API', request.get_message())
+        self.assertEquals('Help, I have problems calling the rest API', request.get_message())
         self.assertEquals('link', request.get_success_condition())
         data = request.get_data()
         self.assertEquals(2, len(data))
