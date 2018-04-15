@@ -1,4 +1,5 @@
 import unittest
+from datetime import timedelta
 from unittest.mock import Mock
 
 from whisper_automatic_test.quality_indexes_analyzer import QualityIndexesAnalyzer
@@ -12,7 +13,7 @@ class TestQualityIndexesAnalyzer(unittest.TestCase):
         self._mock_metrics_analyzer = Mock()
         self._quality_indexes_analyzer = QualityIndexesAnalyzer(self._mock_metrics_analyzer)
 
-        self._mock_metrics_analyzer.calculate_average_system_response_time.return_value = 10
+        self._mock_metrics_analyzer.calculate_average_system_response_time.return_value = timedelta(seconds=10)
         self._mock_metrics_analyzer.calculate_messages_number.return_value = 11
         self._mock_metrics_analyzer.calculate_mean_position_of_chosen_suggestions.return_value = 12
         self._mock_metrics_analyzer.calculate_total_number_of_suggestions_updates.return_value = 13

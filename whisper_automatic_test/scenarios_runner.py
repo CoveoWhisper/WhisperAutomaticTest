@@ -21,10 +21,10 @@ class ScenariosRunner:
         return suggestions_responses_independent_of_the_scenario
 
     def _get_suggestions_response_of_request(self, request, chatkey):
-        before_timestamp = self._get_time()
+        before_datetime = self._get_time()
         suggestions = self._get_suggestions(request, chatkey)
-        after_timestamp = self._get_time()
-        return SuggestionsResponse(suggestions, before_timestamp, after_timestamp)
+        after_datetime = self._get_time()
+        return SuggestionsResponse(suggestions, after_datetime - before_datetime)
 
     def _get_suggestions_responses_of_scenario(self, scenario, chatkey):
         return [self._get_suggestions_response_of_request(request, chatkey) for request in scenario.get_requests()]

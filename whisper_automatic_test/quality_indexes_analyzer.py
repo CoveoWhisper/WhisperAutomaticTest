@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-TARGET_RESPONSE_TIME_SECONDS = timedelta(3.0)
+TARGET_RESPONSE_TIME_SECONDS = timedelta(seconds=3)
 
 
 class QualityIndexesAnalyzer:

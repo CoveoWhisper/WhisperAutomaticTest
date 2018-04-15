@@ -1,8 +1,10 @@
 import unittest
+from datetime import timedelta
 
 from whisper_automatic_test.exceptions.no_requests_exception import NoRequestsException
 from whisper_automatic_test.exceptions.no_suggestions_responses_exception import NoSuggestionsResponsesException
-from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception import NoSuggestionsResponsesForEveryRequestsException
+from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception \
+    import NoSuggestionsResponsesForEveryRequestsException
 from whisper_automatic_test.request import Request
 from whisper_automatic_test.scenario import Scenario
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
@@ -29,24 +31,24 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             get_suggestions(EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH)
         )
         self._suggestions_responses = [
-            SuggestionsResponse(suggestions_3_questions, 42, 91),
-            SuggestionsResponse(suggestions_3_links, 42, 91),
-            SuggestionsResponse(suggestions_3_links, 42, 91),
-            SuggestionsResponse(suggestions_3_links, 42, 91),
-            SuggestionsResponse(suggestions_3_questions, 42, 96),
-            SuggestionsResponse(suggestions_3_questions, 42, 90),
-            SuggestionsResponse(suggestions_3_links, 42, 90),
-            SuggestionsResponse(suggestions_3_links, 42, 90),
-            SuggestionsResponse(suggestions_3_questions, 42, 90),
-            SuggestionsResponse(suggestions_3_questions, 42, 90),
-            SuggestionsResponse(suggestions_3_links, 42, 90),
-            SuggestionsResponse(suggestions_3_links, 42, 90),
-            SuggestionsResponse(suggestions_3_questions, 42, 90),
-            SuggestionsResponse(suggestions_3_questions, 42, 90),
-            SuggestionsResponse(suggestions_3_questions, 42, 90),
-            SuggestionsResponse(suggestions_3_links, 42, 90),
-            SuggestionsResponse(suggestions_3_links, 42, 90),
-            SuggestionsResponse(suggestions_3_questions, 42, 90),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=49)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=49)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=49)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=49)),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=54)),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
         ]
 
     def test_constructor_with_no_request_in_scenarios(self):
@@ -59,17 +61,38 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
 
     def test_constructor_with_no_suggestions_response_for_every_request(self):
         with self.assertRaises(NoSuggestionsResponsesForEveryRequestsException):
-            SuggestionsResponsesAnalyzer(self._scenarios, [SuggestionsResponse([], 10, 20)])
+            SuggestionsResponsesAnalyzer(self._scenarios, [SuggestionsResponse([], timedelta(seconds=10))])
 
     def test_analyze_with_one_successful_suggestions_response(self):
         expected_analysis = ['success']
         request = Request('asker', 'What is Coveo?', 'link', 'https://www.coveo.com/')
         suggestion = Suggestion('link', 'https://www.coveo.com/')
-        suggestions_responses_analyzer = SuggestionsResponsesAnalyzer([Scenario([request])], [SuggestionsResponse([suggestion], 0, 0)])
+        suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(
+            [Scenario([request])],
+            [SuggestionsResponse([suggestion], timedelta(seconds=0))])
         self.assertEquals(expected_analysis, suggestions_responses_analyzer.analyze())
 
     def test_analyze(self):
-        expected_analysis = ['fail', 'success', 'success', 'success', 'fail', 'fail', 'fail', 'fail', 'success', 'success', 'fail', 'fail', 'fail', 'fail', 'success', 'fail', 'success', 'fail']
+        expected_analysis = [
+            'fail',
+            'success',
+            'success',
+            'success',
+            'fail',
+            'fail',
+            'fail',
+            'fail',
+            'success',
+            'success',
+            'fail',
+            'fail',
+            'fail',
+            'fail',
+            'success',
+            'fail',
+            'success',
+            'fail'
+        ]
         suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(self._scenarios, self._suggestions_responses)
         self.assertEquals(expected_analysis, suggestions_responses_analyzer.analyze())
 
@@ -77,11 +100,19 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(self._scenarios, self._suggestions_responses)
         expected_analysis_string = \
             ('1,agent,I love mushrooms,same,,fail\n'
-             '2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url,success\n'
-             '2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url,success\n'
+             '2,asker,I have problems calling the rest API,link,'
+             'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ '
+             'https://second_url.com/second_url,success\n'
+             '2,asker,I have problems calling the rest API,link,'
+             'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ '
+             'https://second_url.com/second_url,success\n'
              '2,agent,I love mushrooms,same,,success\n'
-             '2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url,fail\n'
-             '2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url,fail\n'
+             '2,asker,I have problems calling the rest API,link,'
+             'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ '
+             'https://second_url.com/second_url,fail\n'
+             '2,asker,I have problems calling the rest API,link,'
+             'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ '
+             'https://second_url.com/second_url,fail\n'
              '2,agent,World,link,https://asdasd.com/asdasd,fail\n'
              '2,agent,World,link,https://asdasd.com/asdasd,fail\n'
              '3,asker,Hello,question,Did you try this?,success\n'
