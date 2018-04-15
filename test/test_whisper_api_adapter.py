@@ -32,6 +32,6 @@ class TestWhisperApiAdapter(unittest.TestCase):
             suggestions[1].get_data()
         )
         self.assertEquals(
-            'https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_NET_Conversion_Scripts.htm',
+            'https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_net_conversion_scripts.htm',
             suggestions[2].get_data()
         )
