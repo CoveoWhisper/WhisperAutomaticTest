@@ -93,13 +93,13 @@ class TestMetricsAnalyzer(unittest.TestCase):
     def test_messages_number(self):
         self.assertEquals(7, self._metrics_analyzer.calculate_messages_number())
 
-    def test_average_chosen_suggestion_position(self):
-        self.assertEquals(1.5, self._metrics_analyzer.calculate_mean_position_of_chosen_suggestions())
+    def test_average_selected_suggestion_position(self):
+        self.assertEquals(1.5, self._metrics_analyzer.calculate_mean_position_of_selected_suggestions())
 
-    def test_average_chosen_suggestion_position_when_no_suggestion_is_chosen(self):
+    def test_average_selected_suggestion_position_when_no_suggestion_is_selected(self):
         self.assertEquals(
             math.inf,
-            self._no_suggestions_responses_metrics_analyzer.calculate_mean_position_of_chosen_suggestions()
+            self._no_suggestions_responses_metrics_analyzer.calculate_mean_position_of_selected_suggestions()
         )
 
     def test_total_number_of_suggestions_updates(self):

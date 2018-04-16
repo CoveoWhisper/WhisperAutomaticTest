@@ -15,7 +15,7 @@ class TestQualityIndexesAnalyzer(unittest.TestCase):
 
         self._mock_metrics_analyzer.calculate_average_system_response_time.return_value = timedelta(seconds=10)
         self._mock_metrics_analyzer.calculate_messages_number.return_value = 11
-        self._mock_metrics_analyzer.calculate_mean_position_of_chosen_suggestions.return_value = 12
+        self._mock_metrics_analyzer.calculate_mean_position_of_selected_suggestions.return_value = 12
         self._mock_metrics_analyzer.calculate_total_number_of_suggestions_updates.return_value = 13
         self._mock_metrics_analyzer.calculate_number_of_unwanted_suggestions_updates.return_value = 14
         self._mock_metrics_analyzer.calculate_number_of_selected_suggestions.return_value = 15

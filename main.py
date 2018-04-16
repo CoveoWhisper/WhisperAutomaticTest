@@ -49,7 +49,7 @@ def print_metrics(metrics_analyzer):
     metric_name_and_value_pairs = [
         ('Average system response time', metrics_analyzer.calculate_average_system_response_time()),
         ('Total number of messages', metrics_analyzer.calculate_messages_number()),
-        ('Mean position of chosen suggestions', metrics_analyzer.calculate_mean_position_of_chosen_suggestions()),
+        ('Mean position of selected suggestions', metrics_analyzer.calculate_mean_position_of_selected_suggestions()),
         ('Total number of suggestions updates', metrics_analyzer.calculate_total_number_of_suggestions_updates()),
         ('Number of unwanted suggestions updates', metrics_analyzer.calculate_number_of_unwanted_suggestions_updates()),
         ('Number of selected suggestions', metrics_analyzer.calculate_number_of_selected_suggestions()),

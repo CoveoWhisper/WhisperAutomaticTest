@@ -49,7 +49,7 @@ class MetricsAnalyzer:
     def calculate_messages_number(self):
         return len(self._requests)
 
-    def calculate_mean_position_of_chosen_suggestions(self):
+    def calculate_mean_position_of_selected_suggestions(self):
         selected_suggestions = get_selected_suggestions(self._suggestions_responses, self._requests)
         if not selected_suggestions:
             return math.inf
