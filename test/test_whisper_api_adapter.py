@@ -7,12 +7,23 @@ EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response_3_
 
 
 class TestWhisperApiAdapter(unittest.TestCase):
-    def test_request_to_data(self):
+    def test_request_to_data_type_asker(self):
         request = Request('asker', 'Hello world', 'To ignore', 'To ignore')
         actual_json = get_json_for_whisper_api(request, 'myChatKey')
         expected_json = {
             'chatkey': 'myChatKey',
             'querry': 'Hello world',
+            'type': 0
+        }
+        self.assertEquals(expected_json, actual_json)
+
+    def test_request_to_data_type_agent(self):
+        request = Request('agent', 'Hello world', 'To ignore', 'To ignore')
+        actual_json = get_json_for_whisper_api(request, 'myChatKey')
+        expected_json = {
+            'chatkey': 'myChatKey',
+            'querry': 'Hello world',
+            'type': 1
         }
         self.assertEquals(expected_json, actual_json)
 

@@ -5,12 +5,18 @@ from whisper_automatic_test.suggestion import Suggestion
 
 CHATKEY_IDENTIFIER = 'chatkey'
 QUERY_IDENTIFIER = 'querry'
+MESSAGE_TYPE_IDENTIFIER = 'type'
+PERSON_TO_JSON_CODE = {
+    'asker': 0,
+    'agent': 1
+}
 
 
 def get_json_for_whisper_api(request, chat_key):
     return {
         CHATKEY_IDENTIFIER: chat_key,
         QUERY_IDENTIFIER: request.get_message(),
+        MESSAGE_TYPE_IDENTIFIER: PERSON_TO_JSON_CODE[request.get_person()]
     }
 
 
