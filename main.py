@@ -71,9 +71,11 @@ def print_metrics(metrics_analyzer):
 
 
 def print_quality_indexes(quality_indexes_analyzer):
+    pertinence_index = quality_indexes_analyzer.get_pertinence_index()
+    speed_index = quality_indexes_analyzer.get_speed_index()
     quality_index_name_and_value_pairs = [
-        ('Pertinence index', quality_indexes_analyzer.get_pertinence_index()),
-        ('Speed index', quality_indexes_analyzer.get_speed_index()),
+        ('Pertinence index', pertinence_index),
+        ('Speed index', speed_index),
         (
             'Relative confidence level accuracy index',
             quality_indexes_analyzer.get_relative_confidence_level_accuracy_index()),
@@ -86,6 +88,10 @@ def print_quality_indexes(quality_indexes_analyzer):
                 for quality_index_name_and_value_pair in quality_index_name_and_value_pairs
             ) / len(quality_index_name_and_value_pairs)
     )
+    simple_quality_index = (
+       pertinence_index +
+       speed_index
+    ) / 2.0
 
     print('Quality indexes')
     print('=' * 80)
@@ -95,6 +101,7 @@ def print_quality_indexes(quality_indexes_analyzer):
         print(quality_index_name, ": ", quality_index_value)
 
     print('Average quality index: ', average_quality_index)
+    print('Simple quality index (average of pertinence and speed indexes): ', simple_quality_index)
 
 
 if __name__ == "__main__":
