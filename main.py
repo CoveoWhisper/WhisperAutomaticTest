@@ -42,12 +42,13 @@ def print_suggestions_responses_analysis(suggestions_responses_analyzer):
     print('Scenario results')
     print('=' * 80)
     print(suggestions_responses_analyzer.analyze_to_string())
+    print()
 
 
 def print_metrics(metrics_analyzer):
     metric_name_and_value_pairs = [
         ('Average system response time', metrics_analyzer.calculate_average_system_response_time()),
-        ('Messages number', metrics_analyzer.calculate_messages_number()),
+        ('Total number of messages', metrics_analyzer.calculate_messages_number()),
         ('Mean position of chosen suggestions', metrics_analyzer.calculate_mean_position_of_chosen_suggestions()),
         ('Total number of suggestions updates', metrics_analyzer.calculate_total_number_of_suggestions_updates()),
         ('Number of unwanted suggestions updates', metrics_analyzer.calculate_number_of_unwanted_suggestions_updates()),
@@ -94,7 +95,6 @@ def print_quality_indexes(quality_indexes_analyzer):
         print(quality_index_name, ": ", quality_index_value)
 
     print('Average quality index: ', average_quality_index)
-    print()
 
 
 if __name__ == "__main__":

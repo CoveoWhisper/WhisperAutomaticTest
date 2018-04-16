@@ -99,23 +99,25 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
     def test_analyze_to_string(self):
         suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(self._scenarios, self._suggestions_responses)
         expected_analysis_string = \
-            ('1,agent,I love mushrooms,same,fail\n'
-             '2,asker,I have problems calling the rest API,link,success(1-1)\n'
-             '2,asker,I have problems calling the rest API,link,success(1-1)\n'
-             '2,agent,I love mushrooms,same,success\n'
-             '2,asker,I have problems calling the rest API,link,fail\n'
-             '2,asker,I have problems calling the rest API,link,fail\n'
-             '2,agent,World,link,fail\n'
-             '2,agent,World,link,fail\n'
-             '3,asker,Hello,question,success(1-2)\n'
-             '3,asker,Hello,question,success(1-2)\n'
-             '3,asker,Hello,question,fail\n'
-             '3,asker,Hello,question,fail\n'
-             '3,asker,Hello,question,fail\n'
-             '3,asker,Hello,question,fail\n'
-             '3,asker,Hello,question,success\n'
-             '3,asker,Hello,question,fail\n'
-             '3,asker,Hello,link,success\n'
-             '3,asker,Hello,link,fail\n')
+            ('Scenario,Person,Message,Success condition,Result,System response time\n'
+             '1,agent,I love mushrooms,same,fail,0:00:49\n'
+             '2,asker,I have problems calling the rest API,link,success(1-1),0:00:49\n'
+             '2,asker,I have problems calling the rest API,link,success(1-1),0:00:49\n'
+             '2,agent,I love mushrooms,same,success,0:00:49\n'
+             '2,asker,I have problems calling the rest API,link,fail,0:00:54\n'
+             '2,asker,I have problems calling the rest API,link,fail,0:00:48\n'
+             '2,agent,World,link,fail,0:00:48\n'
+             '2,agent,World,link,fail,0:00:48\n'
+             '3,asker,Hello,question,success(1-2),0:00:48\n'
+             '3,asker,Hello,question,success(1-2),0:00:48\n'
+             '3,asker,Hello,question,fail,0:00:48\n'
+             '3,asker,Hello,question,fail,0:00:48\n'
+             '3,asker,Hello,question,fail,0:00:48\n'
+             '3,asker,Hello,question,fail,0:00:48\n'
+             '3,asker,Hello,question,success,0:00:48\n'
+             '3,asker,Hello,question,fail,0:00:48\n'
+             '3,asker,Hello,link,success,0:00:48\n'
+             '3,asker,Hello,link,fail,0:00:48\n'
+             '\n7 of 18 tests passed')
         analysis_string = suggestions_responses_analyzer.analyze_to_string()
         self.assertEquals(expected_analysis_string, analysis_string)
