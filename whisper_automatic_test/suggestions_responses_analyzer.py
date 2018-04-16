@@ -92,8 +92,12 @@ class SuggestionsResponsesAnalyzer:
 
     def analyze_to_string(self):
         analysis = self.analyze()
+        number_of_successful_analysis = 0
+        for single_analysis in analysis:
+            if 'success' in single_analysis:
+                number_of_successful_analysis += 1
         analysis_position = 0
-        analysis_string = ''
+        analysis_string = 'Scenario,Person,Message,Success condition,Result,System response time\n'
         for i, scenario in enumerate(self._scenarios):
             for request in scenario.get_requests():
                 scenario_id = str(i + 1)
@@ -102,8 +106,11 @@ class SuggestionsResponsesAnalyzer:
                     request.get_person(),
                     request.get_message(),
                     request.get_success_condition(),
-                    analysis[analysis_position]
+                    analysis[analysis_position],
+                    str(self._suggestions_responses[analysis_position].get_response_time_duration())
                 ]
                 analysis_string += ','.join(elements) + '\n'
                 analysis_position += 1
+        analysis_string += '\n' + str(number_of_successful_analysis) + ' of ' \
+                           + str(len(self._requests)) + ' tests passed'
         return analysis_string

@@ -1,0 +1,109 @@
+Scenario results
+================================================================================
+Scenario,Person,Message,Success condition,Result,System response time
+1,asker,Hi,same,fail,0:00:00.536890
+1,asker,Hi,same,success,0:00:00.287066
+1,asker,Hi,same,success,0:00:00.204158
+1,asker,Hi,same,success,0:00:00.261436
+1,asker,Hi,same,success,0:00:00.214949
+1,asker,Hi,same,success,0:00:00.198892
+1,asker,Hi,same,success,0:00:00.209230
+1,asker,Hi,same,success,0:00:00.206321
+1,asker,Hi,same,success,0:00:00.186063
+1,asker,Hi,same,success,0:00:00.216253
+1,asker,Hi,same,success,0:00:00.244900
+1,asker,Hi,same,success,0:00:00.196438
+1,asker,Hi,same,success,0:00:00.189716
+1,asker,Hi,same,success,0:00:00.213306
+1,asker,Hi,same,success,0:00:00.189220
+1,asker,Hi,same,success,0:00:00.202879
+1,asker,Hi,same,success,0:00:00.220983
+1,asker,Hi,same,success,0:00:00.212328
+1,asker,Hi,same,success,0:00:00.201032
+1,agent,Hi, how may I help you?,same,fail,0:00:00.241526
+2,asker,Good morning,same,fail,0:00:00.376725
+2,agent,Hi, how may I help you?,same,fail,0:00:00.211635
+3,asker,Thank you for your help,same,fail,0:00:00.266598
+3,agent,Your welcome,same,fail,0:00:00.252227
+4,asker,Goodbye,same,fail,0:00:00.223011
+4,agent,Have a nice day!,same,fail,0:00:00.237346
+5,asker,How are you today?,same,fail,0:00:00.218508
+5,agent,Fine, you?,same,fail,0:00:00.277816
+5,asker,Did you see the weather outside?,same,fail,0:00:00.283298
+5,agent,Do you have any questions about our services?,same,fail,0:00:00.222184
+6,asker,Do you have 5 minutes?,same,fail,0:00:00.235441
+6,agent,Yes I do, how may I help you?,same,fail,0:00:00.210128
+7,asker,The weather is nice outside.,same,fail,0:00:00.229909
+8,asker,I agree.,same,fail,0:00:00.226108
+9,asker,I don't know.,same,fail,0:00:00.232154
+9,agent,Hi, how may I help you?,same,fail,0:00:00.224237
+10,asker,Using the Coveo JS search framework, is there a way to monkey patch component methods with the jQuery extension?,link,fail,0:00:00.314566
+10,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,same,fail,0:00:00.212972
+11,asker,What is an incremental refresh in the sources and collections menus?,link,success(1-9),0:00:00.371479
+11,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,same,fail,0:00:00.206531
+12,asker,How do I deploy the enhanced quick view?,link,success(1-1),0:00:00.234821
+12,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,same,fail,0:00:00.208299
+13,asker,Using the Covo JS search framewrk, is there a way to monkey path componen methods with the jQury extension?,link,fail,0:00:00.245442
+13,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,same,fail,0:00:00.213011
+14,asker,What is a icremental refrrsh in the sources and colections menus?,link,success(2-1),0:00:00.212374
+14,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,same,fail,0:00:00.228631
+15,asker,How do I deplot the enhance quik view?,link,success(1-2),0:00:00.202928
+15,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,same,fail,0:00:00.194293
+16,asker,How do I edit or update certain field of response?,question,fail,0:00:00.230872
+16,agent,Which field of response?,same,fail,0:00:00.332641
+17,asker,What is an incremental refresh?,question,fail,0:00:00.207813
+17,agent,Why do you want to do an incremental refresh?,same,fail,0:00:00.221593
+18,asker,How do I deploy?,question,fail,0:00:00.253107
+18,agent,What do you want to deploy?,same,fail,0:00:00.252897
+19,asker,Hello, my name is Bob.,same,fail,0:00:00.386038
+19,agent,Hi, my name is Bobafette, how may I help you?,same,fail,0:00:00.234325
+19,asker,For the Coveo JS Search Frameowrk...,same,fail,0:00:00.299474
+19,asker,how do we monkey patcc a component's methods?,link,fail,0:00:00.275985
+19,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,same,fail,0:00:00.194826
+19,asker,Thank you,same,fail,0:00:00.244910
+19,agent,Your welcome! Come back anytime!,same,fail,0:00:00.357436
+20,asker,I love salad,same,fail,0:00:00.316248
+20,asker,Goodbye,same,fail,0:00:00.217730
+20,asker,What is an incremental refresh?,question,fail,0:00:00.210667
+20,agent,Why do you want to do an incremental refresh?,same,fail,0:00:00.206816
+20,asker,On sources and colections menus...,link,success(2-2),0:00:00.220166
+20,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,same,fail,0:00:00.192458
+20,asker,Also, in Covei JS Search Framework and JQuery extention, how do I monkey path componen methods ?,link,fail,0:00:00.318217
+20,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,same,fail,0:00:00.209803
+20,asker,How are you today?,same,fail,0:00:00.299321
+20,agent,Fine! You?,same,fail,0:00:00.262255
+21,asker,Do you have 5 minutes?,same,fail,0:00:00.243103
+21,agent,Yes! How may I help you?,same,fail,0:00:00.268966
+21,asker,I need help,question,fail,0:00:00.317434
+21,agent,What do you need help with?,same,fail,0:00:00.348033
+21,asker,I want to deploy,question,fail,0:00:00.266267
+21,agent,What do you want to deploy?,same,fail,0:00:00.218339
+21,asker,hmmm,same,fail,0:00:00.228818
+21,agent,Maybe the enhanced quick view?,link,success(1-2),0:00:00.274865
+21,asker,Yes!,same,fail,0:00:00.225295
+21,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,same,fail,0:00:00.209772
+21,asker,The weather is nice outside.,same,fail,0:00:00.226042
+21,agent,Very nice!,same,fail,0:00:00.228944
+
+24 of 83 tests passed
+
+Metrics
+================================================================================
+Average system response time :  0:00:00.245876
+Messages number :  83
+Mean position of chosen suggestions :  2.8333333333333335
+Total number of suggestions updates :  65
+Number of unwanted suggestions updates :  49
+Number of selected suggestions :  6
+Number of suggested questions :  0
+Number of suggested links :  565
+Mean confidence level of selected suggestions :  0
+
+Quality indexes
+================================================================================
+Pertinence index :  0.09230769230769231
+Speed index :  0.9180413333333334
+Relative confidence level accuracy index :  0.3529411764705882
+Intent accuracy index :  0.24615384615384617
+Confidence index :  0
+Average quality index:  0.32188880965309197

@@ -42,6 +42,7 @@ def print_suggestions_responses_analysis(suggestions_responses_analyzer):
     print('Scenario results')
     print('=' * 80)
     print(suggestions_responses_analyzer.analyze_to_string())
+    print()
 
 
 def print_metrics(metrics_analyzer):
@@ -94,7 +95,6 @@ def print_quality_indexes(quality_indexes_analyzer):
         print(quality_index_name, ": ", quality_index_value)
 
     print('Average quality index: ', average_quality_index)
-    print()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,84 @@
+Scenario,Person,Message,Success condition,Data
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,asker,Hi,same,
+1,agent,"Hi, how may I help you?",same,
+2,asker,Good morning,same,
+2,agent,"Hi, how may I help you?",same,
+3,asker,Thank you for your help,same,
+3,agent,Your welcome,same,
+4,asker,Goodbye,same,
+4,agent,Have a nice day!,same,
+5,asker,How are you today?,same,
+5,agent,"Fine, you?",same,
+5,asker,Did you see the weather outside?,same,
+5,agent,Do you have any questions about our services?,same,
+6,asker,Do you have 5 minutes?,same,
+6,agent,"Yes I do, how may I help you?",same,
+7,asker,The weather is nice outside.,same,
+8,asker,I agree.,same,
+9,asker,I don't know.,same,
+9,agent,"Hi, how may I help you?",same,
+10,asker,"Using the Coveo JS search framework, is there a way to monkey patch component methods with the jQuery extension?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods https://coveo.github.io/search-ui/classes/initialization.html#monkeypatchcomponentmethod
+10,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,same,
+11,asker,What is an incremental refresh in the sources and collections menus?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/scheduling_a_source_incremental_refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_database_source.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_incremental_refresh_and_live_monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
+11,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,same,
+12,asker,How do I deploy the enhanced quick view?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
+12,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,same,
+13,asker,"Using the Covo JS search framewrk, is there a way to monkey path componen methods with the jQury extension?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods https://coveo.github.io/search-ui/classes/initialization.html#monkeypatchcomponentmethod
+13,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,same,
+14,asker,What is a icremental refrrsh in the sources and colections menus?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/scheduling_a_source_incremental_refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_database_source.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_incremental_refresh_and_live_monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
+14,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,same,
+15,asker,How do I deplot the enhance quik view?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
+15,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,same,
+16,asker,How do I edit or update certain field of response?,question,Which field of response?
+16,agent,Which field of response?,same,
+17,asker,What is an incremental refresh?,question,Why do you want to do an incremental refresh?
+17,agent,Why do you want to do an incremental refresh?,same,
+18,asker,How do I deploy?,question,What do you want to deploy?
+18,agent,What do you want to deploy?,same,
+19,asker,"Hello, my name is Bob.",same,
+19,agent,"Hi, my name is Bobafette, how may I help you?",same,
+19,asker,For the Coveo JS Search Frameowrk...,same,
+19,asker,how do we monkey patcc a component's methods?,link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods https://coveo.github.io/search-ui/classes/initialization.html#monkeypatchcomponentmethod
+19,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,same,
+19,asker,Thank you,same,
+19,agent,Your welcome! Come back anytime!,same,
+20,asker,I love salad,same,
+20,asker,Goodbye,same,
+20,asker,What is an incremental refresh?,question,Why do you want to do an incremental refresh?
+20,agent,Why do you want to do an incremental refresh?,same,
+20,asker,On sources and colections menus...,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/scheduling_a_source_incremental_refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_database_source.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_incremental_refresh_and_live_monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
+20,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,same,
+20,asker,"Also, in Covei JS Search Framework and JQuery extention, how do I monkey path componen methods ?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods https://coveo.github.io/search-ui/classes/initialization.html#monkeypatchcomponentmethod
+20,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,same,
+20,asker,How are you today?,same,
+20,agent,Fine! You?,same,
+21,asker,Do you have 5 minutes?,same,
+21,agent,Yes! How may I help you?,same,
+21,asker,I need help,question,What do you need help with?
+21,agent,What do you need help with?,same,
+21,asker,I want to deploy,question,What do you want to deploy?
+21,agent,What do you want to deploy?,same,
+21,asker,hmmm,same,
+21,agent,Maybe the enhanced quick view?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
+21,asker,Yes!,same,
+21,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,same,
+21,asker,The weather is nice outside.,same,
+21,agent,Very nice!,same,
