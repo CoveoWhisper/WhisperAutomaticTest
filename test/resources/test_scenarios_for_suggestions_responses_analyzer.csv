@@ -5,6 +5,8 @@ Scenario,MessageType,Message,TestMethod,TestData
 2,agent,I love mushrooms,same,
 2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
 2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
+2,asker,Should fail notlink success condition,notlink,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/
+2,agent,Should succeed notlink success condition,notlink,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/
 2,agent,World,link,https://asdasd.com/asdasd
 2,agent,World,link,https://asdasd.com/asdasd
 3,asker,Hello,question,Did you try this?
