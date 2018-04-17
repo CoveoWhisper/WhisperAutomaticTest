@@ -6,7 +6,7 @@ from whisper_automatic_test.quality_indexes_analyzer import QualityIndexesAnalyz
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.scenarios_runner import ScenariosRunner
 from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
-from whisper_automatic_test.whisper_api_adapter import get_suggestions_from_whisper_api
+from whisper_automatic_test.whisper_api_adapter import get_suggestions_from_whisper_api, get_suggestions_endpoint
 
 
 def main():
@@ -14,12 +14,15 @@ def main():
     assert 2 <= len(arguments) and 'Missing argument: scenario CSV file path.'
     assert 3 == len(arguments) and 'Missing argument: Whisper API URL.'
     csv_scenarios_file_path = arguments[1]
-    whisper_api_url = arguments[2]
+    whisper_api_base_url = arguments[2]
 
     scenarios = get_scenarios_from_csv_file(csv_scenarios_file_path)
 
     def get_suggestions(request, chatkey):
-        return get_suggestions_from_whisper_api(whisper_api_url, request, chatkey)
+        return get_suggestions_from_whisper_api(
+            get_suggestions_endpoint(whisper_api_base_url),
+            request,
+            chatkey)
 
     scenario_runner = ScenariosRunner(get_suggestions, get_time)
     suggestions_responses = scenario_runner.run(scenarios)

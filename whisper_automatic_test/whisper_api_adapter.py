@@ -10,6 +10,7 @@ PERSON_TO_JSON_CODE = {
     'asker': 0,
     'agent': 1
 }
+SUGGESTIONS_ENDPOINT_SUFFIX = 'whisper/suggestions'
 
 
 def get_json_for_whisper_api(request, chat_key):
@@ -20,9 +21,9 @@ def get_json_for_whisper_api(request, chat_key):
     }
 
 
-def get_suggestions_from_whisper_api(whisper_api_url, request, chatkey):
+def get_suggestions_from_whisper_api(whisper_api_base_url, request, chatkey):
     whisper_response = requests.post(
-        whisper_api_url,
+        whisper_api_base_url,
         json=get_json_for_whisper_api(request, chatkey)
     )
     return whisper_response_to_suggestions(whisper_response.content.decode("utf-8"))
@@ -39,4 +40,8 @@ def whisper_response_to_suggestions(whisper_response):
     return [get_suggestion(json_suggestion) for json_suggestion in json_response]
 
 
-
+def get_suggestions_endpoint(base_url):
+    suggestions_endpoint = base_url
+    suggestions_endpoint += '' if base_url.endswith('/') else '/'
+    suggestions_endpoint += SUGGESTIONS_ENDPOINT_SUFFIX
+    return suggestions_endpoint

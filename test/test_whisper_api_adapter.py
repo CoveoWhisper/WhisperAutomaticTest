@@ -1,5 +1,5 @@
 import unittest
-from whisper_automatic_test.whisper_api_adapter import get_json_for_whisper_api
+from whisper_automatic_test.whisper_api_adapter import get_json_for_whisper_api, get_suggestions_endpoint
 from whisper_automatic_test.whisper_api_adapter import whisper_response_to_suggestions
 from whisper_automatic_test.request import Request
 
@@ -45,4 +45,16 @@ class TestWhisperApiAdapter(unittest.TestCase):
         self.assertEquals(
             'https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_net_conversion_scripts.htm',
             suggestions[2].get_data()
+        )
+
+    def test_get_suggestions_endpoint(self):
+        self.assertEquals(
+            'potato.com/whisper/suggestions',
+            get_suggestions_endpoint('potato.com')
+        )
+
+    def test_get_suggestions_endpoint_with_base_url_already_ending_with_slash(self):
+        self.assertEquals(
+            'potato.com/whisper/suggestions',
+            get_suggestions_endpoint('potato.com/')
         )
