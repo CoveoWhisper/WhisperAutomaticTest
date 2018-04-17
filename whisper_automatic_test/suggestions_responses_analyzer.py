@@ -42,12 +42,30 @@ def analyse_link_or_question_with_request_data(request, suggestions):
 
 
 def analyse_link_or_question_without_request_data(request, suggestions):
-    if request.get_success_condition() == 'same' or request.get_data():
+    is_link_or_question = (
+            request.get_success_condition() == 'link' or
+            request.get_success_condition() == 'question'
+    )
+    has_no_data = not request.get_data()
+    is_valid_link_or_question_request = is_link_or_question and has_no_data
+    if not is_valid_link_or_question_request:
         return False
     for suggestion in suggestions:
         if request.get_success_condition() == suggestion.get_type():
             return True
     return False
+
+
+def analyse_notlink_with_request_data(request, current_suggestions):
+    is_valid_request = (
+            request.get_success_condition() == 'notlink' and
+            request.get_data()
+    )
+    if not is_valid_request:
+        return False
+    forbidden_link = request.get_data()[0]
+    suggested_links = [suggestion.get_data() for suggestion in current_suggestions]
+    return forbidden_link not in suggested_links
 
 
 class SuggestionsResponsesAnalyzer:
@@ -81,6 +99,7 @@ class SuggestionsResponsesAnalyzer:
             current_suggestions = self._suggestions_responses[i].get_suggestions()
             is_success = analyse_same(request, current_suggestions, previous_suggestions)
             is_success |= analyse_link_or_question_without_request_data(request, current_suggestions)
+            is_success |= analyse_notlink_with_request_data(request, current_suggestions)
             if is_success:
                 analysis.append('success')
             else:

@@ -30,6 +30,7 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         suggestions_3_questions = whisper_response_to_suggestions(
             get_suggestions(EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH)
         )
+        suggestions_2_last_links = suggestions_3_links[1:]
         self._suggestions_responses = [
             SuggestionsResponse(suggestions_3_questions, timedelta(seconds=49)),
             SuggestionsResponse(suggestions_3_links, timedelta(seconds=49)),
@@ -37,6 +38,8 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             SuggestionsResponse(suggestions_3_links, timedelta(seconds=49)),
             SuggestionsResponse(suggestions_3_questions, timedelta(seconds=54)),
             SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_2_last_links, timedelta(seconds=48)),
             SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
             SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
             SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
@@ -81,6 +84,8 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             'fail',
             'fail',
             'fail',
+            'success',
+            'fail',
             'fail',
             'success(1-2)',
             'success(1-2)',
@@ -106,6 +111,8 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
              '2,agent,I love mushrooms,same,success,0:00:49\n'
              '2,asker,I have problems calling the rest API,link,fail,0:00:54\n'
              '2,asker,I have problems calling the rest API,link,fail,0:00:48\n'
+             '2,asker,Should fail notlink success condition,notlink,fail,0:00:48\n'
+             '2,agent,Should succeed notlink success condition,notlink,success,0:00:48\n'
              '2,agent,World,link,fail,0:00:48\n'
              '2,agent,World,link,fail,0:00:48\n'
              '3,asker,Hello,question,success(1-2),0:00:48\n'
@@ -118,6 +125,6 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
              '3,asker,Hello,question,fail,0:00:48\n'
              '3,asker,Hello,link,success,0:00:48\n'
              '3,asker,Hello,link,fail,0:00:48\n'
-             '\n7 of 18 tests passed')
+             '\n8 of 20 tests passed')
         analysis_string = suggestions_responses_analyzer.analyze_to_string()
         self.assertEquals(expected_analysis_string, analysis_string)
