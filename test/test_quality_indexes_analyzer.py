@@ -24,7 +24,7 @@ class TestQualityIndexesAnalyzer(unittest.TestCase):
         self._mock_metrics_analyzer.calculate_mean_confidence_level_of_selected_suggestions.return_value = 20
 
     def test_pertinence_index(self):
-        self.assertAlmostEquals(1.154, self._quality_indexes_analyzer.get_pertinence_index(), places=3)
+        self.assertAlmostEquals(-15, self._quality_indexes_analyzer.get_pertinence_index(), places=3)
 
     def test_speed_index(self):
         self.assertAlmostEquals(-2.333, self._quality_indexes_analyzer.get_speed_index(), places=3)
