@@ -41,3 +41,14 @@ class TestScenarioReader(unittest.TestCase):
         self.assertEquals('same', request_b.get_success_condition())
         data = request_b.get_data()
         self.assertEquals(0, len(data))
+
+    def test_notlink_with_multiple_links(self):
+        scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
+        scenario = scenarios[1]
+        self.assertEquals(5, len(scenario.get_requests()))
+        request_notlink = scenario.get_requests()[3]
+        self.assertEquals('asker', request_notlink.get_person())
+        self.assertEquals('I love tomatoes', request_notlink.get_message())
+        self.assertEquals('notlink', request_notlink.get_success_condition())
+        self.assertEquals('https://some_forbidden_website.com', request_notlink.get_data()[0])
+        self.assertEquals('https://banned_forum.net', request_notlink.get_data()[1])

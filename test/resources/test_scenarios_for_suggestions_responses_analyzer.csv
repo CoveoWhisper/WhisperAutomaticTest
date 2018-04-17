@@ -6,6 +6,7 @@ Scenario,MessageType,Message,TestMethod,TestData
 2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
 2,asker,I have problems calling the rest API,link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/ https://second_url.com/second_url
 2,asker,Should fail notlink success condition,notlink,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/
+2,asker,Should fail multiple unwanted links,notlink,https://some_forbidden_website.com https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/
 2,agent,Should succeed notlink success condition,notlink,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/
 2,agent,World,link,https://asdasd.com/asdasd
 2,agent,World,link,https://asdasd.com/asdasd

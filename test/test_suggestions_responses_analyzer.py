@@ -39,6 +39,7 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             SuggestionsResponse(suggestions_3_questions, timedelta(seconds=54)),
             SuggestionsResponse(suggestions_3_questions, timedelta(seconds=48)),
             SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
+            SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
             SuggestionsResponse(suggestions_2_last_links, timedelta(seconds=48)),
             SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
             SuggestionsResponse(suggestions_3_links, timedelta(seconds=48)),
@@ -84,6 +85,7 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             'fail',
             'fail',
             'fail',
+            'fail',
             'success',
             'fail',
             'fail',
@@ -112,6 +114,7 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
              '2,asker,I have problems calling the rest API,link,fail,0:00:54\n'
              '2,asker,I have problems calling the rest API,link,fail,0:00:48\n'
              '2,asker,Should fail notlink success condition,notlink,fail,0:00:48\n'
+             '2,asker,Should fail multiple unwanted links,notlink,fail,0:00:48\n'
              '2,agent,Should succeed notlink success condition,notlink,success,0:00:48\n'
              '2,agent,World,link,fail,0:00:48\n'
              '2,agent,World,link,fail,0:00:48\n'
@@ -125,6 +128,6 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
              '3,asker,Hello,question,fail,0:00:48\n'
              '3,asker,Hello,link,success,0:00:48\n'
              '3,asker,Hello,link,fail,0:00:48\n'
-             '\n8 of 20 tests passed')
+             '\n8 of 21 tests passed')
         analysis_string = suggestions_responses_analyzer.analyze_to_string()
         self.assertEquals(expected_analysis_string, analysis_string)

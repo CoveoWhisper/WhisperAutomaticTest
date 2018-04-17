@@ -63,9 +63,10 @@ def analyse_notlink_with_request_data(request, current_suggestions):
     )
     if not is_valid_request:
         return False
-    forbidden_link = request.get_data()[0]
+    forbidden_links = request.get_data()
     suggested_links = [suggestion.get_data() for suggestion in current_suggestions]
-    return forbidden_link not in suggested_links
+    forbidden_suggested_links = set(forbidden_links).intersection(set(suggested_links))
+    return 0 == len(forbidden_suggested_links)
 
 
 class SuggestionsResponsesAnalyzer:
