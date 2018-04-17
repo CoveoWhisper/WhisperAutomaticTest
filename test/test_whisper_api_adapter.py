@@ -13,6 +13,7 @@ class TestWhisperApiAdapter(unittest.TestCase):
         expected_json = {
             'chatkey': 'myChatKey',
             'querry': 'Hello world',
+            'query': 'Hello world',
             'type': 0
         }
         self.assertEquals(expected_json, actual_json)
@@ -23,6 +24,7 @@ class TestWhisperApiAdapter(unittest.TestCase):
         expected_json = {
             'chatkey': 'myChatKey',
             'querry': 'Hello world',
+            'query': 'Hello world',
             'type': 1
         }
         self.assertEquals(expected_json, actual_json)
