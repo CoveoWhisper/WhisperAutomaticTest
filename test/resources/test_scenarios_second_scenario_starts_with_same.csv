@@ -1,0 +1,5 @@
+Scenario,MessageType,Message,TestMethod,TestData
+1,agent,"link required, should pass",link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/
+2,asker,"same required, expects empty because start of scenario, should pass",same,
+2,agent,"link required, should pass",link,https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/
+3,asker,"same required, expects empty because start of scenario, should fail",same,

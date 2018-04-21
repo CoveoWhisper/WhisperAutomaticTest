@@ -17,8 +17,7 @@ class ScenariosRunner:
             self._get_suggestions_responses_of_scenario(scenario_chatkey_pair[0], scenario_chatkey_pair[1])
             for scenario_chatkey_pair in scenario_chatkey_pairs
         ]
-        suggestions_responses_independent_of_the_scenario = sum(suggestions_responses_of_each_scenario, [])
-        return suggestions_responses_independent_of_the_scenario
+        return suggestions_responses_of_each_scenario
 
     def _get_suggestions_response_of_request(self, request, chatkey):
         before_datetime = self._get_time()
