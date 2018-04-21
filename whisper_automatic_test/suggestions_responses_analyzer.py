@@ -2,6 +2,9 @@ from whisper_automatic_test.exceptions.no_requests_exception import NoRequestsEx
 from whisper_automatic_test.exceptions.no_suggestions_responses_exception import NoSuggestionsResponsesException
 from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception \
     import NoSuggestionsResponsesForEveryRequestsException
+from whisper_automatic_test.utility import raise_if_there_is_no_request_in_scenarios, \
+    raise_if_there_is_no_suggestions_responses, raise_if_there_is_not_a_suggestions_response_for_every_request, \
+    get_requests
 
 
 def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
@@ -69,13 +72,6 @@ def analyse_notlink_with_request_data(request, current_suggestions):
     return 0 == len(forbidden_suggested_links)
 
 
-def get_requests(scenarios):
-    requests = []
-    for scenario in scenarios:
-        requests += scenario.get_requests()
-    return requests
-
-
 def analyze_scenario(scenario, suggestions_responses_for_current_scenario):
     analysis = []
     previous_suggestions = []
@@ -96,12 +92,15 @@ def analyze_scenario(scenario, suggestions_responses_for_current_scenario):
 
 
 class SuggestionsResponsesAnalyzer:
-    def __init__(self, scenarios, suggestions_responses):
+    def __init__(self, scenarios, suggestions_responses_for_each_scenario):
         self._scenarios = scenarios
-        self._suggestions_responses_for_each_scenario = suggestions_responses
-        self.raise_if_there_is_no_request_in_scenarios()
-        self.raise_if_there_is_no_suggestions_responses()
-        self.raise_if_there_is_not_a_suggestions_response_for_every_request()
+        self._suggestions_responses_for_each_scenario = suggestions_responses_for_each_scenario
+        raise_if_there_is_no_request_in_scenarios(scenarios)
+        raise_if_there_is_no_suggestions_responses(suggestions_responses_for_each_scenario)
+        raise_if_there_is_not_a_suggestions_response_for_every_request(
+            scenarios,
+            suggestions_responses_for_each_scenario
+        )
 
     def raise_if_there_is_no_request_in_scenarios(self):
         if not get_requests(self._scenarios):

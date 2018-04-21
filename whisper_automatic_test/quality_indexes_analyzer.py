@@ -14,6 +14,8 @@ class QualityIndexesAnalyzer:
             self._metrics_analyzer.calculate_total_number_of_suggestions_updates() -
             self._metrics_analyzer.calculate_number_of_unwanted_suggestions_updates()
         )
+        if 0 == number_of_wanted_suggestions_updates:
+            return float('-inf')
         return (
                 self._metrics_analyzer.calculate_number_of_selected_suggestions() /
                 number_of_wanted_suggestions_updates

@@ -1,44 +1,25 @@
 import math
 from datetime import timedelta
 
-from whisper_automatic_test.exceptions.invalid_timestamp_exception import InvalidTimestampException
-from whisper_automatic_test.exceptions.no_requests_exception import NoRequestsException
-from whisper_automatic_test.exceptions.no_suggestions_responses_exception import NoSuggestionsResponsesException
-from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception \
-    import NoSuggestionsResponsesForEveryRequestsException
-from whisper_automatic_test.suggestions_responses_analyzer import get_selected_suggestions
+from whisper_automatic_test.suggestions_responses_analyzer import get_selected_suggestions, get_requests
+from whisper_automatic_test.utility import raise_if_there_is_no_request_in_scenarios, \
+    raise_if_there_is_no_suggestions_responses, raise_if_there_is_not_a_suggestions_response_for_every_request, \
+    raise_if_there_is_an_invalid_timestamp
 
 
 class MetricsAnalyzer:
-    def __init__(self, scenarios, suggestions_responses):
-        self._requests = []
-        for scenario in scenarios:
-            self._requests += scenario.get_requests()
-        self._suggestions_responses = suggestions_responses
-        self.raise_if_there_is_no_request_in_scenarios()
-        self.raise_if_there_is_no_suggestions_responses()
-        self.raise_if_there_is_an_invalid_timestamp()
-        self.raise_if_there_is_not_a_suggestions_response_for_every_request()
-
-    def raise_if_there_is_no_request_in_scenarios(self):
-        if not self._requests:
-            raise NoRequestsException('No requests')
-
-    def raise_if_there_is_no_suggestions_responses(self):
-        if not self._suggestions_responses:
-            raise NoSuggestionsResponsesException('No suggestions responses to analyze')
-
-    def raise_if_there_is_an_invalid_timestamp(self):
-        for suggestions_response in self._suggestions_responses:
-            is_valid_timestamp = suggestions_response.get_response_time_duration() >= timedelta(seconds=0)
-            if not is_valid_timestamp:
-                raise InvalidTimestampException(
-                    'Received timestamp of response should not be smaller than sent timestamp')
-
-    def raise_if_there_is_not_a_suggestions_response_for_every_request(self):
-        if len(self._requests) != len(self._suggestions_responses):
-            raise NoSuggestionsResponsesForEveryRequestsException(
-                'There is not a suggestions response for every request')
+    def __init__(self, scenarios, suggestions_responses_for_each_scenario):
+        self._requests = get_requests(scenarios)
+        self._suggestions_responses = []
+        for suggestions_responses_for_a_scenario in suggestions_responses_for_each_scenario:
+            self._suggestions_responses += suggestions_responses_for_a_scenario
+        raise_if_there_is_no_request_in_scenarios(scenarios)
+        raise_if_there_is_no_suggestions_responses(suggestions_responses_for_each_scenario)
+        raise_if_there_is_not_a_suggestions_response_for_every_request(
+            scenarios,
+            suggestions_responses_for_each_scenario
+        )
+        raise_if_there_is_an_invalid_timestamp(suggestions_responses_for_each_scenario)
 
     def calculate_average_system_response_time(self):
         sum_of_system_response_time = timedelta(seconds=0)

@@ -29,55 +29,67 @@ class TestMetricsAnalyzer(unittest.TestCase):
         self._suggestions_3_questions = whisper_response_to_suggestions(
             get_suggestions(EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH)
         )
-        suggestions_responses = [
-            SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=49)),
-            SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=49)),
-            SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=54)),
-            SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=48)),
-            SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=48)),
-            SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=48)),
-            SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=48)),
+        suggestions_responses_for_each_scenario = [
+            [
+                SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=49)),
+                SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=49))
+            ],
+            [
+                SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=54)),
+                SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=48)),
+                SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=48)),
+                SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=48)),
+                SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=48))
+            ]
         ]
         self._scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
-        self._metrics_analyzer = MetricsAnalyzer(self._scenarios, suggestions_responses)
-        empty_suggestions_suggestions_responses = [
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0))
+        self._metrics_analyzer = MetricsAnalyzer(self._scenarios, suggestions_responses_for_each_scenario)
+        empty_suggestions_suggestions_responses_for_each_scenario = [
+            [
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=0))
+            ],
+            [
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=0))
+            ]
         ]
         self._no_suggestions_responses_metrics_analyzer = \
-            MetricsAnalyzer(self._scenarios, empty_suggestions_suggestions_responses)
+            MetricsAnalyzer(self._scenarios, empty_suggestions_suggestions_responses_for_each_scenario)
         self._immediate_response_metrics_analyzer = \
-            MetricsAnalyzer(self._scenarios, empty_suggestions_suggestions_responses)
+            MetricsAnalyzer(self._scenarios, empty_suggestions_suggestions_responses_for_each_scenario)
 
     def test_constructor_with_no_request_in_scenarios(self):
         with self.assertRaises(NoRequestsException):
-            MetricsAnalyzer([Scenario([])], [SuggestionsResponse([], timedelta(seconds=10))])
+            MetricsAnalyzer([Scenario([])], [[SuggestionsResponse([], timedelta(seconds=10))]])
 
     def test_constructor_with_no_suggestions_responses(self):
         with self.assertRaises(NoSuggestionsResponsesException):
             MetricsAnalyzer(self._scenarios, [])
 
     def test_constructor_with_invalid_response_timestamp(self):
-        invalid_timestamp_suggestions_responses = [
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=-666)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0)),
-            SuggestionsResponse([], timedelta(seconds=0))
+        invalid_timestamp_suggestions_responses_for_each_scenario = [
+            [
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=0))
+            ],
+            [
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=-666)),
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=0)),
+                SuggestionsResponse([], timedelta(seconds=0))
+            ]
         ]
         with self.assertRaises(InvalidTimestampException):
-            MetricsAnalyzer(self._scenarios, invalid_timestamp_suggestions_responses)
+            MetricsAnalyzer(self._scenarios, invalid_timestamp_suggestions_responses_for_each_scenario)
 
     def test_constructor_with_no_suggestions_response_for_every_request(self):
         with self.assertRaises(NoSuggestionsResponsesForEveryRequestsException):
-            MetricsAnalyzer(self._scenarios, [SuggestionsResponse([], timedelta(seconds=10))])
+            MetricsAnalyzer(self._scenarios, [[SuggestionsResponse([], timedelta(seconds=10))]])
 
     def test_average_system_response_time(self):
         actual = self._metrics_analyzer.calculate_average_system_response_time()
@@ -136,16 +148,20 @@ class TestMetricsAnalyzer(unittest.TestCase):
         self.assertEquals(0, self._no_suggestions_responses_metrics_analyzer.calculate_number_of_suggested_questions())
 
     def test_number_of_suggested_questions_when_not_all_questions_updated(self):
-        suggestions_responses = [
-            SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=49)),
-            SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=49)),
-            SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=54)),
-            SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=48)),
-            SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=48)),
-            SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=48)),
-            SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=48)),
+        suggestions_responses_for_each_scenario = [
+            [
+                SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=49)),
+                SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=49))
+            ],
+            [
+                SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=54)),
+                SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=48)),
+                SuggestionsResponse(self._suggestions_3_links, timedelta(seconds=48)),
+                SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=48)),
+                SuggestionsResponse(self._suggestions_3_questions, timedelta(seconds=48))
+            ]
         ]
-        metrics_analyzer = MetricsAnalyzer(self._scenarios, suggestions_responses)
+        metrics_analyzer = MetricsAnalyzer(self._scenarios, suggestions_responses_for_each_scenario)
         self.assertEquals(6, metrics_analyzer.calculate_number_of_suggested_questions())
 
     def test_number_of_suggested_links(self):
