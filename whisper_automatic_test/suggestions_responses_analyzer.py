@@ -2,6 +2,9 @@ from whisper_automatic_test.exceptions.no_requests_exception import NoRequestsEx
 from whisper_automatic_test.exceptions.no_suggestions_responses_exception import NoSuggestionsResponsesException
 from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception \
     import NoSuggestionsResponsesForEveryRequestsException
+from whisper_automatic_test.utility import raise_if_there_is_no_request_in_scenarios, \
+    raise_if_there_is_no_suggestions_responses, raise_if_there_is_not_a_suggestions_response_for_every_request, \
+    get_requests
 
 
 def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
@@ -69,57 +72,70 @@ def analyse_notlink_with_request_data(request, current_suggestions):
     return 0 == len(forbidden_suggested_links)
 
 
+def analyze_scenario(scenario, suggestions_responses_for_current_scenario):
+    analysis = []
+    previous_suggestions = []
+    for i, request in enumerate(scenario.get_requests()):
+        suggestions_reponse_of_request = suggestions_responses_for_current_scenario[i]
+        suggestions_for_request = suggestions_reponse_of_request.get_suggestions()
+        is_success = analyse_same(request, suggestions_for_request, previous_suggestions)
+        is_success |= analyse_link_or_question_without_request_data(request, suggestions_for_request)
+        is_success |= analyse_notlink_with_request_data(request, suggestions_for_request)
+        if is_success:
+            analysis.append('success')
+        else:
+            selected_suggestion_position = analyse_link_or_question_with_request_data(request, suggestions_for_request)
+            analysis.append('success(' + selected_suggestion_position + ')') if selected_suggestion_position \
+                else analysis.append('fail')
+        previous_suggestions = suggestions_for_request
+    return analysis
+
+
 class SuggestionsResponsesAnalyzer:
-    def __init__(self, scenarios, suggestions_responses):
+    def __init__(self, scenarios, suggestions_responses_for_each_scenario):
         self._scenarios = scenarios
-        self._requests = []
-        for scenario in scenarios:
-            self._requests += scenario.get_requests()
-        self._suggestions_responses = suggestions_responses
-        self.raise_if_there_is_no_request_in_scenarios()
-        self.raise_if_there_is_no_suggestions_responses()
-        self.raise_if_there_is_not_a_suggestions_response_for_every_request()
+        self._suggestions_responses_for_each_scenario = suggestions_responses_for_each_scenario
+        raise_if_there_is_no_request_in_scenarios(scenarios)
+        raise_if_there_is_no_suggestions_responses(suggestions_responses_for_each_scenario)
+        raise_if_there_is_not_a_suggestions_response_for_every_request(
+            scenarios,
+            suggestions_responses_for_each_scenario
+        )
 
     def raise_if_there_is_no_request_in_scenarios(self):
-        if not self._requests:
+        if not get_requests(self._scenarios):
             raise NoRequestsException('No requests')
 
     def raise_if_there_is_no_suggestions_responses(self):
-        if not self._suggestions_responses:
+        if not self._suggestions_responses_for_each_scenario:
             raise NoSuggestionsResponsesException('No suggestions responses to analyze')
 
     def raise_if_there_is_not_a_suggestions_response_for_every_request(self):
-        if len(self._requests) != len(self._suggestions_responses):
-            raise NoSuggestionsResponsesForEveryRequestsException(
-                'There is not a suggestions response for every request')
+        no_suggestions_responses_for_every_request_exception = NoSuggestionsResponsesForEveryRequestsException(
+            'There is not a suggestions response for every request')
+        if len(self._scenarios) != len(self._suggestions_responses_for_each_scenario):
+            raise no_suggestions_responses_for_every_request_exception
+        for i, scenario in enumerate(self._scenarios):
+            suggestions_responses_for_scenario = self._suggestions_responses_for_each_scenario[i]
+            if len(scenario.get_requests()) != len(suggestions_responses_for_scenario):
+                raise no_suggestions_responses_for_every_request_exception
 
-    def analyze(self):
+    def analyze_scenarios(self):
         analysis = []
-        previous_suggestions = []
-        for i, request in enumerate(self._requests):
-            current_suggestions = self._suggestions_responses[i].get_suggestions()
-            is_success = analyse_same(request, current_suggestions, previous_suggestions)
-            is_success |= analyse_link_or_question_without_request_data(request, current_suggestions)
-            is_success |= analyse_notlink_with_request_data(request, current_suggestions)
-            if is_success:
-                analysis.append('success')
-            else:
-                selected_suggestion_position = analyse_link_or_question_with_request_data(request, current_suggestions)
-                analysis.append('success(' + selected_suggestion_position + ')') if selected_suggestion_position \
-                    else analysis.append('fail')
-            previous_suggestions = current_suggestions
+        for i, scenario in enumerate(self._scenarios):
+            suggestions_responses_for_current_scenario = self._suggestions_responses_for_each_scenario[i]
+            for scenario_analysis in analyze_scenario(scenario, suggestions_responses_for_current_scenario):
+                analysis.append(scenario_analysis)
         return analysis
 
     def analyze_to_string(self):
-        analysis = self.analyze()
-        number_of_successful_analysis = 0
-        for single_analysis in analysis:
-            if 'success' in single_analysis:
-                number_of_successful_analysis += 1
+        analysis = self.analyze_scenarios()
+        number_of_successful_analysis = sum(['success' in single_analysis for single_analysis in analysis])
         analysis_position = 0
         analysis_string = 'Scenario,Person,Message,Success condition,Result,System response time\n'
         for i, scenario in enumerate(self._scenarios):
-            for request in scenario.get_requests():
+            suggestions_responses_scenario = self._suggestions_responses_for_each_scenario[i]
+            for j, request in enumerate(scenario.get_requests()):
                 scenario_id = str(i + 1)
                 elements = [
                     scenario_id,
@@ -127,10 +143,10 @@ class SuggestionsResponsesAnalyzer:
                     request.get_message(),
                     request.get_success_condition(),
                     analysis[analysis_position],
-                    str(self._suggestions_responses[analysis_position].get_response_time_duration())
+                    str(suggestions_responses_scenario[j].get_response_time_duration())
                 ]
                 analysis_string += ','.join(elements) + '\n'
                 analysis_position += 1
         analysis_string += '\n' + str(number_of_successful_analysis) + ' of ' \
-                           + str(len(self._requests)) + ' tests passed'
+                           + str(len(get_requests(self._scenarios))) + ' tests passed'
         return analysis_string

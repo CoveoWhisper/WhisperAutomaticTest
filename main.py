@@ -34,8 +34,6 @@ def main():
     print_metrics(metrics_analyzer)
     print_quality_indexes(quality_indexes_analyzer)
 
-    pass
-
 
 def get_time():
     return datetime.datetime.utcnow()

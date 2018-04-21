@@ -45,11 +45,17 @@ class TestScenariosRunner(unittest.TestCase):
         self._scenario_runner = ScenariosRunner(self._mock_get_suggestions, self._mock_get_time)
 
     def test_run_scenarios(self):
-        suggestions_responses = self._scenario_runner.run(self._scenarios)
-        self.assertEquals(3, len(suggestions_responses))
-        suggestions_reponse_a = suggestions_responses[0]
-        suggestions_reponse_b = suggestions_responses[1]
-        suggestions_reponse_c = suggestions_responses[2]
+        suggestions_responses_of_each_scenario = self._scenario_runner.run(self._scenarios)
+        self.assertEquals(2, len(suggestions_responses_of_each_scenario))
+
+        suggestions_responses_of_scenario_a = suggestions_responses_of_each_scenario[0]
+        suggestions_responses_of_scenario_b = suggestions_responses_of_each_scenario[1]
+        self.assertEquals(2, len(suggestions_responses_of_scenario_a))
+        self.assertEquals(1, len(suggestions_responses_of_scenario_b))
+
+        suggestions_reponse_a = suggestions_responses_of_scenario_a[0]
+        suggestions_reponse_b = suggestions_responses_of_scenario_a[1]
+        suggestions_reponse_c = suggestions_responses_of_scenario_b[0]
 
         suggestions_a = suggestions_reponse_a.get_suggestions()
         self.assertEquals(2, len(suggestions_a))
