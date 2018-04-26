@@ -6,6 +6,7 @@ from whisper_automatic_test.quality_indexes_analyzer import QualityIndexesAnalyz
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.scenarios_runner import ScenariosRunner
 from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
+from whisper_automatic_test.utility import get_requests, get_flat_suggestions_responses
 from whisper_automatic_test.whisper_api_adapter import get_suggestions_from_whisper_api, get_suggestions_endpoint
 
 
@@ -13,6 +14,7 @@ def main():
     program_arguments = get_program_arguments()
     scenarios_csv_file_path = program_arguments.scenarios_csv_file_path
     whisper_api_base_url = program_arguments.whisper_api_base_url
+    is_verbose = program_arguments.verbose
 
     scenarios = get_scenarios_from_csv_file(scenarios_csv_file_path)
 
@@ -31,6 +33,8 @@ def main():
     print_suggestions_responses_analysis(suggestions_responses_analyzer)
     print_metrics(metrics_analyzer)
     print_quality_indexes(quality_indexes_analyzer)
+    if is_verbose:
+        print_failing_requests_information(suggestions_responses_analyzer, scenarios, suggestions_responses)
 
 
 def get_program_arguments():
@@ -48,6 +52,11 @@ def get_program_arguments():
         required=True,
         help='Whisper API base URL',
         metavar='URL'
+    )
+    arguments_parser.add_argument(
+        '-v', '--verbose',
+        action='store_true',
+        help='Print more information',
     )
     return arguments_parser.parse_args()
 
@@ -120,6 +129,42 @@ def print_quality_indexes(quality_indexes_analyzer):
 
     print('Average quality index: ', average_quality_index)
     print('Simple quality index (average of pertinence and speed indexes): ', simple_quality_index)
+    print()
+
+
+def print_failing_requests_information(suggestions_responses_analyzer, scenarios, suggestions_responses):
+    failing_requests = get_failing_requests(scenarios, suggestions_responses, suggestions_responses_analyzer)
+    failing_requests_information_messages = [
+        'Request #{}. Expected: {}. Actual suggestions: {}.'.format(
+            failing_request['index'],
+            failing_request['expected'],
+            failing_request['suggestions']
+        )
+        for failing_request in failing_requests
+    ]
+    print('Failing requests')
+    print('=' * 80)
+    print('\n'.join(failing_requests_information_messages))
+    print()
+
+
+def get_failing_requests(scenarios, suggestions_responses, suggestions_responses_analyzer):
+    requests = get_requests(scenarios)
+    flat_suggestions_responses = get_flat_suggestions_responses(suggestions_responses)
+    requests_analysis = suggestions_responses_analyzer.analyze_scenarios()
+    failing_requests = [
+        {
+            'index': i,
+            'expected': '{{success_condition: {}, data: {}}}'.format(
+                requests[i].get_success_condition(),
+                requests[i].get_data()
+            ),
+            'suggestions': flat_suggestions_responses[i].get_suggestions()
+        }
+        for i, request_analysis in enumerate(requests_analysis)
+        if request_analysis.startswith('fail')
+    ]
+    return failing_requests
 
 
 if __name__ == "__main__":
