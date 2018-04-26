@@ -42,3 +42,7 @@ def get_requests(scenarios):
     for scenario in scenarios:
         requests += scenario.get_requests()
     return requests
+
+
+def get_flat_suggestions_responses(suggestions_responses):
+    return sum(suggestions_responses, [])
