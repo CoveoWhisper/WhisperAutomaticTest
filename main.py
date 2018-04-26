@@ -1,5 +1,5 @@
+import argparse
 import datetime
-import sys
 
 from whisper_automatic_test.metrics_analyzer import MetricsAnalyzer
 from whisper_automatic_test.quality_indexes_analyzer import QualityIndexesAnalyzer
@@ -10,13 +10,11 @@ from whisper_automatic_test.whisper_api_adapter import get_suggestions_from_whis
 
 
 def main():
-    arguments = sys.argv
-    assert 2 <= len(arguments) and 'Missing argument: scenario CSV file path.'
-    assert 3 == len(arguments) and 'Missing argument: Whisper API URL.'
-    csv_scenarios_file_path = arguments[1]
-    whisper_api_base_url = arguments[2]
+    program_arguments = get_program_arguments()
+    scenarios_csv_file_path = program_arguments.scenarios_csv_file_path
+    whisper_api_base_url = program_arguments.whisper_api_base_url
 
-    scenarios = get_scenarios_from_csv_file(csv_scenarios_file_path)
+    scenarios = get_scenarios_from_csv_file(scenarios_csv_file_path)
 
     def get_suggestions(request, chatkey):
         return get_suggestions_from_whisper_api(
@@ -33,6 +31,25 @@ def main():
     print_suggestions_responses_analysis(suggestions_responses_analyzer)
     print_metrics(metrics_analyzer)
     print_quality_indexes(quality_indexes_analyzer)
+
+
+def get_program_arguments():
+    arguments_parser = argparse.ArgumentParser(description='Whisper automatic test runner.')
+    arguments_parser.add_argument(
+        '-s', '--scenarios-csv-file-path',
+        action='store',
+        required=True,
+        help='Path to the scenarios CSV file',
+        metavar='FILE'
+    )
+    arguments_parser.add_argument(
+        '-w', '--whisper-api-base-url',
+        action='store',
+        required=True,
+        help='Whisper API base URL',
+        metavar='URL'
+    )
+    return arguments_parser.parse_args()
 
 
 def get_time():
