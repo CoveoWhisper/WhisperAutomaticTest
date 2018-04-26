@@ -147,39 +147,39 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             self._suggestions_responses_for_each_scenario
         )
         expected_analysis_string = \
-            ('Scenario,Person,Message,Success condition,Result,System response time\n'
-             '1,agent,I love mushrooms,same,fail,0:00:49\n'
-             '2,asker,I have problems calling the rest API,link,success(1-1),0:00:49\n'
-             '2,asker,I have problems calling the rest API,link,success(1-1),0:00:49\n'
-             '2,agent,I love mushrooms,same,success,0:00:49\n'
-             '2,asker,I have problems calling the rest API,link,fail,0:00:54\n'
-             '2,asker,I have problems calling the rest API,link,fail,0:00:48\n'
-             '2,asker,Should fail notlink success condition,notlink,fail,0:00:48\n'
-             '2,asker,Should fail multiple unwanted links,notlink,fail,0:00:48\n'
-             '2,agent,Should succeed notlink success condition,notlink,success,0:00:48\n'
-             '2,agent,World,link,fail,0:00:48\n'
-             '2,agent,World,link,fail,0:00:48\n'
-             '3,asker,Hello,question,success(1-2),0:00:48\n'
-             '3,asker,Hello,question,success(1-2),0:00:48\n'
-             '3,asker,Hello,question,fail,0:00:48\n'
-             '3,asker,Hello,question,fail,0:00:48\n'
-             '3,asker,Hello,question,fail,0:00:48\n'
-             '3,asker,Hello,question,fail,0:00:48\n'
-             '3,asker,Hello,question,success,0:00:48\n'
-             '3,asker,Hello,question,fail,0:00:48\n'
-             '3,asker,Hello,link,success,0:00:48\n'
-             '3,asker,Hello,link,fail,0:00:48\n'
+            ('Request,Scenario,Person,Message,Success condition,Result,System response time\n'
+             '0,1,agent,I love mushrooms,same,fail,0:00:49\n'
+             '1,2,asker,I have problems calling the rest API,link,success(1-1),0:00:49\n'
+             '2,2,asker,I have problems calling the rest API,link,success(1-1),0:00:49\n'
+             '3,2,agent,I love mushrooms,same,success,0:00:49\n'
+             '4,2,asker,I have problems calling the rest API,link,fail,0:00:54\n'
+             '5,2,asker,I have problems calling the rest API,link,fail,0:00:48\n'
+             '6,2,asker,Should fail notlink success condition,notlink,fail,0:00:48\n'
+             '7,2,asker,Should fail multiple unwanted links,notlink,fail,0:00:48\n'
+             '8,2,agent,Should succeed notlink success condition,notlink,success,0:00:48\n'
+             '9,2,agent,World,link,fail,0:00:48\n'
+             '10,2,agent,World,link,fail,0:00:48\n'
+             '11,3,asker,Hello,question,success(1-2),0:00:48\n'
+             '12,3,asker,Hello,question,success(1-2),0:00:48\n'
+             '13,3,asker,Hello,question,fail,0:00:48\n'
+             '14,3,asker,Hello,question,fail,0:00:48\n'
+             '15,3,asker,Hello,question,fail,0:00:48\n'
+             '16,3,asker,Hello,question,fail,0:00:48\n'
+             '17,3,asker,Hello,question,success,0:00:48\n'
+             '18,3,asker,Hello,question,fail,0:00:48\n'
+             '19,3,asker,Hello,link,success,0:00:48\n'
+             '20,3,asker,Hello,link,fail,0:00:48\n'
              '\n8 of 21 tests passed')
         analysis_string = suggestions_responses_analyzer.analyze_to_string()
         self.assertEquals(expected_analysis_string, analysis_string)
 
     def test_same_at_start_of_scenario(self):
         expected_analysis_string = \
-            ('Scenario,Person,Message,Success condition,Result,System response time\n'
-             '1,agent,link required, should pass,link,success(1-1),0:00:49\n'
-             '2,asker,same required, expects empty because start of scenario, should pass,same,success,0:00:49\n'
-             '2,agent,link required, should pass,link,success(1-1),0:00:49\n'
-             '3,asker,same required, expects empty because start of scenario, should fail,same,fail,0:00:49\n'
+            ('Request,Scenario,Person,Message,Success condition,Result,System response time\n'
+             '0,1,agent,link required, should pass,link,success(1-1),0:00:49\n'
+             '1,2,asker,same required, expects empty because start of scenario, should pass,same,success,0:00:49\n'
+             '2,2,agent,link required, should pass,link,success(1-1),0:00:49\n'
+             '3,3,asker,same required, expects empty because start of scenario, should fail,same,fail,0:00:49\n'
              '\n3 of 4 tests passed')
         suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(
             self._scenarios_starting_with_same,
