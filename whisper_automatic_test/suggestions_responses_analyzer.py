@@ -132,12 +132,13 @@ class SuggestionsResponsesAnalyzer:
         analysis = self.analyze_scenarios()
         number_of_successful_analysis = sum(['success' in single_analysis for single_analysis in analysis])
         analysis_position = 0
-        analysis_string = 'Scenario,Person,Message,Success condition,Result,System response time\n'
+        analysis_string = 'Request,Scenario,Person,Message,Success condition,Result,System response time\n'
         for i, scenario in enumerate(self._scenarios):
             suggestions_responses_scenario = self._suggestions_responses_for_each_scenario[i]
             for j, request in enumerate(scenario.get_requests()):
                 scenario_id = str(i + 1)
                 elements = [
+                    str(analysis_position),
                     scenario_id,
                     request.get_person(),
                     request.get_message(),
