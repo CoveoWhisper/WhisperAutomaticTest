@@ -1,34 +1,13 @@
 import unittest
-from whisper_automatic_test.whisper_api_adapter import get_json_for_whisper_api, get_suggestions_endpoint
-from whisper_automatic_test.whisper_api_adapter import whisper_response_to_suggestions
+from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import get_suggestions_endpoint, \
+    get_json_for_whisper_api
+from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import whisper_response_to_suggestions
 from whisper_automatic_test.request import Request
 
 EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response_3_links.json'
 
 
 class TestWhisperApiAdapter(unittest.TestCase):
-    def test_request_to_data_type_asker(self):
-        request = Request('asker', 'Hello world', 'To ignore', 'To ignore')
-        actual_json = get_json_for_whisper_api(request, 'myChatKey')
-        expected_json = {
-            'chatkey': 'myChatKey',
-            'querry': 'Hello world',
-            'query': 'Hello world',
-            'type': 0
-        }
-        self.assertEquals(expected_json, actual_json)
-
-    def test_request_to_data_type_agent(self):
-        request = Request('agent', 'Hello world', 'To ignore', 'To ignore')
-        actual_json = get_json_for_whisper_api(request, 'myChatKey')
-        expected_json = {
-            'chatkey': 'myChatKey',
-            'querry': 'Hello world',
-            'query': 'Hello world',
-            'type': 1
-        }
-        self.assertEquals(expected_json, actual_json)
-
     def test_convert_whisper_response_to_suggestions(self):
         with open(EXAMPLE_WHISPER_RESPONSE_FILE_PATH) as file:
             example_whisper_response = file.read()
