@@ -2,31 +2,20 @@ import json
 import requests
 
 from whisper_automatic_test.suggestion import Suggestion
+from whisper_automatic_test.whisper_api_adapter.json_for_whisper_api import WHISPER_API_VERSION_TO_GET_JSON_FUNCTION
 
-CHATKEY_IDENTIFIER = 'chatkey'
-QUERY_IDENTIFIER = 'query'
-QUERY_IDENTIFIER_LEGACY_TYPO = 'querry'  # Required for retrocompatibility with previous API contract
-MESSAGE_TYPE_IDENTIFIER = 'type'
-PERSON_TO_JSON_CODE = {
-    'asker': 0,
-    'agent': 1
-}
 SUGGESTIONS_ENDPOINT_SUFFIX = 'whisper/suggestions'
 
 
-def get_json_for_whisper_api(request, chat_key):
-    return {
-        CHATKEY_IDENTIFIER: chat_key,
-        QUERY_IDENTIFIER: request.get_message(),
-        QUERY_IDENTIFIER_LEGACY_TYPO: request.get_message(),
-        MESSAGE_TYPE_IDENTIFIER: PERSON_TO_JSON_CODE[request.get_person()]
-    }
+def get_json_for_whisper_api(whisper_api_version, request, chat_key):
+    get_json = WHISPER_API_VERSION_TO_GET_JSON_FUNCTION[whisper_api_version]
+    return get_json(request, chat_key)
 
 
-def get_suggestions_from_whisper_api(whisper_api_suggestions_endpoint, request, chatkey):
+def get_suggestions_from_whisper_api(whisper_api_version, whisper_api_suggestions_endpoint, request, chatkey):
     whisper_response = requests.post(
         whisper_api_suggestions_endpoint,
-        json=get_json_for_whisper_api(request, chatkey)
+        json=get_json_for_whisper_api(whisper_api_version, request, chatkey)
     )
     return whisper_response_to_suggestions(whisper_response.content.decode("utf-8"))
 
