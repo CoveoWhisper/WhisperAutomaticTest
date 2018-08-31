@@ -1,7 +1,7 @@
 import unittest
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 
-SCENARIO_FILE_PATH = 'test/resources/test_scenarios_for_scenario_reader.csv'
+SCENARIO_FILE_PATH = 'test/resources/scenarios_csv/test_scenarios_for_scenario_reader.csv'
 
 
 class TestScenarioReader(unittest.TestCase):

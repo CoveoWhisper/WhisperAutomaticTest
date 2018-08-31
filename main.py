@@ -7,11 +7,13 @@ from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.scenarios_runner import ScenariosRunner
 from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
 from whisper_automatic_test.utility import get_requests, get_flat_suggestions_responses
-from whisper_automatic_test.whisper_api_adapter import get_suggestions_from_whisper_api, get_suggestions_endpoint
+from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import get_suggestions_endpoint
+from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import get_suggestions_from_whisper_api
 
 
 def main():
     program_arguments = get_program_arguments()
+    whisper_api_version = program_arguments.api_version
     scenarios_csv_file_path = program_arguments.scenarios_csv_file_path
     whisper_api_base_url = program_arguments.whisper_api_base_url
     is_verbose = program_arguments.verbose
@@ -20,6 +22,7 @@ def main():
 
     def get_suggestions(request, chatkey):
         return get_suggestions_from_whisper_api(
+            whisper_api_version,
             get_suggestions_endpoint(whisper_api_base_url),
             request,
             chatkey)
@@ -39,6 +42,13 @@ def main():
 
 def get_program_arguments():
     arguments_parser = argparse.ArgumentParser(description='Whisper automatic test runner.')
+    arguments_parser.add_argument(
+        '-A', '--api-version',
+        action='store',
+        required=True,
+        help='API version',
+        metavar='VERSION'
+    )
     arguments_parser.add_argument(
         '-s', '--scenarios-csv-file-path',
         action='store',
