@@ -29,7 +29,7 @@ EXAMPLE_WHISPER_RESPONSE = '''
 
 class TestWhisperApiAdapterV10(unittest.TestCase):
     def test_convert_whisper_response_with_links_to_suggestions(self):
-        suggestions = whisper_response_to_suggestions(EXAMPLE_WHISPER_RESPONSE)
+        suggestions = whisper_response_to_suggestions('10', EXAMPLE_WHISPER_RESPONSE)
         self.assertEquals(4, len(suggestions))
         self.assertEquals('link', suggestions[0].get_type())
         self.assertEquals('link', suggestions[1].get_type())
