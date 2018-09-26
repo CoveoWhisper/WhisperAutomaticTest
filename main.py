@@ -1,6 +1,5 @@
 import argparse
 import datetime
-import sys
 
 from whisper_automatic_test.metrics_analyzer import MetricsAnalyzer
 from whisper_automatic_test.quality_indexes_analyzer import QualityIndexesAnalyzer
@@ -15,25 +14,16 @@ from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import get_s
 
 def main():
     program_arguments = get_program_arguments()
-    expected_whisper_api_version = program_arguments.api_version
     scenarios_csv_file_path = program_arguments.scenarios_csv_file_path
     whisper_api_base_url = program_arguments.whisper_api_base_url
     is_verbose = program_arguments.verbose
-
-    actual_whisper_api_version = get_whisper_api_version(whisper_api_base_url)
-    if expected_whisper_api_version != actual_whisper_api_version:
-        error_message = 'Wrong Whisper API version. Expected: {}. Actual: {}.'.format(
-            expected_whisper_api_version,
-            actual_whisper_api_version
-        )
-        print(error_message, file=sys.stderr)
-        return
+    whisper_api_version = get_whisper_api_version(whisper_api_base_url)
 
     scenarios = get_scenarios_from_csv_file(scenarios_csv_file_path)
 
     def get_suggestions(request, chatkey):
         return get_suggestions_from_whisper_api(
-            actual_whisper_api_version,
+            whisper_api_version,
             get_suggestions_endpoint(whisper_api_base_url),
             request,
             chatkey
@@ -54,13 +44,6 @@ def main():
 
 def get_program_arguments():
     arguments_parser = argparse.ArgumentParser(description='Whisper automatic test runner.')
-    arguments_parser.add_argument(
-        '-A', '--api-version',
-        action='store',
-        required=True,
-        help='API version',
-        metavar='VERSION'
-    )
     arguments_parser.add_argument(
         '-s', '--scenarios-csv-file-path',
         action='store',
