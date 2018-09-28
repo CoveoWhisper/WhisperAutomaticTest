@@ -31,10 +31,13 @@ class QualityIndexesAnalyzer:
         return 1.0 / self._metrics_analyzer.calculate_mean_position_of_selected_suggestions()
 
     def get_intent_accuracy_index(self):
-        return (
-            self._metrics_analyzer.calculate_total_number_of_suggestions_updates() -
-            self._metrics_analyzer.calculate_number_of_unwanted_suggestions_updates()
-        ) / self._metrics_analyzer.calculate_total_number_of_suggestions_updates()
+        total_suggestions_updates = self._metrics_analyzer.calculate_total_number_of_suggestions_updates()
+        if 0 == total_suggestions_updates:
+            return 1.0
+
+        unwanted_suggestions_updates = self._metrics_analyzer.calculate_number_of_unwanted_suggestions_updates()
+        wanted_suggestions_updates = total_suggestions_updates - unwanted_suggestions_updates
+        return wanted_suggestions_updates / total_suggestions_updates
 
     def get_confidence_index(self):
         return self._metrics_analyzer.calculate_mean_confidence_level_of_selected_suggestions()
