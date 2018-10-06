@@ -7,7 +7,9 @@ from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.scenarios_runner import ScenariosRunner
 from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
 from whisper_automatic_test.utility import get_requests, get_flat_suggestions_responses
-from whisper_automatic_test.whisper_api_adapter import get_suggestions_from_whisper_api, get_suggestions_endpoint
+from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import get_suggestions_endpoint, \
+    get_whisper_api_version
+from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import get_suggestions_from_whisper_api
 
 
 def main():
@@ -15,14 +17,17 @@ def main():
     scenarios_csv_file_path = program_arguments.scenarios_csv_file_path
     whisper_api_base_url = program_arguments.whisper_api_base_url
     is_verbose = program_arguments.verbose
+    whisper_api_version = get_whisper_api_version(whisper_api_base_url)
 
     scenarios = get_scenarios_from_csv_file(scenarios_csv_file_path)
 
     def get_suggestions(request, chatkey):
         return get_suggestions_from_whisper_api(
+            whisper_api_version,
             get_suggestions_endpoint(whisper_api_base_url),
             request,
-            chatkey)
+            chatkey
+        )
 
     scenario_runner = ScenariosRunner(get_suggestions, get_time)
     suggestions_responses = scenario_runner.run(scenarios)

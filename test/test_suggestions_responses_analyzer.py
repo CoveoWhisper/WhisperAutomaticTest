@@ -11,12 +11,10 @@ from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.suggestion import Suggestion
 from whisper_automatic_test.suggestions_response import SuggestionsResponse
 from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
-from whisper_automatic_test.whisper_api_adapter import whisper_response_to_suggestions
 
-SCENARIO_FILE_PATH = 'test/resources/test_scenarios_for_suggestions_responses_analyzer.csv'
-SCENARIOS_STARTING_WITH_SAME_FILE_PATH = 'test/resources/test_scenarios_second_scenario_starts_with_same.csv'
-EXAMPLE_WHISPER_RESPONSE_FILE_PATH = 'test/resources/example_whisper_response_3_links.json'
-EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH = 'test/resources/example_whisper_response_3_questions.json'
+SCENARIO_FILE_PATH = 'test/resources/scenarios_csv/test_scenarios_for_suggestions_responses_analyzer.csv'
+SCENARIOS_STARTING_WITH_SAME_FILE_PATH = \
+    'test/resources/scenarios_csv/test_scenarios_second_scenario_starts_with_same.csv'
 
 
 def get_suggestions(file_path):
@@ -29,10 +27,16 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         self._scenarios = get_scenarios_from_csv_file(SCENARIO_FILE_PATH)
         self._scenarios_starting_with_same = get_scenarios_from_csv_file(SCENARIOS_STARTING_WITH_SAME_FILE_PATH)
 
-        suggestions_3_links = whisper_response_to_suggestions(get_suggestions(EXAMPLE_WHISPER_RESPONSE_FILE_PATH))
-        suggestions_3_questions = whisper_response_to_suggestions(
-            get_suggestions(EXAMPLE_WHISPER_RESPONSE_QUESTIONS_FILE_PATH)
-        )
+        suggestions_3_links = [
+            Suggestion('link', 'https://blog.coveo.com/goodbye-gsa-hello-intelligent-search-in-the-cloud/'),
+            Suggestion('link', 'https://coveo.github.io/search-ui/interfaces/isearchendpointoptions.html'),
+            Suggestion('link', 'https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_net_conversion_scripts.htm')
+        ]
+        suggestions_3_questions = [
+            Suggestion('question', 'what is your name?'),
+            Suggestion('question', 'did you try this?'),
+            Suggestion('question', 'hello?')
+        ]
         suggestions_2_last_links = suggestions_3_links[1:]
         self._suggestions_responses_for_each_scenario = [
             [

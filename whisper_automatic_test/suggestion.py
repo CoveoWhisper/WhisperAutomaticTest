@@ -4,7 +4,7 @@ class Suggestion:
 
     def __init__(self, suggestion_type, data):
         self._suggestion_type = suggestion_type
-        self._data = data.lower()
+        self._data = data
 
     def __repr__(self):
         return '({},{})'.format(self._suggestion_type, self._data)
