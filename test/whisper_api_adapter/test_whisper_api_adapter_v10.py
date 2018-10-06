@@ -44,10 +44,10 @@ class TestWhisperApiAdapterV10(unittest.TestCase):
             suggestions[1].get_data()
         )
         self.assertEquals(
-            'what is your name?',
+            'What is your name?',
             suggestions[2].get_data()
         )
         self.assertEquals(
-            'did you try this?',
+            'Did you try this?',
             suggestions[3].get_data()
         )
