@@ -11,7 +11,8 @@ from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.suggestion import Suggestion
 from whisper_automatic_test.suggestions_response import SuggestionsResponse
 from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer, get_selected_suggestion, \
-    analyse_notlink_with_request_data, analyse_same
+    analyse_notlink_with_request_data, analyse_same, analyse_link_or_question_with_request_data, \
+    analyse_link_or_question_without_request_data
 
 SCENARIO_FILE_PATH = 'test/resources/scenarios_csv/test_scenarios_for_suggestions_responses_analyzer.csv'
 SCENARIOS_STARTING_WITH_SAME_FILE_PATH = \
@@ -371,3 +372,98 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             )
         ]
         self.assertFalse(analyse_same(request, current_suggestions, previous_suggestions))
+
+    def test_pass_when_expected_link_and_one_suggestion_contains_the_link(self):
+        request = Request(
+            None,
+            None,
+            "link",
+            "expected_link"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "expected_link"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertTrue(analyse_link_or_question_with_request_data(request, suggestions))
+
+    def test_fail_when_expected_link_and_no_suggestion_contains_the_link(self):
+        request = Request(
+            None,
+            None,
+            "link",
+            "expected_link"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "not_the_expected_link"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertFalse(analyse_link_or_question_with_request_data(request, suggestions))
+
+    def test_fail_when_expected_link_and_no_suggestion_contains_the_link(self):
+        request = Request(
+            None,
+            None,
+            "link",
+            "expected_link"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "not_the_expected_link"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertFalse(analyse_link_or_question_with_request_data(request, suggestions))
+
+    def test_pass_when_expected_question_and_one_suggestion_is_a_question(self):
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "someLink"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertTrue(analyse_link_or_question_without_request_data(request, suggestions))
+
+    def test_fail_when_expected_question_and_no_suggestion_is_a_question(self):
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "someLink"
+            ),
+            Suggestion(
+                "link",
+                "someOtherLink"
+            )
+        ]
+        self.assertFalse(analyse_link_or_question_without_request_data(request, suggestions))
