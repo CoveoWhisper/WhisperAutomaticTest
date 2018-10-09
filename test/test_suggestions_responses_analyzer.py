@@ -10,7 +10,7 @@ from whisper_automatic_test.scenario import Scenario
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.suggestion import Suggestion
 from whisper_automatic_test.suggestions_response import SuggestionsResponse
-from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
+from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer, get_selected_suggestion
 
 SCENARIO_FILE_PATH = 'test/resources/scenarios_csv/test_scenarios_for_suggestions_responses_analyzer.csv'
 SCENARIOS_STARTING_WITH_SAME_FILE_PATH = \
@@ -191,3 +191,55 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         )
         analysis_string = suggestions_responses_analyzer.analyze_to_string()
         self.assertEquals(expected_analysis_string, analysis_string)
+
+    def test_when_found_then_get_selected_suggestion_returns_matching_suggestion(self):
+        suggestions = [
+            Suggestion(
+                "link",
+                "some dummy url"
+            ),
+            Suggestion(
+                "link",
+                "some expected url"
+            ),
+            Suggestion(
+                "link",
+                "another dummy url"
+            )
+        ]
+        data_to_find_in_suggestions = ["some expected url"]
+        actual_selected_suggestion = get_selected_suggestion(
+            suggestions,
+            data_to_find_in_suggestions
+        )
+        self.assertIsNotNone(actual_selected_suggestion)
+        self.assertEquals(2, actual_selected_suggestion[0])
+        self.assertEquals(
+            Suggestion(
+                "link",
+                "some expected url"
+            ),
+            actual_selected_suggestion[1]
+        )
+
+    def test_when_not_found_then_get_selected_suggestion_returns_none(self):
+        suggestions = [
+            Suggestion(
+                "link",
+                "some dummy url"
+            ),
+            Suggestion(
+                "link",
+                "more dummy url"
+            ),
+            Suggestion(
+                "link",
+                "another dummy url"
+            )
+        ]
+        data_to_find_in_suggestions = ["some expected url"]
+        actual_selected_suggestion = get_selected_suggestion(
+            suggestions,
+            data_to_find_in_suggestions
+        )
+        self.assertIsNone(actual_selected_suggestion)
