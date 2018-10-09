@@ -198,51 +198,96 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         suggestions = [
             Suggestion(
                 "link",
-                "some dummy url"
+                "some_dummy_url"
             ),
             Suggestion(
                 "link",
-                "some expected url"
+                "some_expected_url"
             ),
             Suggestion(
                 "link",
-                "another dummy url"
+                "another_dummy_url"
             )
         ]
-        data_to_find_in_suggestions = ["some expected url"]
+        request = Request(
+            None,
+            None,
+            "link",
+            "some_expected_url"
+        )
         actual_selected_suggestion = get_selected_suggestion(
             suggestions,
-            data_to_find_in_suggestions
+            request
         )
         self.assertIsNotNone(actual_selected_suggestion)
         self.assertEquals(2, actual_selected_suggestion[0])
         self.assertEquals(
             Suggestion(
                 "link",
-                "some expected url"
+                "some_expected_url"
             ),
             actual_selected_suggestion[1]
+        )
+
+    def test_when_expected_question_then_get_selected_suggestion_returns_the_first_question(self):
+        suggestions = [
+            Suggestion(
+                "link",
+                "some_dummy_url"
+            ),
+            Suggestion(
+                "question",
+                "some_question_data"
+            ),
+            Suggestion(
+                "link",
+                "another_dummy_url"
+            )
+        ]
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        selected_suggestion = get_selected_suggestion(
+            suggestions,
+            request
+        )
+        self.assertIsNotNone(selected_suggestion)
+        self.assertEquals(2, selected_suggestion[0])
+        self.assertEquals(
+            Suggestion(
+                "question",
+                "some_question_data"
+            ),
+            selected_suggestion[1]
         )
 
     def test_when_not_found_then_get_selected_suggestion_returns_none(self):
         suggestions = [
             Suggestion(
                 "link",
-                "some dummy url"
+                "some_dummy_url"
             ),
             Suggestion(
                 "link",
-                "more dummy url"
+                "more_dummy_url"
             ),
             Suggestion(
                 "link",
-                "another dummy url"
+                "another_dummy_url"
             )
         ]
-        data_to_find_in_suggestions = ["some expected url"]
+        request = Request(
+            None,
+            None,
+            "link",
+            "some_expected_url"
+        )
         actual_selected_suggestion = get_selected_suggestion(
             suggestions,
-            data_to_find_in_suggestions
+            request
         )
         self.assertIsNone(actual_selected_suggestion)
 

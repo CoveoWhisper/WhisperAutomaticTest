@@ -110,7 +110,7 @@ class TestMetricsAnalyzer(unittest.TestCase):
         self.assertEquals(7, self._metrics_analyzer.calculate_messages_number())
 
     def test_average_selected_suggestion_position(self):
-        self.assertEquals(1.5, self._metrics_analyzer.calculate_mean_position_of_selected_suggestions())
+        self.assertEquals(1, self._metrics_analyzer.calculate_mean_position_of_selected_suggestions())
 
     def test_average_selected_suggestion_position_when_no_suggestion_is_selected(self):
         self.assertEquals(
