@@ -10,7 +10,8 @@ from whisper_automatic_test.scenario import Scenario
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.suggestion import Suggestion
 from whisper_automatic_test.suggestions_response import SuggestionsResponse
-from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer, get_selected_suggestion
+from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer, get_selected_suggestion, \
+    analyse_notlink_with_request_data, analyse_same
 
 SCENARIO_FILE_PATH = 'test/resources/scenarios_csv/test_scenarios_for_suggestions_responses_analyzer.csv'
 SCENARIOS_STARTING_WITH_SAME_FILE_PATH = \
@@ -243,3 +244,130 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             data_to_find_in_suggestions
         )
         self.assertIsNone(actual_selected_suggestion)
+
+    def test_pass_when_expected_notlink_and_suggestion_does_not_contain_the_forbidden_link(self):
+        request = Request(
+            None,
+            None,
+            "notlink",
+            "url_not_in_the_suggestions"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "link",
+                "urlB"
+            ),
+            Suggestion(
+                "link",
+                "urlC"
+            )
+        ]
+        self.assertTrue(analyse_notlink_with_request_data(request, suggestions))
+
+    def test_fail_when_expected_notlink_and_suggestion_contains_the_forbidden_link(self):
+        request = Request(
+            None,
+            None,
+            "notlink",
+            "forbidden_url"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "link",
+                "forbidden_url"
+            ),
+            Suggestion(
+                "link",
+                "urlC"
+            )
+        ]
+        self.assertFalse(analyse_notlink_with_request_data(request, suggestions))
+
+    def test_fail_when_expected_notlink_and_suggestion_contains_even_just_one_forbidden_link(self):
+        request = Request(
+            None,
+            None,
+            "notlink",
+            "forbidden_urlA forbidden_urlB"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "link",
+                "forbidden_urlB"
+            ),
+            Suggestion(
+                "link",
+                "urlC"
+            )
+        ]
+        self.assertFalse(analyse_notlink_with_request_data(request, suggestions))
+
+    def test_pass_when_expected_same_and_suggestions_are_the_same(self):
+        request = Request(
+            None,
+            None,
+            "same",
+            ""
+        )
+        previous_suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        current_suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertTrue(analyse_same(request, current_suggestions, previous_suggestions))
+
+    def test_fail_when_expected_same_and_suggestions_are_different(self):
+        request = Request(
+            None,
+            None,
+            "same",
+            ""
+        )
+        previous_suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        current_suggestions = [
+            Suggestion(
+                "link",
+                "different_url"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertFalse(analyse_same(request, current_suggestions, previous_suggestions))
