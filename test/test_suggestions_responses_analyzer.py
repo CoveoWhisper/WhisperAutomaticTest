@@ -33,9 +33,9 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             Suggestion('link', 'https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_net_conversion_scripts.htm')
         ]
         suggestions_3_questions = [
-            Suggestion('question', 'what is your name?'),
-            Suggestion('question', 'did you try this?'),
-            Suggestion('question', 'hello?')
+            Suggestion('question', 'What is your name?'),
+            Suggestion('question', 'Did you try this?'),
+            Suggestion('question', 'Hello?')
         ]
         suggestions_2_last_links = suggestions_3_links[1:]
         self._suggestions_responses_for_each_scenario = [

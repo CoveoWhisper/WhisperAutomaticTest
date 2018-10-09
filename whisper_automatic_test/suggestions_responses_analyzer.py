@@ -18,9 +18,11 @@ def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
 def get_selected_suggestions(suggestions_responses, requests):
     selected_suggestions = []
     for i, suggestions_response in enumerate(suggestions_responses):
+        expected_data_in_suggestions = requests[i].get_data()
+        suggestions = suggestions_response.get_suggestions()
         selected_suggestion = get_selected_suggestion(
-            suggestions_response.get_suggestions(),
-            requests[i].get_data())
+            suggestions,
+            expected_data_in_suggestions)
         if selected_suggestion:
             selected_suggestions.append(selected_suggestion)
     return selected_suggestions
