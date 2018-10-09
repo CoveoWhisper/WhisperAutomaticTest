@@ -8,9 +8,9 @@ from whisper_automatic_test.utility import raise_if_there_is_no_request_in_scena
 
 
 def get_first_question(suggestions):
-    for i, suggestion in enumerate(suggestions):
+    for suggestion in suggestions:
         if suggestion.get_type() == "question":
-            return [i + 1, suggestion]
+            return [1, suggestion]
     return None
 
 

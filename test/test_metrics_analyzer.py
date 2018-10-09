@@ -8,6 +8,7 @@ from whisper_automatic_test.exceptions.no_suggestions_responses_exception import
 from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception import \
     NoSuggestionsResponsesForEveryRequestsException
 from whisper_automatic_test.metrics_analyzer import MetricsAnalyzer
+from whisper_automatic_test.request import Request
 from whisper_automatic_test.scenario import Scenario
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.suggestion import Suggestion
@@ -117,6 +118,31 @@ class TestMetricsAnalyzer(unittest.TestCase):
             math.inf,
             self._no_suggestions_responses_metrics_analyzer.calculate_mean_position_of_selected_suggestions()
         )
+
+    def test_average_selected_suggestion_position_only_counts_questions_when_expecting_questions(self):
+        suggestions = [
+            Suggestion('link', 'dummy_urlA'),
+            Suggestion('link', 'dummy_urlB'),
+            Suggestion('link', 'dummy_urlC'),
+            Suggestion('question', 'dummy_questionA'),
+            Suggestion('question', 'dummy_questionB'),
+            Suggestion('question', 'dummy_questionC')
+        ]
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        scenarios = [Scenario([request])]
+        suggestions_responses_for_each_scenario = [[
+            SuggestionsResponse(
+                suggestions,
+                timedelta(seconds=42)
+            )
+        ]]
+        metrics_analyzer = MetricsAnalyzer(scenarios, suggestions_responses_for_each_scenario)
+        self.assertEquals(1, metrics_analyzer.calculate_mean_position_of_selected_suggestions())
 
     def test_total_number_of_suggestions_updates(self):
         self.assertEquals(4, self._metrics_analyzer.calculate_total_number_of_suggestions_updates())
