@@ -8,7 +8,7 @@ class Request:
         self._person = person
         self._message = message
         self._success_condition = success_condition
-        self.split_raw_data(raw_data.lower())
+        self.split_raw_data(raw_data)
 
     def split_raw_data(self, raw_data):
         if self._success_condition == 'question':

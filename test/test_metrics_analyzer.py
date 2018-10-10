@@ -8,6 +8,7 @@ from whisper_automatic_test.exceptions.no_suggestions_responses_exception import
 from whisper_automatic_test.exceptions.no_suggestions_responses_for_every_requests_exception import \
     NoSuggestionsResponsesForEveryRequestsException
 from whisper_automatic_test.metrics_analyzer import MetricsAnalyzer
+from whisper_automatic_test.request import Request
 from whisper_automatic_test.scenario import Scenario
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.suggestion import Suggestion
@@ -29,9 +30,9 @@ class TestMetricsAnalyzer(unittest.TestCase):
             Suggestion('link', 'https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_net_conversion_scripts.htm')
         ]
         self._suggestions_3_questions = [
-            Suggestion('question', 'what is your name?'),
-            Suggestion('question', 'did you try this?'),
-            Suggestion('question', 'hello?')
+            Suggestion('question', 'What is your name?'),
+            Suggestion('question', 'Did you try this?'),
+            Suggestion('question', 'Hello?')
         ]
         suggestions_responses_for_each_scenario = [
             [
@@ -110,13 +111,38 @@ class TestMetricsAnalyzer(unittest.TestCase):
         self.assertEquals(7, self._metrics_analyzer.calculate_messages_number())
 
     def test_average_selected_suggestion_position(self):
-        self.assertEquals(1.5, self._metrics_analyzer.calculate_mean_position_of_selected_suggestions())
+        self.assertEquals(1, self._metrics_analyzer.calculate_mean_position_of_selected_suggestions())
 
     def test_average_selected_suggestion_position_when_no_suggestion_is_selected(self):
         self.assertEquals(
             math.inf,
             self._no_suggestions_responses_metrics_analyzer.calculate_mean_position_of_selected_suggestions()
         )
+
+    def test_average_selected_suggestion_position_only_counts_questions_when_expecting_questions(self):
+        suggestions = [
+            Suggestion('link', 'dummy_urlA'),
+            Suggestion('link', 'dummy_urlB'),
+            Suggestion('link', 'dummy_urlC'),
+            Suggestion('question', 'dummy_questionA'),
+            Suggestion('question', 'dummy_questionB'),
+            Suggestion('question', 'dummy_questionC')
+        ]
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        scenarios = [Scenario([request])]
+        suggestions_responses_for_each_scenario = [[
+            SuggestionsResponse(
+                suggestions,
+                timedelta(seconds=42)
+            )
+        ]]
+        metrics_analyzer = MetricsAnalyzer(scenarios, suggestions_responses_for_each_scenario)
+        self.assertEquals(1, metrics_analyzer.calculate_mean_position_of_selected_suggestions())
 
     def test_total_number_of_suggestions_updates(self):
         self.assertEquals(4, self._metrics_analyzer.calculate_total_number_of_suggestions_updates())

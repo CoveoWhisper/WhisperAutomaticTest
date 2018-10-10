@@ -10,7 +10,9 @@ from whisper_automatic_test.scenario import Scenario
 from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.suggestion import Suggestion
 from whisper_automatic_test.suggestions_response import SuggestionsResponse
-from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
+from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer, get_selected_suggestion, \
+    analyse_notlink_with_request_data, analyse_same, analyse_link_or_question_with_request_data, \
+    analyse_link_or_question_without_request_data
 
 SCENARIO_FILE_PATH = 'test/resources/scenarios_csv/test_scenarios_for_suggestions_responses_analyzer.csv'
 SCENARIOS_STARTING_WITH_SAME_FILE_PATH = \
@@ -33,9 +35,9 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             Suggestion('link', 'https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_net_conversion_scripts.htm')
         ]
         suggestions_3_questions = [
-            Suggestion('question', 'what is your name?'),
-            Suggestion('question', 'did you try this?'),
-            Suggestion('question', 'hello?')
+            Suggestion('question', 'What is your name?'),
+            Suggestion('question', 'Did you try this?'),
+            Suggestion('question', 'Hello?')
         ]
         suggestions_2_last_links = suggestions_3_links[1:]
         self._suggestions_responses_for_each_scenario = [
@@ -191,3 +193,338 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         )
         analysis_string = suggestions_responses_analyzer.analyze_to_string()
         self.assertEquals(expected_analysis_string, analysis_string)
+
+    def test_when_found_then_get_selected_suggestion_returns_matching_suggestion(self):
+        suggestions = [
+            Suggestion(
+                "link",
+                "some_dummy_url"
+            ),
+            Suggestion(
+                "link",
+                "some_expected_url"
+            ),
+            Suggestion(
+                "link",
+                "another_dummy_url"
+            )
+        ]
+        request = Request(
+            None,
+            None,
+            "link",
+            "some_expected_url"
+        )
+        actual_selected_suggestion = get_selected_suggestion(
+            suggestions,
+            request
+        )
+        self.assertIsNotNone(actual_selected_suggestion)
+        self.assertEquals(2, actual_selected_suggestion[0])
+        self.assertEquals(
+            Suggestion(
+                "link",
+                "some_expected_url"
+            ),
+            actual_selected_suggestion[1]
+        )
+
+    def test_when_expected_question_then_get_selected_suggestion_returns_the_first_question(self):
+        suggestions = [
+            Suggestion(
+                "link",
+                "some_dummy_url"
+            ),
+            Suggestion(
+                "question",
+                "some_question_data"
+            ),
+            Suggestion(
+                "link",
+                "another_dummy_url"
+            )
+        ]
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        selected_suggestion = get_selected_suggestion(
+            suggestions,
+            request
+        )
+        self.assertIsNotNone(selected_suggestion)
+        self.assertEquals(1, selected_suggestion[0])
+        self.assertEquals(
+            Suggestion(
+                "question",
+                "some_question_data"
+            ),
+            selected_suggestion[1]
+        )
+
+    def test_when_not_found_then_get_selected_suggestion_returns_none(self):
+        suggestions = [
+            Suggestion(
+                "link",
+                "some_dummy_url"
+            ),
+            Suggestion(
+                "link",
+                "more_dummy_url"
+            ),
+            Suggestion(
+                "link",
+                "another_dummy_url"
+            )
+        ]
+        request = Request(
+            None,
+            None,
+            "link",
+            "some_expected_url"
+        )
+        actual_selected_suggestion = get_selected_suggestion(
+            suggestions,
+            request
+        )
+        self.assertIsNone(actual_selected_suggestion)
+
+    def test_get_selected_suggestion_returns_first_question_with_position_ignoring_other_non_questions(self):
+        suggestions = [
+            Suggestion(
+                "link",
+                "some_dummy_url"
+            ),
+            Suggestion(
+                "link",
+                "more_dummy_url"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        selected_suggestion = get_selected_suggestion(
+            suggestions,
+            request
+        )
+        self.assertIsNotNone(selected_suggestion)
+        self.assertEquals(1, selected_suggestion[0])
+        self.assertEquals(
+            Suggestion(
+                "question",
+                "question_data"
+            ),
+            selected_suggestion[1]
+        )
+
+    def test_pass_when_expected_notlink_and_suggestion_does_not_contain_the_forbidden_link(self):
+        request = Request(
+            None,
+            None,
+            "notlink",
+            "url_not_in_the_suggestions"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "link",
+                "urlB"
+            ),
+            Suggestion(
+                "link",
+                "urlC"
+            )
+        ]
+        self.assertTrue(analyse_notlink_with_request_data(request, suggestions))
+
+    def test_fail_when_expected_notlink_and_suggestion_contains_the_forbidden_link(self):
+        request = Request(
+            None,
+            None,
+            "notlink",
+            "forbidden_url"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "link",
+                "forbidden_url"
+            ),
+            Suggestion(
+                "link",
+                "urlC"
+            )
+        ]
+        self.assertFalse(analyse_notlink_with_request_data(request, suggestions))
+
+    def test_fail_when_expected_notlink_and_suggestion_contains_even_just_one_forbidden_link(self):
+        request = Request(
+            None,
+            None,
+            "notlink",
+            "forbidden_urlA forbidden_urlB"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "link",
+                "forbidden_urlB"
+            ),
+            Suggestion(
+                "link",
+                "urlC"
+            )
+        ]
+        self.assertFalse(analyse_notlink_with_request_data(request, suggestions))
+
+    def test_pass_when_expected_same_and_suggestions_are_the_same(self):
+        request = Request(
+            None,
+            None,
+            "same",
+            ""
+        )
+        previous_suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        current_suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertTrue(analyse_same(request, current_suggestions, previous_suggestions))
+
+    def test_fail_when_expected_same_and_suggestions_are_different(self):
+        request = Request(
+            None,
+            None,
+            "same",
+            ""
+        )
+        previous_suggestions = [
+            Suggestion(
+                "link",
+                "urlA"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        current_suggestions = [
+            Suggestion(
+                "link",
+                "different_url"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertFalse(analyse_same(request, current_suggestions, previous_suggestions))
+
+    def test_pass_when_expected_link_and_one_suggestion_contains_the_link(self):
+        request = Request(
+            None,
+            None,
+            "link",
+            "expected_link"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "expected_link"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertTrue(analyse_link_or_question_with_request_data(request, suggestions))
+
+    def test_fail_when_expected_link_and_no_suggestion_contains_the_link(self):
+        request = Request(
+            None,
+            None,
+            "link",
+            "expected_link"
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "not_the_expected_link"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertFalse(analyse_link_or_question_with_request_data(request, suggestions))
+
+    def test_pass_when_expected_question_and_one_suggestion_is_a_question(self):
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "someLink"
+            ),
+            Suggestion(
+                "question",
+                "question_data"
+            )
+        ]
+        self.assertTrue(analyse_link_or_question_without_request_data(request, suggestions))
+
+    def test_fail_when_expected_question_and_no_suggestion_is_a_question(self):
+        request = Request(
+            None,
+            None,
+            "question",
+            ""
+        )
+        suggestions = [
+            Suggestion(
+                "link",
+                "someLink"
+            ),
+            Suggestion(
+                "link",
+                "someOtherLink"
+            )
+        ]
+        self.assertFalse(analyse_link_or_question_without_request_data(request, suggestions))

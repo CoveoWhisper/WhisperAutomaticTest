@@ -7,7 +7,17 @@ from whisper_automatic_test.utility import raise_if_there_is_no_request_in_scena
     get_requests
 
 
-def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
+def get_first_question(suggestions):
+    for suggestion in suggestions:
+        if suggestion.get_type() == "question":
+            return [1, suggestion]
+    return None
+
+
+def get_selected_suggestion(suggestions, request):
+    if request.get_success_condition() == "question":
+        return get_first_question(suggestions)
+    data_to_find_in_suggestions = request.get_data()
     for data in data_to_find_in_suggestions:
         for suggestion in suggestions:
             if suggestion.get_data() == data:
@@ -18,9 +28,11 @@ def get_selected_suggestion(suggestions, data_to_find_in_suggestions):
 def get_selected_suggestions(suggestions_responses, requests):
     selected_suggestions = []
     for i, suggestions_response in enumerate(suggestions_responses):
+        request = requests[i]
+        suggestions = suggestions_response.get_suggestions()
         selected_suggestion = get_selected_suggestion(
-            suggestions_response.get_suggestions(),
-            requests[i].get_data())
+            suggestions,
+            request)
         if selected_suggestion:
             selected_suggestions.append(selected_suggestion)
     return selected_suggestions
