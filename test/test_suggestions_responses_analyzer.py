@@ -491,25 +491,6 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         ]
         self.assertFalse(analyse_link_or_question_with_request_data(request, suggestions))
 
-    def test_fail_when_expected_link_and_no_suggestion_contains_the_link(self):
-        request = Request(
-            None,
-            None,
-            "link",
-            "expected_link"
-        )
-        suggestions = [
-            Suggestion(
-                "link",
-                "not_the_expected_link"
-            ),
-            Suggestion(
-                "question",
-                "question_data"
-            )
-        ]
-        self.assertFalse(analyse_link_or_question_with_request_data(request, suggestions))
-
     def test_pass_when_expected_question_and_one_suggestion_is_a_question(self):
         request = Request(
             None,
