@@ -291,7 +291,7 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
         )
         self.assertIsNone(actual_selected_suggestion)
 
-    def test_get_selected_suggestion_returns_first_question_with_position_ignoring_other_non_questions(self):
+    def test_when_expecting_question_get_selected_suggestion_returns_first_question_and_position_one(self):
         suggestions = [
             Suggestion(
                 "link",
@@ -322,6 +322,76 @@ class TestSuggestionsResponsesAnalyzer(unittest.TestCase):
             Suggestion(
                 "question",
                 "question_data"
+            ),
+            selected_suggestion[1]
+        )
+
+    def test_when_expecting_link_get_selected_suggestion_returns_first_matching_link_and_position(self):
+        suggestions = [
+            Suggestion(
+                "question",
+                "dummy_question_data"
+            ),
+            Suggestion(
+                "link",
+                "some_dummy_url"
+            ),
+            Suggestion(
+                "link",
+                "expected_url"
+            )
+        ]
+        request = Request(
+            None,
+            None,
+            "link",
+            "some_url_not_found expected_url"
+        )
+        selected_suggestion = get_selected_suggestion(
+            suggestions,
+            request
+        )
+        self.assertIsNotNone(selected_suggestion)
+        self.assertEquals(2, selected_suggestion[0])
+        self.assertEquals(
+            Suggestion(
+                "link",
+                "expected_url"
+            ),
+            selected_suggestion[1]
+        )
+
+    def test_when_expecting_notlink_get_selected_suggestion_returns_first_nonforbidden_link_and_position(self):
+        suggestions = [
+            Suggestion(
+                "question",
+                "dummy_question_data"
+            ),
+            Suggestion(
+                "link",
+                "forbidden_url"
+            ),
+            Suggestion(
+                "link",
+                "first_non_forbidden_url"
+            )
+        ]
+        request = Request(
+            None,
+            None,
+            "notlink",
+            "forbidden_url_not_in_suggestions forbidden_url"
+        )
+        selected_suggestion = get_selected_suggestion(
+            suggestions,
+            request
+        )
+        self.assertIsNotNone(selected_suggestion)
+        self.assertEquals(2, selected_suggestion[0])
+        self.assertEquals(
+            Suggestion(
+                "link",
+                "first_non_forbidden_url"
             ),
             selected_suggestion[1]
         )

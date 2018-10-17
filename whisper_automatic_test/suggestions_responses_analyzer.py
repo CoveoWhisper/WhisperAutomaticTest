@@ -14,14 +14,36 @@ def get_first_question(suggestions):
     return None
 
 
+def get_first_non_forbidden_link(suggestions, forbidden_links):
+    suggested_links = [suggestion for suggestion in suggestions if suggestion.get_type() == "link"]
+    for i, suggested_link in enumerate(suggested_links):
+        is_acceptable_link = True
+        for forbidden_link in forbidden_links:
+            if suggested_link.get_data() == forbidden_link:
+                is_acceptable_link = False;
+                break
+        if is_acceptable_link:
+            return [i + 1, suggested_link]
+    return None
+
+
+def get_first_matching_link(suggestions, acceptable_links):
+    suggested_links = [suggestion for suggestion in suggestions if suggestion.get_type() == "link"]
+    for i, suggested_link in enumerate(suggested_links):
+        for acceptable_link in acceptable_links:
+            if suggested_link.get_data() == acceptable_link:
+                return [i + 1, suggested_link]
+    return None
+
+
 def get_selected_suggestion(suggestions, request):
-    if request.get_success_condition() == "question":
+    success_condition = request.get_success_condition()
+    if success_condition == "question":
         return get_first_question(suggestions)
-    data_to_find_in_suggestions = request.get_data()
-    for data in data_to_find_in_suggestions:
-        for suggestion in suggestions:
-            if suggestion.get_data() == data:
-                return [(suggestions.index(suggestion) + 1), suggestion]
+    if success_condition == "link":
+        return get_first_matching_link(suggestions, request.get_data())
+    if success_condition == "notlink":
+        return get_first_non_forbidden_link(suggestions, request.get_data())
     return None
 
 

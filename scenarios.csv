@@ -127,10 +127,10 @@ Scenario,Person,Message,Success condition,Data
 33,asker,"Hi, what are the features of your ai system?",link,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm
 33,agent,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm,notlink,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm
 33,agent,These are our machine learning features!,same,
-34,asker,diagnostic tool,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_diagnostic_tool.htm
-34,agent,try this : https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_diagnostic_tool.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_diagnostic_tool.htm
+34,asker,diagnostic tool,link,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Coveo_Diagnostic_Tool.htm
+34,agent,try this : https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Coveo_Diagnostic_Tool.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Coveo_Diagnostic_Tool.htm
 34,asker,"that's great, but can I get more info about how to open it?",link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm
-34,agent,Is this more like it? https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_diagnostic_tool.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm
+34,agent,Is this more like it? https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Coveo_Diagnostic_Tool.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm
 35,asker,Is there a way to display a facet on all the tabs?,link,https://support.coveo.com/s/article/3271?returnTo=RecentArticles
 36,asker,I can't see some partners in the distributor locator,link,https://support.coveo.com/s/article/3319
 37,asker,How about the security of my documents in the coveo search,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/security.htm
