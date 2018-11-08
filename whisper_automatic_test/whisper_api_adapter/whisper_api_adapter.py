@@ -83,7 +83,7 @@ def _whisper_response_to_suggestions_version12(whisper_response):
 
 
 def _whisper_response_to_suggestions_version13(whisper_response):
-    _whisper_response_to_suggestions_version12(whisper_response)
+    return _whisper_response_to_suggestions_version12(whisper_response)
 
 
 _WHISPER_RESPONSE_TO_SUGGESTIONS_BY_API_VERSION_FUNCTION = {

@@ -28,3 +28,4 @@ class TestGetJsonVersion13(unittest.TestCase):
             'maxQuestions': 15
         }
         self.assertEquals(expected_json, actual_json)
+

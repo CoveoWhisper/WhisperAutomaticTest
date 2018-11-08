@@ -35,10 +35,6 @@ def _get_json_for_version12(request, chat_key):
     return _get_json_for_version11(request, chat_key)
 
 
-def _get_json_for_version13(request, chat_key):
-    return _get_json_for_version13(request, chat_key)
-
-
 _WHISPER_API_VERSION_TO_GET_JSON_FUNCTION = {
     '10': _get_json_for_version10,
     '11': _get_json_for_version11,
