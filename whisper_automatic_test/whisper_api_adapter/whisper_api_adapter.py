@@ -82,10 +82,15 @@ def _whisper_response_to_suggestions_version12(whisper_response):
     return links + questions
 
 
+def _whisper_response_to_suggestions_version13(whisper_response):
+    _whisper_response_to_suggestions_version12(whisper_response)
+
+
 _WHISPER_RESPONSE_TO_SUGGESTIONS_BY_API_VERSION_FUNCTION = {
     '10': _whisper_response_to_suggestions_version10,
     '11': _whisper_response_to_suggestions_version11,
-    '12': _whisper_response_to_suggestions_version12
+    '12': _whisper_response_to_suggestions_version12,
+    '13': _whisper_response_to_suggestions_version13
 }
 
 
