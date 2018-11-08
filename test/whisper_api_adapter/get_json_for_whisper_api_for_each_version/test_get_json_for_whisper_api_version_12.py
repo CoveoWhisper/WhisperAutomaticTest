@@ -24,3 +24,4 @@ class TestGetJsonVersion12(unittest.TestCase):
             'type': 1
         }
         self.assertEquals(expected_json, actual_json)
+

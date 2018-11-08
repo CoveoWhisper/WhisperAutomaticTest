@@ -13,9 +13,7 @@ def _get_json_for_version10(request, chat_key):
     return {
         CHATKEY_IDENTIFIER: chat_key,
         QUERY_IDENTIFIER: request.get_message(),
-        MESSAGE_TYPE_IDENTIFIER: PERSON_TO_JSON_CODE[request.get_person()],
-        MAXIMUM_DOCUMENTS: 15,
-        MAXIMUM_QUESTIONS: 15
+        MESSAGE_TYPE_IDENTIFIER: PERSON_TO_JSON_CODE[request.get_person()]
     }
 
 
@@ -23,7 +21,9 @@ def _get_json_for_version13(request, chat_key):
     return {
         CHATKEY_IDENTIFIER: chat_key,
         QUERY_IDENTIFIER: request.get_message(),
-        MESSAGE_TYPE_IDENTIFIER: PERSON_TO_JSON_CODE[request.get_person()]
+        MESSAGE_TYPE_IDENTIFIER: PERSON_TO_JSON_CODE[request.get_person()],
+        MAXIMUM_DOCUMENTS: 15,
+        MAXIMUM_QUESTIONS: 15
     }
 
 
