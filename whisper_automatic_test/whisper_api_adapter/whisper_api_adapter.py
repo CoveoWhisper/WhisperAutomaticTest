@@ -82,6 +82,27 @@ def _whisper_response_to_suggestions_version12(whisper_response):
     return links + questions
 
 
+def _whisper_response_to_suggestions_version14(whisper_response):
+    def json_question_to_suggestion(json_question):
+        return Suggestion('question', json_question['text'])
+
+    def json_link_to_suggestion(json_link):
+        return Suggestion('link', json_link['printableUri'])
+
+    json_response = json.loads(whisper_response)
+    json_questions = json_response['questions']
+    if json_questions:
+        questions = [json_question_to_suggestion(json_question['value']) for json_question in json_questions]
+    else:
+        questions = []
+    json_links = json_response['documents']
+    if json_links:
+        links = [json_link_to_suggestion(json_link['value']) for json_link in json_links]
+    else:
+        links = []
+    return links + questions
+
+
 def _whisper_response_to_suggestions_version13(whisper_response):
     return _whisper_response_to_suggestions_version12(whisper_response)
 
@@ -90,7 +111,8 @@ _WHISPER_RESPONSE_TO_SUGGESTIONS_BY_API_VERSION_FUNCTION = {
     '10': _whisper_response_to_suggestions_version10,
     '11': _whisper_response_to_suggestions_version11,
     '12': _whisper_response_to_suggestions_version12,
-    '13': _whisper_response_to_suggestions_version13
+    '13': _whisper_response_to_suggestions_version13,
+    '14': _whisper_response_to_suggestions_version14
 }
 
 
