@@ -7,9 +7,20 @@ from whisper_automatic_test.scenario_reader import get_scenarios_from_csv_file
 from whisper_automatic_test.scenarios_runner import ScenariosRunner
 from whisper_automatic_test.suggestions_responses_analyzer import SuggestionsResponsesAnalyzer
 from whisper_automatic_test.utility import get_requests, get_flat_suggestions_responses
+from whisper_automatic_test.whisper_api_adapter.recommenders import RecommenderType
 from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import get_suggestions_endpoint, \
     get_whisper_api_version
 from whisper_automatic_test.whisper_api_adapter.whisper_api_adapter import get_suggestions_from_whisper_api
+
+
+def run_whisper_automatic_test_for_each_recommender(whisper_api_base_url, whisper_api_version, is_verbose, scenarios):
+    for used_recommender in RecommenderType:
+        print('Testing recommender: ', used_recommender)
+        run_whisper_automatic_test(whisper_api_base_url, whisper_api_version, is_verbose, scenarios, [used_recommender])
+
+
+def run_whisper_automatic_test_for_all_recommender(whisper_api_base_url, whisper_api_version, is_verbose, scenarios):
+    run_whisper_automatic_test(whisper_api_base_url, whisper_api_version, is_verbose, scenarios)
 
 
 def main():
@@ -17,16 +28,29 @@ def main():
     scenarios_csv_file_path = program_arguments.scenarios_csv_file_path
     whisper_api_base_url = program_arguments.whisper_api_base_url
     is_verbose = program_arguments.verbose
+    for_each_recommender = program_arguments.for_each_recommender
     whisper_api_version = get_whisper_api_version(whisper_api_base_url)
-
     scenarios = get_scenarios_from_csv_file(scenarios_csv_file_path)
 
+    if for_each_recommender:
+        run_whisper_automatic_test_for_each_recommender(whisper_api_base_url, whisper_api_version, is_verbose, scenarios)
+    else:
+        run_whisper_automatic_test_for_all_recommender(whisper_api_base_url, whisper_api_version, is_verbose, scenarios)
+
+
+def run_whisper_automatic_test(
+        whisper_api_base_url,
+        whisper_api_version,
+        is_verbose,
+        scenarios,
+        used_recommenders=None):
     def get_suggestions(request, chatkey):
         return get_suggestions_from_whisper_api(
             whisper_api_version,
             get_suggestions_endpoint(whisper_api_base_url),
             request,
-            chatkey
+            chatkey,
+            used_recommenders
         )
 
     scenario_runner = ScenariosRunner(get_suggestions, get_time)
@@ -34,7 +58,6 @@ def main():
     suggestions_responses_analyzer = SuggestionsResponsesAnalyzer(scenarios, suggestions_responses)
     metrics_analyzer = MetricsAnalyzer(scenarios, suggestions_responses)
     quality_indexes_analyzer = QualityIndexesAnalyzer(metrics_analyzer)
-
     print_suggestions_responses_analysis(suggestions_responses_analyzer)
     print_metrics(metrics_analyzer)
     print_quality_indexes(quality_indexes_analyzer)
@@ -57,6 +80,11 @@ def get_program_arguments():
         required=True,
         help='Whisper API base URL',
         metavar='URL'
+    )
+    arguments_parser.add_argument(
+        '-e', '--for-each-recommender',
+        action='store_true',
+        help='Run the test separately for each recommender',
     )
     arguments_parser.add_argument(
         '-v', '--verbose',

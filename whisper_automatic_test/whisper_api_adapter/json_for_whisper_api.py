@@ -1,3 +1,5 @@
+from whisper_automatic_test.whisper_api_adapter.recommenders import RecommenderType
+
 CHATKEY_IDENTIFIER = 'chatkey'
 QUERY_IDENTIFIER = 'query'
 MESSAGE_TYPE_IDENTIFIER = 'type'
@@ -48,5 +50,17 @@ _WHISPER_API_VERSION_TO_GET_JSON_FUNCTION = {
 }
 
 
-def get_json(whisper_api_version, request, chat_key):
-    return _WHISPER_API_VERSION_TO_GET_JSON_FUNCTION[whisper_api_version](request, chat_key)
+def get_overriden_recommender_settings(used_recommenders):
+    return {
+        'useLongQuerySearchRecommender': RecommenderType.LongQuerySearch in used_recommenders,
+        'usePreprocessedQuerySearchRecommender': RecommenderType.PreprocessedQuerySearch in used_recommenders,
+        'useAnalyticsSearchRecommender': RecommenderType.AnalyticsSearch in used_recommenders,
+        'useFacetQuestionRecommender': RecommenderType.FacetQuestion in used_recommenders
+    }
+
+
+def get_json(whisper_api_version, request, chat_key, used_recommenders):
+    json_to_whisper = _WHISPER_API_VERSION_TO_GET_JSON_FUNCTION[whisper_api_version](request, chat_key)
+    if used_recommenders:
+        json_to_whisper['overridenRecommenderSettings'] = get_overriden_recommender_settings(used_recommenders)
+    return json_to_whisper

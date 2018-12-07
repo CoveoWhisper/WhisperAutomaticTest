@@ -16,12 +16,17 @@ def get_whisper_api_version(whisper_api_base_url):
     return json_response['version']
 
 
-def get_json_for_whisper_api(whisper_api_version, request, chat_key):
-    return get_json(whisper_api_version, request, chat_key)
+def get_json_for_whisper_api(whisper_api_version, request, chat_key, used_recommenders=None):
+    return get_json(whisper_api_version, request, chat_key, used_recommenders)
 
 
-def get_suggestions_from_whisper_api(whisper_api_version, whisper_api_suggestions_endpoint, request, chatkey):
-    request_payload = get_json_for_whisper_api(whisper_api_version, request, chatkey)
+def get_suggestions_from_whisper_api(
+        whisper_api_version,
+        whisper_api_suggestions_endpoint,
+        request,
+        chatkey,
+        used_recommenders=None):
+    request_payload = get_json_for_whisper_api(whisper_api_version, request, chatkey, used_recommenders)
     whisper_response = requests.post(
         whisper_api_suggestions_endpoint,
         json=request_payload
