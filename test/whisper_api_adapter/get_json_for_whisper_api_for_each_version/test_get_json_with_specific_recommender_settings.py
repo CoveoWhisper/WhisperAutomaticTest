@@ -15,13 +15,13 @@ class TestGetJsonWithSpecificRecommenderSettings(unittest.TestCase):
             'useFacetQuestionRecommender': True
         }
         actual_settings = get_overriden_recommender_settings(
-            [RecommenderType.AnalyticsSearchRecommender, RecommenderType.FacetQuestionRecommender]
+            [RecommenderType.AnalyticsSearch, RecommenderType.FacetQuestion]
         )
         self.assertEquals(expected_settings, actual_settings)
 
     def test_with_recommender_settings(self):
         request = Request('asker', 'Hello world', 'To ignore', 'To ignore')
-        used_recommenders = [RecommenderType.AnalyticsSearchRecommender, RecommenderType.FacetQuestionRecommender]
+        used_recommenders = [RecommenderType.AnalyticsSearch, RecommenderType.FacetQuestion]
         actual_json = get_json_for_whisper_api('14', request, 'myChatKey', used_recommenders)
         expected_json = {
             'chatkey': 'myChatKey',

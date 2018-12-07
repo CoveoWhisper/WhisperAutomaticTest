@@ -52,10 +52,10 @@ _WHISPER_API_VERSION_TO_GET_JSON_FUNCTION = {
 
 def get_overriden_recommender_settings(used_recommenders):
     return {
-        'useLongQuerySearchRecommender': RecommenderType.LongQuerySearchRecommender in used_recommenders,
-        'usePreprocessedQuerySearchRecommender': RecommenderType.PreprocessedQuerySearchRecommender in used_recommenders,
-        'useAnalyticsSearchRecommender': RecommenderType.AnalyticsSearchRecommender in used_recommenders,
-        'useFacetQuestionRecommender': RecommenderType.FacetQuestionRecommender in used_recommenders
+        'useLongQuerySearchRecommender': RecommenderType.LongQuerySearch in used_recommenders,
+        'usePreprocessedQuerySearchRecommender': RecommenderType.PreprocessedQuerySearch in used_recommenders,
+        'useAnalyticsSearchRecommender': RecommenderType.AnalyticsSearch in used_recommenders,
+        'useFacetQuestionRecommender': RecommenderType.FacetQuestion in used_recommenders
     }
 
 

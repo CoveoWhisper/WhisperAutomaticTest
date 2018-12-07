@@ -1,8 +1,8 @@
-from enum import Enum
+from enum import Enum, auto
 
 
 class RecommenderType(Enum):
-    LongQuerySearchRecommender = 1
-    PreprocessedQuerySearchRecommender = 2
-    AnalyticsSearchRecommender = 3
-    FacetQuestionRecommender = 4
+    LongQuerySearch = auto()
+    PreprocessedQuerySearch = auto()
+    AnalyticsSearch = auto()
+    FacetQuestion = auto()
