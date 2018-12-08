@@ -55,7 +55,8 @@ def get_overriden_recommender_settings(used_recommenders):
         'useLongQuerySearchRecommender': RecommenderType.LongQuerySearch in used_recommenders,
         'usePreprocessedQuerySearchRecommender': RecommenderType.PreprocessedQuerySearch in used_recommenders,
         'useAnalyticsSearchRecommender': RecommenderType.AnalyticsSearch in used_recommenders,
-        'useFacetQuestionRecommender': RecommenderType.FacetQuestion in used_recommenders
+        'useFacetQuestionRecommender': RecommenderType.FacetQuestion in used_recommenders,
+        'useNearestDocumentsRecommender': RecommenderType.NearestDocuments in used_recommenders
     }
 
 
