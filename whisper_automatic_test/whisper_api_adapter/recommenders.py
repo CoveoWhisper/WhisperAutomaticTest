@@ -6,3 +6,4 @@ class RecommenderType(Enum):
     PreprocessedQuerySearch = auto()
     AnalyticsSearch = auto()
     FacetQuestion = auto()
+    NearestDocuments = auto()

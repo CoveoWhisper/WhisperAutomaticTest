@@ -12,16 +12,24 @@ class TestGetJsonWithSpecificRecommenderSettings(unittest.TestCase):
             'useLongQuerySearchRecommender': False,
             'usePreprocessedQuerySearchRecommender': False,
             'useAnalyticsSearchRecommender': True,
-            'useFacetQuestionRecommender': True
+            'useFacetQuestionRecommender': True,
+            'useNearestDocumentsRecommender': True
         }
-        actual_settings = get_overriden_recommender_settings(
-            [RecommenderType.AnalyticsSearch, RecommenderType.FacetQuestion]
+        actual_settings = get_overriden_recommender_settings([
+            RecommenderType.AnalyticsSearch,
+            RecommenderType.FacetQuestion,
+            RecommenderType.NearestDocuments
+            ]
         )
         self.assertEquals(expected_settings, actual_settings)
 
     def test_with_recommender_settings(self):
         request = Request('asker', 'Hello world', 'To ignore', 'To ignore')
-        used_recommenders = [RecommenderType.AnalyticsSearch, RecommenderType.FacetQuestion]
+        used_recommenders = [
+            RecommenderType.AnalyticsSearch,
+            RecommenderType.FacetQuestion,
+            RecommenderType.NearestDocuments
+        ]
         actual_json = get_json_for_whisper_api('14', request, 'myChatKey', used_recommenders)
         expected_json = {
             'chatkey': 'myChatKey',
@@ -33,7 +41,8 @@ class TestGetJsonWithSpecificRecommenderSettings(unittest.TestCase):
                 'useLongQuerySearchRecommender': False,
                 'usePreprocessedQuerySearchRecommender': False,
                 'useAnalyticsSearchRecommender': True,
-                'useFacetQuestionRecommender': True
+                'useFacetQuestionRecommender': True,
+                'useNearestDocumentsRecommender': True
             }
         }
         self.assertEquals(expected_json, actual_json)
