@@ -31,10 +31,16 @@ def get_first_matching_link(suggestions, acceptable_links):
     suggested_links = [suggestion for suggestion in suggestions if suggestion.get_type() == "link"]
     for i, suggested_link in enumerate(suggested_links):
         for acceptable_link in acceptable_links:
-            if suggested_link.get_data() == acceptable_link:
+            if safe_str_lower(suggested_link.get_data()) == safe_str_lower(acceptable_link):
                 return [i + 1, suggested_link]
     return None
 
+
+def safe_str_lower(url):
+    if url:
+        return url.lower()
+
+    return None
 
 def get_selected_suggestion(suggestions, request):
     success_condition = request.get_success_condition()
