@@ -92,7 +92,7 @@ def _whisper_response_to_suggestions_version14(whisper_response):
         return Suggestion('question', json_question['text'])
 
     def json_link_to_suggestion(json_link):
-        return Suggestion('link', json_link['printableUri'])
+        return Suggestion('link', json_link['uri'])
 
     json_response = json.loads(whisper_response)
     json_questions = json_response['questions']
