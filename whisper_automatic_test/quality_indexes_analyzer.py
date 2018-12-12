@@ -10,15 +10,9 @@ class QualityIndexesAnalyzer:
         self._metrics_analyzer = metrics_analyzer
 
     def get_pertinence_index(self):
-        number_of_wanted_suggestions_updates = (
-            self._metrics_analyzer.calculate_total_number_of_suggestions_updates() -
-            self._metrics_analyzer.calculate_number_of_unwanted_suggestions_updates()
-        )
-        if 0 == number_of_wanted_suggestions_updates:
-            return float('-inf')
         return (
-                self._metrics_analyzer.calculate_number_of_selected_suggestions() /
-                number_of_wanted_suggestions_updates
+                self._metrics_analyzer.calculate_number_of_selected_link_suggestions() /
+                self._metrics_analyzer.calculate_number_of_link_request()
         )
 
     def get_speed_index(self):

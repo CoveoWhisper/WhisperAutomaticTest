@@ -1,7 +1,8 @@
 import math
 from datetime import timedelta
 
-from whisper_automatic_test.suggestions_responses_analyzer import get_selected_suggestions, get_requests
+from whisper_automatic_test.suggestions_responses_analyzer import get_selected_suggestions, get_requests, \
+    get_selected_links
 from whisper_automatic_test.utility import raise_if_there_is_no_request_in_scenarios, \
     raise_if_there_is_no_suggestions_responses, raise_if_there_is_not_a_suggestions_response_for_every_request, \
     raise_if_there_is_an_invalid_timestamp
@@ -49,6 +50,10 @@ class MetricsAnalyzer:
 
         return number_of_suggestions_updates
 
+    def calculate_number_of_link_request(self):
+        return len([_ for _, request in enumerate(self._requests) if request.get_success_condition() == 'link'])
+
+
     def calculate_number_of_unwanted_suggestions_updates(self):
         previous_suggestions = []
         number_of_unwanted_suggestions_updates = 0
@@ -61,6 +66,9 @@ class MetricsAnalyzer:
                     previous_suggestions = current_suggestions
 
         return number_of_unwanted_suggestions_updates
+
+    def calculate_number_of_selected_link_suggestions(self):
+        return len(get_selected_links(self._suggestions_responses, self._requests))
 
     def calculate_number_of_selected_suggestions(self):
         return len(get_selected_suggestions(self._suggestions_responses, self._requests))
