@@ -17,18 +17,18 @@ Scenario,Person,Message,Success condition,Data
 8,asker,I agree.,same,
 9,asker,I don't know.,same,
 9,agent,"Hi, how may I help you?",same,
-10,asker,"Using the Coveo JS search framework, is there a way to monkey patch component methods with the jQuery extension?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods https://coveo.github.io/search-ui/classes/initialization.html#monkeypatchcomponentmethod
-10,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,notlink,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods
-11,asker,What is an incremental refresh in the sources and collections menus?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Scheduling_a_Source_Incremental_Refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enabling_Incremental_Refresh_on_a_Database_Source.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_Incremental_Refresh_and_Live_Monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enabling_Incremental_Refresh_on_a_Sitecore_Database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
-11,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm
-12,asker,How do I deploy the enhanced quick view?,link,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
-12,agent,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm
-13,asker,"Using the Covo JS search framewrk, is there a way to monkey path componen methods with the jQury extension?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods https://coveo.github.io/search-ui/classes/initialization.html#monkeypatchcomponentmethod
-13,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,notlink,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods
-14,asker,What is a icremental refrrsh in the sources and colections menus?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Scheduling_a_Source_Incremental_Refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enabling_Incremental_Refresh_on_a_Database_Source.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_Incremental_Refresh_and_Live_Monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enabling_Incremental_Refresh_on_a_Sitecore_Database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
-14,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm
-15,asker,How do I deplot the enhance quik view?,link,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
-15,agent,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm
+10,asker,"Using the Coveo JS search framework, is there a way to monkey patch component methods with the jQuery extension?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension https://coveo.github.io/search-ui/classes/initialization.html https://docs.coveo.com/en/364/
+10,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension,notlink,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension https://docs.coveo.com/en/364/
+11,asker,What is an incremental refresh in the sources and collections menus?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/scheduling_a_source_incremental_refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_database_source.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_incremental_refresh_and_live_monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
+11,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm
+12,asker,How do I deploy the enhanced quick view?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
+12,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm https://s3.amazonaws.com/coveo-archived-tech-docs/JavaScriptSearchV0.9-ArchivedDocumentation.pdf
+13,asker,"Using the Coveo JS search framewrk, is there a way to monkey patch componen methods with the jQury extension?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension https://coveo.github.io/search-ui/classes/initialization.html
+13,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension,notlink,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension
+14,asker,What is a icremental refresh in the sources and colections menus?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/scheduling_a_source_incremental_refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_database_source.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_incremental_refresh_and_live_monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
+14,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm
+15,asker,How do I deploy the enhance quik view?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
+15,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm
 16,asker,How do I edit or update certain field of response?,question,
 16,agent,Which field of response?,same,
 17,asker,What is an incremental refresh?,question,
@@ -38,18 +38,18 @@ Scenario,Person,Message,Success condition,Data
 19,asker,"Hello, my name is Bob.",same,
 19,agent,"Hi, my name is Bobafette, how may I help you?",same,
 19,asker,For the Coveo JS Search Frameowrk...,same,
-19,asker,how do we monkey patcc a component's methods?,link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods https://coveo.github.io/search-ui/classes/initialization.html#monkeypatchcomponentmethod
-19,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,notlink,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods
+19,asker,how do we monkey patch a component's methods?,link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension https://coveo.github.io/search-ui/classes/initialization.html https://docs.coveo.com/en/369/
+19,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension,notlink,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension
 19,asker,Thank you,same,
 19,agent,Your welcome! Come back anytime!,same,
 20,asker,I love salad,same,
 20,asker,Goodbye,same,
 20,asker,What is an incremental refresh?,question,
 20,agent,Why do you want to do an incremental refresh?,same,
-20,asker,On sources and colections menus...,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Scheduling_a_Source_Incremental_Refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enabling_Incremental_Refresh_on_a_Database_Source.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_Incremental_Refresh_and_Live_Monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enabling_Incremental_Refresh_on_a_Sitecore_Database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
-20,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/Incremental_Refresh_vs_Full_Refresh_vs_Rebuild.htm
-20,asker,"Also, in Covei JS Search Framework and JQuery extention, how do I monkey path componen methods ?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods https://coveo.github.io/search-ui/classes/initialization.html#monkeypatchcomponentmethod
-20,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods,notlink,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension#jQueryExtension-MonkeyPatchingComponentMethods
+20,asker,On sources and colections menus...,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/scheduling_a_source_incremental_refresh.htm  https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_database_source.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_incremental_refresh_and_live_monitoring.htm https://developers.coveo.com/display/public/Connector/Implementing+Incremental+Refresh https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_incremental_refresh_on_a_sitecore_database_for_the_legacy_connector.htm
+20,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/incremental_refresh_vs_full_refresh_vs_rebuild.htm
+20,asker,"Also, in Coveo JS Search Framework and JQuery extention, how do I monkey path componen methods ?",link,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension https://coveo.github.io/search-ui/classes/initialization.html https://docs.coveo.com/en/364/
+20,agent,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension,notlink,https://developers.coveo.com/display/public/JsSearchV1/jQuery+Extension
 20,asker,How are you today?,same,
 20,agent,Fine! You?,same,
 21,asker,Do you have 5 minutes?,same,
@@ -59,26 +59,26 @@ Scenario,Person,Message,Success condition,Data
 21,asker,I want to deploy,question,
 21,agent,What do you want to deploy?,same,
 21,asker,hmmm,same,
-21,agent,Maybe the enhanced quick view?,link,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
+21,agent,Maybe the enhanced quick view?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Enhanced_Quick_View.htm
 21,asker,Yes!,same,
-21,agent,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Enhanced_Quick_View_Deployment_Overview.htm
+21,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/enhanced_quick_view_deployment_overview.htm
 21,asker,The weather is nice outside.,same,
 21,agent,Very nice!,same,
 22,agent,How can I help you?,same,
-22,asker,"Hi, my name is Martin. I have a problem with the site. I can't seem to find new features for the platform.",link,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Coveo_Platform_New_Features_of_2015_for_Administrators.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2014_for_administrators.htm 
-22,agent,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Coveo_Platform_New_Features_of_2015_for_Administrators.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2014_for_administrators.htm ,notlink,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Coveo_Platform_New_Features_of_2015_for_Administrators.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2014_for_administrators.htm
+22,asker,"Hi, my name is Martin. I have a problem with the site. I can't seem to find new admin features for the platform.",link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2015_for_administrators.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2014_for_administrators.htm 
+22,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2015_for_administrators.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2014_for_administrators.htm ,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2015_for_administrators.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_new_features_of_2014_for_administrators.htm
 22,agent,Does that answer your questions?,same,
 22,asker,"Well, no. I'd really love to know more about the release cycle of the platform.",link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_platform_release_cycle.htm
 22,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_platform_release_cycle.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_platform_release_cycle.htm
 22,agent,I think this could help you!,same,
 22,asker,"Well, yes actually! Thank you kind agent! Have a good day!",same,
-23,asker,I'll be straight to the point here. No time to lose. What are the advantages of a self-optimization index?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_70_new_self-optimizing_index.htm
+23,asker,I'll be straight to the point here. What are the advantages of a self-optimization index?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_70_new_self-optimizing_index.htm
 23,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_70_new_self-optimizing_index.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_70_new_self-optimizing_index.htm
 23,agent,Does this fits the bill? It explains all the features of the self-optimizing index.,same,
 23,asker,Yes.,same,
 24,asker,Hi. I'm an administrator and I'm looking for some information on what tools I could use to do my job in the platform.,question,
 24,agent,With what do you need help for more precisely?,same,
-24,asker,How do I import user indentity?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_70_new_stuff_for_the_administrator.htm#UserIdentity https://onlinehelp.coveo.com/en/ces/7.0/administrator/exporting_importing_user_identities.htm
+24,asker,How do I import user indentity?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_70_new_stuff_for_the_administrator.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/exporting_importing_user_identities.htm https://onlinehelp.coveo.com/en/ces/7.0/Administrator/Adding_a_User_Identity.htm
 24,agent,https://onlinehelp.coveo.com/en/ces/7.0/administrator/exporting_importing_user_identities.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/exporting_importing_user_identities.htm
 24,agent,I've got some information for administrators on user identity. Wanna take a look?,same,
 24,asker,"Welp, I sure do!",same,
@@ -86,12 +86,12 @@ Scenario,Person,Message,Success condition,Data
 24,asker,"Welp, thank you kind person!",same,
 25,asker,Hi!,same,
 25,agent,"Hello, I am an agent and I am ready to take your questions!",same,
-25,asker,How much time does it take for a machine learning model to be ready when we choose this option for our organization?,link,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_models.htm https://onlinehelp.coveo.com/en/cloud/how_are_coveo_ml_features_deployed.htm
+25,asker,How much time does it take for a machine learning model to be ready when we choose this option for our organization?,link,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_models.htm https://onlinehelp.coveo.com/en/cloud/how_are_coveo_ml_features_deployed.htm https://docs.coveo.com/en/1994/ https://docs.coveo.com/en/2118/
 25,agent,https://onlinehelp.coveo.com/en/cloud/how_are_coveo_ml_features_deployed.htm,notlink,https://onlinehelp.coveo.com/en/cloud/how_are_coveo_ml_features_deployed.htm
 25,agent,About 30-60 minutes!,same,
 25,asker,Cool thanks! I never would have found this by myself!,same,
 25,agent,You're welcome!,same,
-26,asker,"ART, how does it work?",link,https://onlinehelp.coveo.com/en/cloud/how_exactly_does_automatic_relevance_tuning_work.htm https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm#ART
+26,asker,"ART, how does it work?",link,https://onlinehelp.coveo.com/en/cloud/how_exactly_does_automatic_relevance_tuning_work.htm https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm https://docs.coveo.com/en/1835/
 26,agent,https://onlinehelp.coveo.com/en/cloud/how_exactly_does_automatic_relevance_tuning_work.htm,notlink,https://onlinehelp.coveo.com/en/cloud/how_exactly_does_automatic_relevance_tuning_work.htm
 26,agent,Like this. It is a feature we offer.,same,
 26,asker,Ah! Seems interesting to me!,same,
@@ -100,7 +100,7 @@ Scenario,Person,Message,Success condition,Data
 27,agent,"You are on the Coveo help chat, I can't really help you with your mouse, I'm sorry!",same,
 28,asker,"Hi, How do I get started with SaleForce?",question,
 28,agent,"Which version are you using? Free, pro or enterprise?",same,
-28,asker,Pro of course!,link,https://developers.coveo.com/display/public/SalesforceV2/Getting+Started+with+Coveo+for+Salesforce+Pro+and+Enterprise
+28,asker,Pro of course!,link,https://developers.coveo.com/display/public/SalesforceV2/Getting+Started+with+Coveo+for+Salesforce+Pro+and+Enterprise https://docs.coveo.com/en/1120/
 28,agent,https://developers.coveo.com/display/public/SalesforceV2/Getting+Started+with+Coveo+for+Salesforce+Pro+and+Enterprise,notlink,https://developers.coveo.com/display/public/SalesforceV2/Getting+Started+with+Coveo+for+Salesforce+Pro+and+Enterprise
 28,agent,"Here, take a look at this tutorial on how to get started using the pro version!",same,
 28,asker,"Well, thank you my kind dear for this precious help!",same,
@@ -117,41 +117,41 @@ Scenario,Person,Message,Success condition,Data
 30,asker,Thanks!,same,
 31,asker,User analytics.,question,
 31,agent,What about them?,same,
-31,asker,How do I leverage them?,link,https://onlinehelp.coveo.com/en/cloud/leveraging_the_coveo_cloud_usage_analytics.htm
+31,asker,How do I leverage them?,link,https://onlinehelp.coveo.com/en/cloud/leveraging_the_coveo_cloud_usage_analytics.htm https://docs.coveo.com/en/1584/ https://docs.coveo.com/en/1682/
 31,agent,https://onlinehelp.coveo.com/en/cloud/leveraging_the_coveo_cloud_usage_analytics.htm,notlink,https://onlinehelp.coveo.com/en/cloud/leveraging_the_coveo_cloud_usage_analytics.htm
 31,agent,Like this my friend!,same,
 31,asker,Thank you!,same,
-32,asker,Can we filter the permissions?,link,https://onlinehelp.coveo.com/en/cloud/managing_coveo_cloud_v1_permission_filters.htm
+32,asker,Can we filter the permissions?,link,https://onlinehelp.coveo.com/en/cloud/managing_coveo_cloud_v1_permission_filters.htm https://docs.coveo.com/en/1917/
 32,agent,https://onlinehelp.coveo.com/en/cloud/managing_coveo_cloud_v1_permission_filters.htm,notlink,https://onlinehelp.coveo.com/en/cloud/managing_coveo_cloud_v1_permission_filters.htm
 32,agent,You sure can!,same,
-33,asker,"Hi, what are the features of your ai system?",link,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm
+33,asker,"Hi, what are the features of your ml system?",link,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm https://docs.coveo.com/en/1994/
 33,agent,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm,notlink,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm
 33,agent,These are our machine learning features!,same,
-34,asker,diagnostic tool,link,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Coveo_Diagnostic_Tool.htm
-34,agent,try this : https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Coveo_Diagnostic_Tool.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Coveo_Diagnostic_Tool.htm
+34,asker,diagnostic tool,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_diagnostic_tool.htm
+34,agent,try this : https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_diagnostic_tool.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_diagnostic_tool.htm
 34,asker,"that's great, but can I get more info about how to open it?",link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm
-34,agent,Is this more like it? https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/Administrator/About_the_Coveo_Diagnostic_Tool.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm
-35,asker,Is there a way to display a facet on all the tabs?,link,https://support.coveo.com/s/article/3271?returnTo=RecentArticles
+34,agent,Is this more like it? https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm,notlink,https://onlinehelp.coveo.com/en/ces/7.0/administrator/about_the_coveo_diagnostic_tool.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/opening_the_coveo_diagnostic_tool.htm
+35,asker,Is there a way to display a facet on all the tabs?,link,https://support.coveo.com/s/article/3271
 36,asker,I can't see some partners in the distributor locator,link,https://support.coveo.com/s/article/3319
-37,asker,How about the security of my documents in the coveo search,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/security.htm
-38,asker,"As for coveo cloud, why should we upgrade to V2?",link,https://onlinehelp.coveo.com/en/cloud/coveo_cloud_v1_and_v2_compared.htm https://onlinehelp.coveo.com/en/cloud/coveo_cloud_new_features.htm
-39,asker,"Hey, we didn't find any documentation for the integration of Coveo in a wordpress website",link,https://support.coveo.com/s/article/3059?returnTo=PopularArticles https://developers.coveo.com/display/public/JsSearchV1/Creating+a+Standalone+Search+Box https://onlinehelp.coveo.com/en/cloud/coveo_for_salesforce_v2_deployment.htm 
+37,asker,How about the security of my documents in the coveo search,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/security.htm https://onlinehelp.coveo.com/en/ces/7.0/administrator/security_control_levels_in_ces.htm
+38,asker,"As for coveo cloud, why should we upgrade to V2?",link,https://onlinehelp.coveo.com/en/cloud/coveo_cloud_v1_and_v2_compared.htm https://onlinehelp.coveo.com/en/cloud/coveo_cloud_new_features.htm https://docs.coveo.com/en/1138/ https://docs.coveo.com/en/1756/
+39,asker,"Hey, we didn't find any documentation for the integration of Coveo in a wordpress website",link,https://support.coveo.com/s/article/3059 https://docs.coveo.com/en/2080/ https://developers.coveo.com/display/public/JsSearchV1/Creating+a+Standalone+Search+Box https://onlinehelp.coveo.com/en/cloud/coveo_for_salesforce_v2_deployment.htm 
 40,asker,Can't get to the administration console from IE,link,https://onlinehelp.coveo.com/en/cloud/supported_browsers_-_coveo_cloud_v2_administration_console.htm
-41,asker,I'm interrested in the query suggestion offered by the machine learning,link,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm#QS
-41,asker,And I would like to know if there is a way to test it before adding it?,link,https://onlinehelp.coveo.com/en/cloud/can_coveo_ml_features_be_tested_before_they_are_activated.htm
+41,asker,I'm interrested in the query suggestion offered by the machine learning,link,https://onlinehelp.coveo.com/en/cloud/coveo_machine_learning_features.htm https://docs.coveo.com/en/1671/
+41,asker,And I would like to know if there is a way to test it before adding it?,link,https://onlinehelp.coveo.com/en/cloud/can_coveo_ml_features_be_tested_before_they_are_activated.htm https://docs.coveo.com/en/2118/
 41,agent,https://onlinehelp.coveo.com/en/cloud/can_coveo_ml_features_be_tested_before_they_are_activated.htm,notlink,https://onlinehelp.coveo.com/en/cloud/can_coveo_ml_features_be_tested_before_they_are_activated.htm
 42,asker,How to cook potatoes in the oven?,same,
-43,asker,How can I compare the performance of two pipelines?,link,https://onlinehelp.coveo.com/en/cloud/analyzing_the_performance_of_pipeline_a_vs_pipeline_b.htm
+43,asker,How can I compare the performance of two pipelines?,link,https://onlinehelp.coveo.com/en/cloud/analyzing_the_performance_of_pipeline_a_vs_pipeline_b.htm https://docs.coveo.com/en/1648/
 44,asker,"Hello, I got the following error while executing the indexing process : JOB_SERVICE_EXECUTION_ERROR",link,https://support.coveo.com/s/article/3050?returnTo=RecentArticles
 45,asker,"We are considering integrating coveo for sitecore, but we are not sure what it can do or what it is about",link,https://developers.coveo.com/pages/viewpage.action?pageId=36635509
 46,asker,What's the difference between SiteCore 3 and 4 ?,link,https://developers.coveo.com/display/public/SitecoreV4/What%27s+New+In+Coveo+for+Sitecore+4
 47,asker,"I'm lost in all of your documentation, is there a single place where I could see all of your products ?",link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/coveo_platform_on-premises_products.htm
-48,asker,Could the search be intergrated in my Outlook ?,link,https://onlinehelp.coveo.com/en/ces/7.0/User/Outlook_Sidebar.htm https://onlinehelp.coveo.com/en/ces/7.0/user/desktop_integration_package.htm
+48,asker,Could the search be intergrated in my Outlook ?,link,https://onlinehelp.coveo.com/en/ces/7.0/user/outlook_sidebar.htm https://onlinehelp.coveo.com/en/ces/7.0/user/desktop_integration_package.htm
 49,asker,"Hello, we are a small company. I was wondering what could we index with the coveo unified search ?",link,https://onlinehelp.coveo.com/en/cloud/available_coveo_cloud_v2_source_types.htm
-50,asker,What granularity can I have on my data ?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/modifying_source_security_permissions.htm
+50,asker,What granularity can I have on my data ?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/modifying_source_security_permissions.htm https://docs.coveo.com/en/12/
 51,asker,How can I use the API?,question,
-51,asker,The one to push my own data,link,https://docs.coveo.com/en/68/cloud-v2-developers/push-api
-52,asker,I upgraded Salesforce package to 2.25 and now my search page fails,link,https://developers.coveo.com/display/public/SalesforceV2/Coveo+Search+Page+Fails+to+Load+After+Upgrade
+51,asker,The one to push my own data,link,https://docs.coveo.com/en/68/cloud-v2-developers/push-api https://docs.coveo.com/en/1336/
+52,asker,I upgraded Salesforce package to 2.25 and now my search page fails,link,https://developers.coveo.com/display/public/SalesforceV2/Coveo+Search+Page+Fails+to+Load+After+Upgrade https://docs.coveo.com/en/1064/
 53,asker,Can anyones search throught my documents ?,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/security.htm
 54,asker,Is there a way to manage permission?,question,
 54,asker,Coveo platform 7.0,link,https://onlinehelp.coveo.com/en/ces/7.0/administrator/permission_levels_and_sets.htm

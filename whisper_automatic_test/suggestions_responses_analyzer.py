@@ -42,6 +42,27 @@ def safe_str_lower(url):
 
     return None
 
+
+def get_selected_link(suggestions, request):
+    success_condition = request.get_success_condition()
+    if success_condition == "link":
+        return get_first_matching_link(suggestions, request.get_data())
+    return None
+
+
+def get_selected_links(suggestions_responses, requests):
+    selected_suggestions = []
+    for i, suggestions_response in enumerate(suggestions_responses):
+        request = requests[i]
+        suggestions = suggestions_response.get_suggestions()
+        selected_suggestion = get_selected_link(
+            suggestions,
+            request)
+        if selected_suggestion:
+            selected_suggestions.append(selected_suggestion)
+    return selected_suggestions
+
+
 def get_selected_suggestion(suggestions, request):
     success_condition = request.get_success_condition()
     if success_condition == "question":
@@ -74,12 +95,19 @@ def analyse_same(request, current_suggestions, previous_suggestions):
     return False
 
 
+def safe_str_lower(url):
+    if url:
+        return url.lower()
+
+    return None
+
+
 def analyse_link_or_question_with_request_data(request, suggestions):
     if request.get_success_condition() == 'same' or not request.get_data():
         return ''
     for i, data in enumerate(request.get_data()):
         for j, suggestion in enumerate(suggestions):
-            if request.get_success_condition() == suggestion.get_type() and data == suggestion.get_data():
+            if request.get_success_condition() == suggestion.get_type() and safe_str_lower(data) == safe_str_lower(suggestion.get_data()):
                 return str(i + 1) + '-' + str(j + 1)
     return ''
 
